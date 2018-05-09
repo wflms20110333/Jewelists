@@ -12,17 +12,32 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+/**
+ * The Artist class is a helper class that assists with the game's graphics.
+ * 
+ * @author Elizabeth Zou
+ */
+
 public class Artist
 {
-	public static final int WIDTH = 1280, HEIGHT = 736; //960
+	/**
+	 * The width and height of the window that displays the game.
+	 */
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 736;
 	
+	/**
+	 * Sets up the display and the settings for the graphics.
+	 */
 	public static void beginSession()
 	{
-		Display.setTitle("HCS3 Project");
-		try {
+		Display.setTitle("Jewelists");
+		try
+		{
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create();
-		} catch (LWJGLException e) {
+		} catch (LWJGLException e)
+		{
 			e.printStackTrace();
 		}
 		
@@ -31,12 +46,20 @@ public class Artist
 		glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
-		
+
 		// makes sprite backgrounds not black, blending with background tiles
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
+	/**
+	 * Draws a white rectangular area onto the game display.
+	 * 
+	 * @param x the x coordinate of the top left corner of rectangular area
+	 * @param y the y coordinate of the top left corner of the rectangular area
+	 * @param width the width of the rectangular area
+	 * @param height the height of the rectangular area
+	 */
 	public static void drawQuad(float x, float y, float width, float height)
 	{
 		glBegin(GL_QUADS);
@@ -47,6 +70,15 @@ public class Artist
 		glEnd();
 	}
 	
+	/**
+	 * Draws a rectangular area with a texture onto the game display.
+	 * 
+	 * @param tex the texture of the rectangular area
+	 * @param x the x coordinate of the top left corner of rectangular area
+	 * @param y the y coordinate of the top left corner of the rectangular area
+	 * @param width the width of the rectangular area
+	 * @param height the height of the rectangular area
+	 */
 	public static void drawQuadTex(Texture tex, float x, float y, float width, float height)
 	{
 		tex.bind();
@@ -64,22 +96,35 @@ public class Artist
 		glLoadIdentity();
 	}
 	
+	/**
+	 * Loads a texture from a local file.
+	 * 
+	 * @param path the path to the file
+	 * @param fileType the type of the file (e.g. PNG)
+	 * @return the texture loaded from the given file
+	 */
 	public static Texture loadTexture(String path, String fileType)
 	{
 		Texture tex = null;
 		InputStream in = ResourceLoader.getResourceAsStream(path);
-		try {
+		try
+		{
 			tex = TextureLoader.getTexture(fileType, in);
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 		return tex;
 	}
 	
+	/**
+	 * Loads a texture from a local file, without defining path or file type.
+	 * 
+	 * @param name the name of the file
+	 * @return the texture loaded from the file
+	 */
 	public static Texture quickLoad(String name)
 	{
-		Texture tex = null;
-		tex = loadTexture("Assets/" + name + ".png", "PNG");
-		return tex;
+		return loadTexture("Assets/" + name + ".png", "PNG");
 	}
 }

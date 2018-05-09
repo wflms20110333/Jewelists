@@ -3,12 +3,43 @@ package data;
 import java.util.ArrayList;
 import static helpers.Clock.*;
 
+/**
+ * The Spawner class is an abstract class that spawns specified entities after
+ * a set time interval at random locations.
+ * 
+ * subclasses: MonsterSpawner, JewelSpawner
+ * 
+ * @author Elizabeth Zou
+ */
+
 public abstract class Spawner
 {
-	private float timeSinceLastSpawn, spawnTime;
+	/**
+	 * The time interval between spawns.
+	 */
+	private float spawnTime;
+	
+	/**
+	 * The change in time since the last spawn.
+	 */
+	private float timeSinceLastSpawn;
+	
+	/**
+	 * The list of entities currently managed by the Spawner.
+	 */
 	private ArrayList<Entity> entityList;
+	
+	/**
+	 * The tile grid in which spawns take place.
+	 */
 	private TileGrid grid;
 	
+	/**
+	 * Constructs a Spawner.
+	 * 
+	 * @param spawnTime time interval between spawns
+	 * @param grid the tile grid in which spawns take place
+	 */
 	public Spawner(float spawnTime, TileGrid grid)
 	{
 		this.spawnTime = spawnTime;
@@ -17,34 +48,55 @@ public abstract class Spawner
 		this.grid = grid;
 	}
 	
+	/**
+	 * Spawns if the defined time interval has passed since the last spawn, and
+	 * updates the state of and draws each entity managed onto the game display
+	 * if the entity exists, or removes it otherwise.
+	 */
 	public void update()
 	{
 		timeSinceLastSpawn += delta();
-		if (timeSinceLastSpawn > spawnTime) {
+		if (timeSinceLastSpawn > spawnTime)
+		{
 			spawn();
 			timeSinceLastSpawn = 0;
 		}
-		
-		for (Entity e : entityList) {
-			e.update();
-			e.draw();
+
+		for (int i = entityList.size() - 1; i >= 0; i--)
+		{
+			Entity e = entityList.get(i);
+			if (e.exists())
+			{
+				e.update();
+				e.draw();
+			}
+			else
+				entityList.remove(i);
 		}
 	}
 	
+	/**
+	 * Adds an entity to be managed by the Spawner.
+	 * 
+	 * @param e the entity to be added
+	 */
 	public void add(Entity e)
 	{
 		entityList.add(e);
 	}
 	
-	public void remove(Entity e)
-	{
-		entityList.remove(e);
-	}
-	
+	/**
+	 * Returns the tile grid in which spawns take place.
+	 * 
+	 * @return the tile grid in which spawns take place
+	 */
 	public TileGrid getGrid()
 	{
 		return grid;
 	}
 	
+	/**
+	 * Spawns a new entity into the tile grid.
+	 */
 	public abstract void spawn();
 }
