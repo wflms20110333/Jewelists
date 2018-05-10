@@ -7,18 +7,56 @@ import org.newdawn.slick.opengl.Texture;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * The Player class blah blah
+ * 
+ * @author Elizabeth Zou
+ */
 public class Player
 {
+	/**
+	 * The cost to destroy a wall.
+	 */
 	private static final int WALL_COST = 2;
-
+	
+	/**
+	 * The grid of the game that the Player interacts with.
+	 */
 	private TileGrid grid;
+	
+	/**
+	 * The keyboard commands of the Player.
+	 */
 	private int[] keys = new int[9];
+	
+	/**
+	 * The sprite of the Player.
+	 */
 	private Sprite sprite;
+	
+	/**
+	 * The total number of jewels the Player posesses.
+	 */
 	private int totalJewels;
+	
+	/**
+	 * The deposits of the Player.
+	 */
 	Queue<Deposit> deposits;
 	
+	/**
+	 * The tile type of the opposing Player's deposits.
+	 */
 	private TileType otherPlayerDeposit;
-
+	
+	/**
+	 * Constructs a Player.
+	 * 
+	 * @param grid the grid of the game that the player interacts with
+	 * @param keys the keyboard commands of the player
+	 * @param texture the texture of the sprite of the player
+	 * @param other the tile type of the opposing player's deposits
+	 */
 	public Player(TileGrid grid, int[] keys, Texture texture, TileType other)
 	{
 		this.grid = grid;
@@ -127,7 +165,10 @@ public class Player
 	}
 	
 	/**
-	 * Expends a specified number of jewels from the player's deposits.
+	 * Expends a specified number of jewels from the player's deposits. If the
+	 * player does not possess enough jewels to cover the entire expenditure,
+	 * none will be expended.
+	 * 
 	 * @param count the number of jewels to expend
 	 * @return whether or not the jewels have been successfully expended
 	 */

@@ -4,18 +4,47 @@ import static helpers.Clock.delta;
 
 import org.newdawn.slick.opengl.Texture;
 
+/**
+ * The Sprite class blah blah
+ * 
+ * @author Elizabeth Zou
+ */
+
 public class Sprite extends Entity
 {
-	private char direction;
+	/**
+	 * The speed of the Sprite.
+	 */
 	private float speed;
+	
+	/**
+	 * The direction the Sprite is currently moving.
+	 */
+	private char direction;
+	
+	/**
+	 * The tile the Sprite is currently moving into.
+	 */
 	private Tile nextTile;
-
+	
+	/**
+	 * Constructs a Sprite.
+	 * 
+	 * @param texture the texture of the sprite
+	 * @param startTile the starting tile of the sprite
+	 * @param grid the grid in which the sprite exists
+	 * @param speed the speed of the sprite
+	 */
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, float speed)
 	{
 		super(texture, startTile, grid);
 		this.speed = speed;
 	}
-
+	
+	/**
+	 * Updates the status of the sprite. A sprite stops after moving into a
+	 * cell.
+	 */
 	@Override
 	public void update()
 	{
@@ -68,7 +97,14 @@ public class Sprite extends Entity
 				setX(x);
 		}
 	}
-
+	
+	/**
+	 * Updates the path of the sprite by setting the direction the sprite is
+	 * moving and the tile the sprite is moving into. The path is successfully
+	 * updated only if the tile in the given direction is valid to move into.
+	 * 
+	 * @param d the given direction
+	 */
 	public void updatePath(char d)
 	{
 		if (nextTile == null)

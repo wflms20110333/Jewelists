@@ -40,7 +40,7 @@ public class JewelSpawner extends Spawner
 		Tile tile = getGrid().randEmptyTile();
 		if (tile != null)
 		{
-			Jewel j = new Jewel(e.getTexture(), tile, getGrid());
+			Jewel j = new Jewel(e.getTexture(), tile, getGrid(), ((Jewel) e).getValue());
 			add(j);
 			getGrid().setEntity(tile.getIndX(), tile.getIndY(), j);
 		}

@@ -130,5 +130,6 @@ public class Tile
 	public void setType(TileType type)
 	{
 		this.type = type;
+		texture = quickLoad(type.textureName);
 	}
 }

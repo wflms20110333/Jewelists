@@ -75,11 +75,11 @@ public class Boot
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
 		Player player1 = new Player(grid, keys, quickLoad("emoji"), TileType.Deposit2);
 
-		Jewel j1 = new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid);
-		Jewel j2 = new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid);
-		Jewel j3 = new Jewel(quickLoad("jewel_blue"), grid.getTile(0, 0), grid);
-		Jewel j4 = new Jewel(quickLoad("jewel_purple"), grid.getTile(0, 0), grid);
-		Jewel j5 = new Jewel(quickLoad("jewel_yellow"), grid.getTile(0, 0), grid);
+		Jewel j1 = new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1);
+		Jewel j2 = new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid, 2);
+		Jewel j3 = new Jewel(quickLoad("jewel_blue"), grid.getTile(0, 0), grid, 3);
+		Jewel j4 = new Jewel(quickLoad("jewel_purple"), grid.getTile(0, 0), grid, 4);
+		Jewel j5 = new Jewel(quickLoad("jewel_yellow"), grid.getTile(0, 0), grid, 5);
 		ArrayList<Entity> jewelList = new ArrayList<>();
 		jewelList.add(j1);
 		jewelList.add(j2);
