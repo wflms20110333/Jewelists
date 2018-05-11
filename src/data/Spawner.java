@@ -96,6 +96,18 @@ public abstract class Spawner
 	}
 	
 	/**
+	 * Sets the tile grid in which spawns take place.
+	 * 
+	 * @param tg the new tile grid in which spawns take place
+	 */
+	public void setGrid(TileGrid tg)
+	{
+		grid = tg;
+		for (Entity e : entityList)
+			e.setGrid(tg);
+	}
+	
+	/**
 	 * Spawns a new entity into the tile grid.
 	 */
 	public abstract void spawn();

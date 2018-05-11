@@ -13,6 +13,11 @@ import org.newdawn.slick.opengl.Texture;
 public class Sprite extends Entity
 {
 	/**
+	 * The player that the Sprite belongs to.
+	 */
+	private Player player;
+	
+	/**
 	 * The speed of the Sprite.
 	 */
 	private float speed;
@@ -35,10 +40,11 @@ public class Sprite extends Entity
 	 * @param grid the grid in which the sprite exists
 	 * @param speed the speed of the sprite
 	 */
-	public Sprite(Texture texture, Tile startTile, TileGrid grid, float speed)
+	public Sprite(Texture texture, Tile startTile, TileGrid grid, float speed, Player player)
 	{
 		super(texture, startTile, grid);
 		this.speed = speed;
+		this.player = player;
 	}
 	
 	/**
@@ -48,10 +54,30 @@ public class Sprite extends Entity
 	@Override
 	public void update()
 	{
+		// collect jewels
+		Tile[] check = new Tile[3];
+		check[0] = currTile();
+		check[1] = getGrid().right(check[0]);
+		check[2] = getGrid().down(check[0]);
+		for (int i = 0; i < check.length; i++) {
+			Tile t = check[i];
+			if (t == null)
+				continue;
+			if (i != 0 && !in(t))
+				continue;
+			Entity e = getGrid().getEntity(t);
+			if (e == null)
+				continue;
+			if (e instanceof Jewel) {
+				player.collect((Jewel) e);
+			}
+		}
+		
+		// move
 		if (nextTile == null)
 			return;
-		int nextX = nextTile.getIndX() * TileGrid.SIZE;
-		int nextY = nextTile.getIndY() * TileGrid.SIZE;
+		int nextX = nextTile.getX();
+		int nextY = nextTile.getY();
 		if (direction == 'U')
 		{
 			float y = getY() - delta() * speed;
@@ -128,5 +154,18 @@ public class Sprite extends Entity
 				nextTile = getGrid().getTile(current.getIndX() + 1, current.getIndY());
 			}
 		}
+	}
+	
+	public boolean in(Tile tile)
+	{
+		float tx = getX();
+		float tX = tx + getWidth();
+		float ty = getY();
+		float tY = ty + getHeight();
+		int ox = tile.getX();
+		int oX = ox + TileGrid.SIZE;
+		int oy = tile.getY();
+		int oY = oy + TileGrid.SIZE;
+		return tx < oX && tX > ox && ty < oY && tY > oY;
 	}
 }

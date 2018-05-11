@@ -167,11 +167,24 @@ public class TileGrid
 	 * @param xCoord the x index of the given cell
 	 * @param yCoord the y index of the given cell
 	 * @return the entity at the given cell in the tile grid, null if the cell
-	 *         is unoccupied.
+	 *         is unoccupied
 	 */
 	public Entity getEntity(int xCoord, int yCoord)
 	{
 		return entities[xCoord][yCoord];
+	}
+	
+	/**
+	 * Returns the entity at a given cell in the tile grid, null if the cell is
+	 * unoccupied.
+	 * 
+	 * @param tile the tile that forms the given cell
+	 * @return the entity at the given cell in the tile grid, null if the cell
+	 *         is unoccupied
+	 */
+	public Entity getEntity(Tile tile)
+	{
+		return entities[tile.getIndX()][tile.getIndY()];
 	}
 	
 	/**

@@ -71,6 +71,7 @@ public class Tile
 	
 	/**
 	 * Returns the x index of the cell formed by the tile.
+	 * 
 	 * @return the x index of the cell formed by the tile
 	 */
 	public int getIndX()
@@ -80,6 +81,7 @@ public class Tile
 	
 	/**
 	 * Returns the y index of the cell formed by the tile.
+	 * 
 	 * @return the y index of the cell formed by the tile
 	 */
 	public int getIndY()
@@ -88,7 +90,28 @@ public class Tile
 	}
 	
 	/**
+	 * Returns the x coordinate (in pixels) of the tile.
+	 * 
+	 * @return the x coordinate (in pixels) of the tile
+	 */
+	public int getX()
+	{
+		return x;
+	}
+	
+	/**
+	 * Returns the y coordinate (in pixels) of the tile.
+	 * 
+	 * @return the y coordinate (in pixels) of the tile
+	 */
+	public int getY()
+	{
+		return y;
+	}
+	
+	/**
 	 * Returns the width of the tile.
+	 * 
 	 * @return the width of the tile
 	 */
 	public int getWidth()
@@ -98,6 +121,7 @@ public class Tile
 	
 	/**
 	 * Returns the height of the tile.
+	 * 
 	 * @return the height of the tile
 	 */
 	public int getHeight()
@@ -107,6 +131,7 @@ public class Tile
 	
 	/**
 	 * Returns the texture of the tile.
+	 * 
 	 * @return the texture of the tile
 	 */
 	public Texture getTexture()
@@ -116,6 +141,7 @@ public class Tile
 	
 	/**
 	 * Returns the type of the tile.
+	 * 
 	 * @return the type of the tile
 	 */
 	public TileType getType()
@@ -125,6 +151,7 @@ public class Tile
 	
 	/**
 	 * Sets the type of the tile.
+	 * 
 	 * @param type the new type of the tile
 	 */
 	public void setType(TileType type)

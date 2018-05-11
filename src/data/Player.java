@@ -7,6 +7,8 @@ import org.newdawn.slick.opengl.Texture;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static helpers.Artist.*;
+
 /**
  * The Player class blah blah
  * 
@@ -42,7 +44,9 @@ public class Player
 	/**
 	 * The deposits of the Player.
 	 */
-	Queue<Deposit> deposits;
+	private Queue<Deposit> deposits;
+	
+	private Deposit currentDeposit;
 	
 	/**
 	 * The tile type of the opposing Player's deposits.
@@ -63,17 +67,13 @@ public class Player
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
 		Tile tile = grid.randEmptyTile();
-		sprite = new Sprite(texture, tile, grid, 5);
+		sprite = new Sprite(texture, tile, grid, 10, this);
 		totalJewels = 0;
 		deposits = new LinkedList<Deposit>();
+		currentDeposit = new Deposit(quickLoad(TileType.Deposit1.textureName), tile, grid); // lol change texture
+		deposits.add(currentDeposit);
 		otherPlayerDeposit = other;
 	}
-
-	/*
-	 * public void setTile() { grid.setTile((int) Math.floor(Mouse.getX() /
-	 * TileGrid.SIZE), (int) Math.floor((HEIGHT - Mouse.getY() - 1) /
-	 * TileGrid.SIZE), types[index]); }
-	 */
 
 	public void update()
 	{
@@ -83,6 +83,22 @@ public class Player
 		// while (Keyboard.next()) {
 		Keyboard.next();
 		
+		if (Keyboard.isKeyDown(keys[0]) && Keyboard.getEventKeyState())
+		{
+			sprite.updatePath('U');
+		}
+		if (Keyboard.isKeyDown(keys[1]) && Keyboard.getEventKeyState())
+		{
+			sprite.updatePath('L');
+		}
+		if (Keyboard.isKeyDown(keys[2]) && Keyboard.getEventKeyState())
+		{
+			sprite.updatePath('D');
+		}
+		if (Keyboard.isKeyDown(keys[3]) && Keyboard.getEventKeyState())
+		{
+			sprite.updatePath('R');
+		}
 		// shift
 		if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
 		{
@@ -111,25 +127,6 @@ public class Player
 					attack(tgt);
 			}
 		}
-		else
-		{
-			if (Keyboard.isKeyDown(keys[0]) && Keyboard.getEventKeyState())
-			{
-				sprite.updatePath('U');
-			}
-			if (Keyboard.isKeyDown(keys[1]) && Keyboard.getEventKeyState())
-			{
-				sprite.updatePath('L');
-			}
-			if (Keyboard.isKeyDown(keys[2]) && Keyboard.getEventKeyState())
-			{
-				sprite.updatePath('D');
-			}
-			if (Keyboard.isKeyDown(keys[3]) && Keyboard.getEventKeyState())
-			{
-				sprite.updatePath('R');
-			}
-		}
 
 		if (Keyboard.isKeyDown(keys[5]) && Keyboard.getEventKeyState())
 		{
@@ -150,6 +147,10 @@ public class Player
 			// trap
 		}
 		
+		for (Deposit d : deposits) {
+			//d.update();
+			d.draw();
+		}
 		sprite.update();
 		sprite.draw();
 	}
@@ -158,7 +159,7 @@ public class Player
 	{
 		// graphics of attacking??
 		if (tile.getType() == TileType.Wall) // && spendJewels(WALL_COST))
-			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Wall);
+			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
 		if (tile.getType() == otherPlayerDeposit) {
 			// steal from deposit
 		}
@@ -192,5 +193,41 @@ public class Player
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Collects a jewel.
+	 * 
+	 * @param j the jewel to collect
+	 */
+	public void collect(Jewel j)
+	{
+		currentDeposit.add(j.getValue());
+		totalJewels += j.getValue();
+		j.remove();
+	}
+	
+	/**
+	 * Sets a keyboard command.
+	 * 
+	 * @param index the index of the command in keys
+	 * @param key the new keyboard command
+	 */
+	public void setKey(int index, int key)
+	{
+		keys[index] = key;
+	}
+	
+	/**
+	 * Sets the grid of the game that the player interacts with.
+	 * 
+	 * @param tg the new grid
+	 */
+	public void setGrid(TileGrid tg)
+	{
+		grid = tg;
+		sprite.setGrid(tg);
+		for (Deposit d : deposits)
+			d.setGrid(tg);
 	}
 }

@@ -24,7 +24,7 @@ public class Artist
 	 * The width and height of the window that displays the game.
 	 */
 	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 736;
+	public static final int HEIGHT = 736; //960
 	
 	/**
 	 * Sets up the display and the settings for the graphics.

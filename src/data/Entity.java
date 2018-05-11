@@ -114,6 +114,26 @@ public abstract class Entity
 	}
 	
 	/**
+	 * Returns the width of (in pixels) of the entity.
+	 * 
+	 * @return the width of (in pixels) of the entity
+	 */
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	/**
+	 * Returns the height of (in pixels) of the entity.
+	 * 
+	 * @return the height of (in pixels) of the entity
+	 */
+	public int getHeight()
+	{
+		return height;
+	}
+	
+	/**
 	 * Returns the texture of the entity.
 	 * 
 	 * @return the texture of the entity
@@ -131,6 +151,16 @@ public abstract class Entity
 	public TileGrid getGrid()
 	{
 		return grid;
+	}
+	
+	/**
+	 * Sets the grid in which the entity exists.
+	 * 
+	 * @param tg the new grid in which the entity exists
+	 */
+	public void setGrid(TileGrid tg)
+	{
+		grid = tg;
 	}
 	
 	/**
