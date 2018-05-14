@@ -17,7 +17,7 @@ public class Game
 	 * The 
 	 */
 	private TileGrid grid;	
-	//Spawner monsterSpawner;
+	Spawner monsterSpawner;
 	Spawner jewelSpawner;
 	Player player1;
 	Player player2;
@@ -25,13 +25,14 @@ public class Game
 	public Game()
 	{
 		grid = new TileGrid();
-		//Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 5);
-		//monsterSpawner = new MonsterSpawner(10, e);
-		int[] keys =
-		{ Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
+		Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 5);
+		monsterSpawner = new MonsterSpawner(10, e);
+		int[] keys1 = { Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
-		player1 = new Player(grid, keys, quickLoad("emoji"), TileType.Deposit2);
-		player2 = new Player(grid, keys, quickLoad("emoji2"), TileType.Deposit1);
+		player1 = new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit2);
+		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
+					Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
+		player2 = new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit1);
 
 		Jewel j1 = new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1);
 		Jewel j2 = new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid, 2);
@@ -50,13 +51,14 @@ public class Game
 	public Game(int[][] map)
 	{
 		grid = new TileGrid(map);
-		//Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 5);
-		//monsterSpawner = new MonsterSpawner(10, e);
-		int[] keys =
-		{ Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
+		Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 5);
+		monsterSpawner = new MonsterSpawner(10, e);
+		int[] keys1 = { Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
-		player1 = new Player(grid, keys, quickLoad("emoji"), TileType.Deposit2);
-		player2 = new Player(grid, keys, quickLoad("emoji2"), TileType.Deposit1);
+		player1 = new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit2);
+		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
+					Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
+		player2 = new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit1);
 
 		Jewel j1 = new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1);
 		Jewel j2 = new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid, 2);
@@ -75,13 +77,14 @@ public class Game
 	public Game(TileGrid tg)
 	{
 		grid = tg;
-		//Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 5);
-		//monsterSpawner = new MonsterSpawner(10, e);
-		int[] keys =
-		{ Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
+		Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 5);
+		monsterSpawner = new MonsterSpawner(10, e);
+		int[] keys1 = { Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
-		player1 = new Player(grid, keys, quickLoad("emoji"), TileType.Deposit2);
-		player2 = new Player(grid, keys, quickLoad("emoji2"), TileType.Deposit1);
+		player1 = new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit2);
+		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
+					Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
+		player2 = new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit1);
 
 		Jewel j1 = new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1);
 		Jewel j2 = new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid, 2);
@@ -100,7 +103,7 @@ public class Game
 	public void update()
 	{
 		grid.draw();
-		//monsterSpawner.update();
+		monsterSpawner.update();
 		jewelSpawner.update();
 		player1.update();
 		player2.update();
@@ -122,5 +125,6 @@ public class Game
 		player1.setGrid(tg);
 		player2.setGrid(tg);
 		jewelSpawner.setGrid(tg);
+		monsterSpawner.setGrid(tg);
 	}
 }
