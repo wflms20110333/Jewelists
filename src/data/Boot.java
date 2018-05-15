@@ -1,6 +1,7 @@
 package data;
 
 import static helpers.Artist.beginSession;
+import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.opengl.Display;
 
@@ -15,6 +16,7 @@ public class Boot
 
 		while (!Display.isCloseRequested())
 		{
+			glClear(GL_COLOR_BUFFER_BIT);
 			Clock.update();
 			StateManager.update();
 

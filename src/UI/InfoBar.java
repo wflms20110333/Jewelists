@@ -2,10 +2,10 @@ package UI;
 
 import static helpers.Artist.drawQuad;
 
-import java.awt.Color;
 import java.awt.Rectangle;
 
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.Color;
 
 import data.Player;
 
@@ -38,7 +38,7 @@ public class InfoBar extends UIItem {
 	public void draw() {
 		Rectangle rect = getRect();
 		drawQuad(rect.x, rect.y, rect.width * player.getPercent(), 
-				rect.height, Color.ORANGE);
+				rect.height, Color.orange);
 	}
 	
 	@Override

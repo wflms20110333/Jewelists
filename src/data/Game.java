@@ -1,11 +1,13 @@
 package data;
 
 import static helpers.Artist.quickLoad;
+import static helpers.Artist.drawString;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Color;
 
 import UI.InfoBar;
 import UI.UI;
@@ -70,6 +72,7 @@ public class Game
 		for (Player player : players)
 			player.update();
 		ui.draw();
+		drawString(0, 0, "hi how is this", Color.white);
 	}
 	
 	public void setPlayerKeys(int player, int index, int key) {

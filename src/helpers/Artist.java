@@ -2,7 +2,7 @@ package helpers;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import java.awt.Color;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +13,8 @@ import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 
 /**
  * The Artist class is a helper class that assists with the game's graphics.
@@ -28,8 +30,10 @@ public class Artist
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 736; //960
 	
-	public static final Color DEFAULT_COLOR = Color.BLACK;
-	public static final Color MASTER_COLOR = Color.WHITE;
+	public static final Color DEFAULT_COLOR = Color.black;
+	public static final Color MASTER_COLOR = Color.white;
+	
+	private static TrueTypeFont font;
 	
 	/**
 	 * Sets up the display and the settings for the graphics.
@@ -55,6 +59,27 @@ public class Artist
 		// makes sprite backgrounds not black, blending with background tiles
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		// load font
+		setFont("font_orange_juice", 40);
+	}
+	
+	public static TrueTypeFont getFont() {
+		return font;
+	}
+	
+	public static void setFont(String name, int sz) {
+		try {
+			InputStream input = ResourceLoader.getResourceAsStream("Assets/" + name + ".ttf");
+			
+			Font temp = Font.createFont(Font.TRUETYPE_FONT, input);
+			temp = temp.deriveFont((float) sz);
+			System.out.println(temp);
+			font = new TrueTypeFont(temp, true);
+					
+		} catch (Exception e) {
+			System.err.println("Cannot find font: " + name + ".ttf");
+		}
 	}
 	
 	/**
@@ -76,7 +101,7 @@ public class Artist
 	}
 	
 	public static void drawQuad(Rectangle rect, Color color) {
-		glColor3f(.5f, .5f, .5f);
+		glColor3f(color.getRed(), color.getGreen(), color.getBlue());
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 			glVertex2f(rect.x, rect.y); // Top left corner
@@ -133,6 +158,10 @@ public class Artist
 			e.printStackTrace();
 		}
 		return tex;
+	}
+	
+	public static void drawString(int x, int y, String s, Color color) {
+		font.drawString(x, y, s, color);
 	}
 	
 	/**
