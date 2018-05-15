@@ -37,9 +37,8 @@ public class InfoBar extends UIItem {
 	@Override
 	public void draw() {
 		Rectangle rect = getRect();
-		drawQuad(rect, Color.BLUE);
 		drawQuad(rect.x, rect.y, rect.width * player.getPercent(), 
-				rect.height, Color.RED);
+				rect.height, Color.ORANGE);
 	}
 	
 	@Override

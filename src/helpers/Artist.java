@@ -1,23 +1,6 @@
 package helpers;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_PROJECTION;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glColor3f;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glOrtho;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -93,14 +76,15 @@ public class Artist
 	}
 	
 	public static void drawQuad(Rectangle rect, Color color) {
-		glColor3f(color.getRed(), color.getGreen(), color.getBlue());
-		
+		glColor3f(.5f, .5f, .5f);
+		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
-		glVertex2f(rect.x, rect.y); // Top left corner
-		glVertex2f(rect.x + rect.width, rect.y); // Top right corner
-		glVertex2f(rect.x + rect.width, rect.y + rect.height); // Bottom right corner
-		glVertex2f(rect.x, rect.y + rect.height); // Bottom left corner
+			glVertex2f(rect.x, rect.y); // Top left corner
+			glVertex2f(rect.x + rect.width, rect.y); // Top right corner
+			glVertex2f(rect.x + rect.width, rect.y + rect.height); // Bottom right corner
+			glVertex2f(rect.x, rect.y + rect.height); // Bottom left corner
 		glEnd();
+		glColor3f(255,255,255);
 	}
 	
 	

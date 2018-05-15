@@ -1,6 +1,7 @@
 package data;
 
 import static helpers.Artist.quickLoad;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.util.ArrayList;
 
@@ -48,9 +49,8 @@ public class Game
 			new Player(grid, keys, quickLoad("emoji2"), TileType.Deposit1)
 		};
 		
-		
 		ui = new UI();
-		ui.addItem(new InfoBar(players[0], quickLoad("health_border"), 0, 0, 50, 20));
+		ui.addItem(new InfoBar(players[0], quickLoad("pikachu"), 400, 400, 50, 20));
 
 		ArrayList<Entity> jewelList = new ArrayList<>();
 		jewelList.add(new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1));
@@ -65,11 +65,11 @@ public class Game
 	public void update()
 	{
 		grid.draw();
-		//monsterSpawner.update();
+//		monsterSpawner.update();
 		jewelSpawner.update();
 		for (Player player : players)
 			player.update();
-		ui.update(0);
+		ui.draw();
 	}
 	
 	public void setPlayerKeys(int player, int index, int key) {
