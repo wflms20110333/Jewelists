@@ -1,10 +1,12 @@
 package UI;
 
+import static helpers.Artist.HEIGHT;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.quickLoad;
+
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
-
-import static helpers.Artist.*;
 
 /**
  * The UI class represents user interfaces that can be displayed to users.
@@ -13,17 +15,14 @@ import static helpers.Artist.*;
  */
 public class UI
 {
-	/**
-	 * The list of buttons managed and displayed by the UI.
-	 */
-	private ArrayList<Button> buttonList;
+	private ArrayList<UIItem> buttonList;
 	
 	/**
 	 * Constructs a UI.
 	 */
 	public UI()
 	{
-		buttonList = new ArrayList<Button>();
+		buttonList = new ArrayList<UIItem>();
 	}
 	
 	/**

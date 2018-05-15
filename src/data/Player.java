@@ -1,13 +1,12 @@
 package data;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.newdawn.slick.opengl.Texture;
+import static helpers.Artist.quickLoad;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import static helpers.Artist.*;
+import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.opengl.Texture;
 
 /**
  * The Player class blah blah
@@ -52,6 +51,8 @@ public class Player
 	 * The tile type of the opposing Player's deposits.
 	 */
 	private TileType otherPlayerDeposit;
+	
+	
 	
 	/**
 	 * Constructs a Player.
