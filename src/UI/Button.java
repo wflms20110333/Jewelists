@@ -2,10 +2,13 @@ package UI;
 
 import java.awt.Rectangle;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
 public class Button extends UIItem
 {
+	public static int LEFT_MOUSE = 0;
+	
 	private String name;
 	
 	public Button(String name, Texture texture, int x, int y, int width, int height)
@@ -32,4 +35,10 @@ public class Button extends UIItem
 	{
 		this.name = name;
 	}
+	
+	public boolean isClicked() {
+		return Mouse.isButtonDown(LEFT_MOUSE) && super.getRect().contains(Mouse.getX(), Mouse.getY());
+	}
+	
+	
 }

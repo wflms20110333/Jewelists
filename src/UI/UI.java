@@ -1,12 +1,8 @@
 package UI;
 
-import static helpers.Artist.HEIGHT;
-import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.quickLoad;
 
 import java.util.ArrayList;
-
-import org.lwjgl.input.Mouse;
 
 /**
  * The UI class represents user interfaces that can be displayed to users.
@@ -15,14 +11,14 @@ import org.lwjgl.input.Mouse;
  */
 public class UI
 {
-	private ArrayList<UIItem> buttonList;
+	private ArrayList<UIItem> uiList;
 	
 	/**
 	 * Constructs a UI.
 	 */
 	public UI()
 	{
-		buttonList = new ArrayList<UIItem>();
+		uiList = new ArrayList<UIItem>();
 	}
 	
 	/**
@@ -35,7 +31,7 @@ public class UI
 	 */
 	public void addButton(String name, String textureName, int x, int y)
 	{
-		buttonList.add(new Button(name, quickLoad(textureName), x, y));
+		uiList.add(new Button(name, quickLoad(textureName), x, y));
 	}
 	
 	/**
@@ -47,15 +43,7 @@ public class UI
 	 */
 	public boolean isButtonClicked(String buttonName)
 	{
-		Button b = getButton(buttonName);
-		float mouseX = Mouse.getX();
-		float mouseY = HEIGHT - Mouse.getY() - 1;
-		if (mouseX > b.getX() && mouseX < b.getX() + b.getWidth() &&
-			mouseY > b.getY() && mouseY < b.getY() + b.getHeight())
-		{
-			return true;
-		}
-		return false;
+		return getButton(buttonName).isClicked();
 	}
 	
 	/**
@@ -66,9 +54,9 @@ public class UI
 	 */
 	private Button getButton(String buttonName)
 	{
-		for (Button b : buttonList)
-			if (b.getName().equals(buttonName))
-				return b;
+		for (UIItem b : uiList)
+			if (b instanceof Button && ((Button) b).getName().equals(buttonName))
+				return (Button) b;
 		return null;
 	}
 	
@@ -77,7 +65,7 @@ public class UI
 	 */
 	public void draw()
 	{
-		for (Button b : buttonList)
-			drawQuadTex(b.getTexture(), b.getX(), b.getY(), b.getWidth(), b.getHeight());
+		for (UIItem uiItem : uiList)
+			uiItem.draw();
 	}
 }
