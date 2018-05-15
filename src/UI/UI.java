@@ -21,37 +21,24 @@ public class UI
 		uiList = new ArrayList<UIItem>();
 	}
 	
-	/**
-	 * Adds a button to the UI.
-	 * 
-	 * @param name the name of the button
-	 * @param textureName the name of the texture of the button
-	 * @param x the x coordinate (in pixels) of the button
-	 * @param y the y coordinate (in pixels) of the button
-	 */
 	public void addButton(String name, String textureName, int x, int y)
 	{
 		uiList.add(new Button(name, quickLoad(textureName), x, y));
 	}
 	
-	/**
-	 * Returns whether or not a given button is clicked
-	 * 
-	 * @pre the mouse is clicked
-	 * @param buttonName the name of the given button
-	 * @return whether or not the given button is clicked
-	 */
+	public void addItem(UIItem item) { 
+		uiList.add(item);
+	}
+	
+	public void removeItem(UIItem item) {
+		uiList.remove(item);
+	}
+	
 	public boolean isButtonClicked(String buttonName)
 	{
 		return getButton(buttonName).isClicked();
 	}
 	
-	/**
-	 * Returns the button with the given name, null if no such button exists.
-	 * 
-	 * @param buttonName the given name
-	 * @return the button with the given name, null if no such button exists
-	 */
 	private Button getButton(String buttonName)
 	{
 		for (UIItem b : uiList)
@@ -60,9 +47,11 @@ public class UI
 		return null;
 	}
 	
-	/**
-	 * Draws all the buttons in the ui.
-	 */
+	public void update(long seconds) {
+		for (UIItem uiItem : uiList)
+			uiItem.update(seconds);
+	}
+	
 	public void draw()
 	{
 		for (UIItem uiItem : uiList)

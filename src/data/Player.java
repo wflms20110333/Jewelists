@@ -19,6 +19,7 @@ public class Player
 	 * The cost to destroy a wall.
 	 */
 	private static final int WALL_COST = 2;
+	private static final int DEFAULT_HEALTH = 10;
 	
 	/**
 	 * The grid of the game that the Player interacts with.
@@ -30,19 +31,11 @@ public class Player
 	 */
 	private int[] keys = new int[9];
 	
-	/**
-	 * The sprite of the Player.
-	 */
 	private Sprite sprite;
 	
-	/**
-	 * The total number of jewels the Player posesses.
-	 */
 	private int totalJewels;
+	private int health, maxhealth;
 	
-	/**
-	 * The deposits of the Player.
-	 */
 	private Queue<Deposit> deposits;
 	
 	private Deposit currentDeposit;
@@ -67,13 +60,33 @@ public class Player
 		this.grid = grid;
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
+		health = maxhealth = DEFAULT_HEALTH;
 		Tile tile = grid.randEmptyTile();
 		sprite = new Sprite(texture, tile, grid, 10, this);
-		totalJewels = 0;
 		deposits = new LinkedList<Deposit>();
 		currentDeposit = new Deposit(quickLoad(TileType.Deposit1.textureName), tile, grid); // lol change texture
 		deposits.add(currentDeposit);
 		otherPlayerDeposit = other;
+	}
+	
+	public float getPercent() {
+		return (float) health / maxhealth;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+
+	public void sethealth(int health) {
+		this.health = health;
+	}
+
+	public int getMaxhealth() {
+		return maxhealth;
+	}
+
+	public void setMaxhealth(int maxhealth) {
+		this.maxhealth = maxhealth;
 	}
 
 	public void update()
@@ -84,22 +97,12 @@ public class Player
 		// while (Keyboard.next()) {
 		Keyboard.next();
 		
-		if (Keyboard.isKeyDown(keys[0]) && Keyboard.getEventKeyState())
-		{
-			sprite.updatePath('U');
-		}
-		if (Keyboard.isKeyDown(keys[1]) && Keyboard.getEventKeyState())
-		{
-			sprite.updatePath('L');
-		}
-		if (Keyboard.isKeyDown(keys[2]) && Keyboard.getEventKeyState())
-		{
-			sprite.updatePath('D');
-		}
-		if (Keyboard.isKeyDown(keys[3]) && Keyboard.getEventKeyState())
-		{
-			sprite.updatePath('R');
-		}
+		char[] updates = new char[] {'U', 'L', 'D', 'R'};
+		
+		for (int i = 0; i < updates.length; i++)
+			if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
+				sprite.updatePath(updates[i]);
+		
 		// shift
 		if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
 		{

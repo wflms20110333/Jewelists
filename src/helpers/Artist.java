@@ -9,6 +9,7 @@ import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glColor4f;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
@@ -18,6 +19,8 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
+import java.awt.Color;
+import java.awt.Rectangle;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -41,6 +44,8 @@ public class Artist
 	 */
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 736; //960
+	
+	public static final Color DEFAULT_COLOR = Color.BLACK;
 	
 	/**
 	 * Sets up the display and the settings for the graphics.
@@ -78,13 +83,26 @@ public class Artist
 	 */
 	public static void drawQuad(float x, float y, float width, float height)
 	{
-		glBegin(GL_QUADS);
-		glVertex2f(x, y); // Top left corner
-		glVertex2f(x + width, y); // Top right corner
-		glVertex2f(x + width, y + height); // Bottom right corner
-		glVertex2f(x, y + height); // Bottom left corner
-		glEnd();
+		drawQuad(new Rectangle((int) x, (int) y, (int) width, (int) height), DEFAULT_COLOR);
 	}
+	
+	public static void drawQuad(float x, float y, float width, float height, Color color)
+	{
+		drawQuad(new Rectangle((int) x, (int) y, (int) width, (int) height), color);
+	}
+	
+	public static void drawQuad(Rectangle rect, Color color) {
+		glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+		
+		glBegin(GL_QUADS);
+		glVertex2f(rect.x, rect.y); // Top left corner
+		glVertex2f(rect.x + rect.width, rect.y); // Top right corner
+		glVertex2f(rect.x + rect.width, rect.y + rect.height); // Bottom right corner
+		glVertex2f(rect.x, rect.y + rect.height); // Bottom left corner
+		glEnd();
+		
+	}
+	
 	
 	/**
 	 * Draws a rectangular area with a texture onto the game display.
