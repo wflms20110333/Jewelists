@@ -1,9 +1,12 @@
 package UI;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
+
+import helpers.Artist;
 
 public class Button extends UIItem
 {
@@ -24,6 +27,8 @@ public class Button extends UIItem
 	public Button(String name, Texture texture, Rectangle rect) {
 		super(texture, rect);
 		this.name = name;
+		System.out.println(name + " " + rect);
+		System.out.println(rect.contains(new Point(581, 232)));
 	}
 	
 	public String getName()
@@ -37,8 +42,13 @@ public class Button extends UIItem
 	}
 	
 	public boolean isClicked() {
-		return Mouse.isButtonDown(LEFT_MOUSE) && super.getRect().contains(Mouse.getX(), Mouse.getY());
+		return Mouse.isButtonDown(LEFT_MOUSE) && super.getRect().contains(
+			Mouse.getX(), Artist.HEIGHT - Mouse.getY() - 1
+		);
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Button: " + name + " " + getRect();
+	}
 }

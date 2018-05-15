@@ -9,7 +9,7 @@ import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glColor4f;
+import static org.lwjgl.opengl.GL11.glColor3f;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
@@ -46,6 +46,7 @@ public class Artist
 	public static final int HEIGHT = 736; //960
 	
 	public static final Color DEFAULT_COLOR = Color.BLACK;
+	public static final Color MASTER_COLOR = Color.WHITE;
 	
 	/**
 	 * Sets up the display and the settings for the graphics.
@@ -92,7 +93,7 @@ public class Artist
 	}
 	
 	public static void drawQuad(Rectangle rect, Color color) {
-		glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+		glColor3f(color.getRed(), color.getGreen(), color.getBlue());
 		
 		glBegin(GL_QUADS);
 		glVertex2f(rect.x, rect.y); // Top left corner
@@ -100,7 +101,6 @@ public class Artist
 		glVertex2f(rect.x + rect.width, rect.y + rect.height); // Bottom right corner
 		glVertex2f(rect.x, rect.y + rect.height); // Bottom left corner
 		glEnd();
-		
 	}
 	
 	

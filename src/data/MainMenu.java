@@ -1,13 +1,15 @@
 package data;
 
-import org.lwjgl.input.Mouse;
+import static helpers.Artist.HEIGHT;
+import static helpers.Artist.WIDTH;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.quickLoad;
+
 import org.newdawn.slick.opengl.Texture;
 
 import UI.UI;
 import helpers.StateManager;
 import helpers.StateManager.GameState;
-
-import static helpers.Artist.*;
 
 /**
  * The MainMenu class represents the main menu screen of the game.
@@ -63,16 +65,14 @@ public class MainMenu
 	 */
 	private void updateButtons()
 	{
-		if (Mouse.isButtonDown(0)) {
-			if (menuUI.isButtonClicked("Play"))
-				StateManager.setState(GameState.GAME);
-			if (menuUI.isButtonClicked("Editor"))
-				StateManager.setState(GameState.EDITOR);
-			if (menuUI.isButtonClicked("Quit"))
-				System.exit(0);
-			if (menuUI.isButtonClicked("Settings"))
-				StateManager.setState(GameState.SETTINGS);
-		}
+		if (menuUI.isButtonClicked("Play"))
+			StateManager.setState(GameState.GAME);
+		else if (menuUI.isButtonClicked("Editor"))
+			StateManager.setState(GameState.EDITOR);
+		else if (menuUI.isButtonClicked("Quit"))
+			System.exit(0);
+		else if (menuUI.isButtonClicked("Settings"))
+			StateManager.setState(GameState.SETTINGS);
 	}
 	
 	/**
