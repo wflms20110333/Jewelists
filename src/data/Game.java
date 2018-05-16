@@ -41,13 +41,6 @@ public class Game
 		this(new TileGrid());
 	}
 	
-	/*
-	public Game(int[][] map)
-	{
-		this(new TileGrid(map));
-	}
-	*/
-	
 	public Game(TileGrid tg)
 	{
 		grid = tg;
