@@ -6,37 +6,45 @@ import java.awt.Rectangle;
 
 import org.newdawn.slick.opengl.Texture;
 
-public class UIItem {
-	
+public class UIItem
+{
+
 	private Texture texture;
 	private Rectangle rect;
-	
-	public UIItem(Texture texture, Rectangle rect) {
+
+	public UIItem(Texture texture, Rectangle rect)
+	{
 		this.texture = texture;
 		this.rect = rect;
 	}
-	
-	public Texture getTexture() {
+
+	public Texture getTexture()
+	{
 		return texture;
 	}
 
-	public void setTexture(Texture texture) {
+	public void setTexture(Texture texture)
+	{
 		this.texture = texture;
 	}
 
-	public Rectangle getRect() {
+	public Rectangle getRect()
+	{
 		return rect;
 	}
 
-	public void setRect(Rectangle rect) {
+	public void setRect(Rectangle rect)
+	{
 		this.rect = rect;
 	}
-	
-	public void draw() { 
+
+	public void draw()
+	{
 		drawQuadTex(texture, rect.x, rect.y, rect.width, rect.height);
 	}
 
-	public void update(long seconds) {
+	public void update(long seconds)
+	{
 		// does nothing as of now, should be overriden
 	}
 }

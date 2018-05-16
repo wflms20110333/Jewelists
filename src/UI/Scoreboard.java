@@ -11,6 +11,7 @@ import static helpers.Artist.*;
 import data.Game;
 import data.Player;
 
+<<<<<<< HEAD
 /**
  * 
  * OR YOU CAN JUST CHANCE IT YOU KNOW. AS LONG AS YOU MAKE A GOOD GAME
@@ -51,4 +52,23 @@ public class Scoreboard extends UIItem {
 		// prob make it more efficient
 		draw();
 	}
+=======
+public class Scoreboard extends UIItem
+{
+
+	Player[] players;
+
+	public Scoreboard(Texture texture, Rectangle rect)
+	{
+		super(texture, rect);
+
+	}
+
+	@Override
+	public void draw()
+	{
+
+	}
+
+>>>>>>> 2509da0a66e0a5983c54a821475dc34454994bf0
 }
