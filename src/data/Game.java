@@ -18,8 +18,10 @@ import UI.UI;
  */
 public class Game
 {
-	public static final int INFO_BAR_WIDTH = TileGrid.SIZE * 6;
-	public static final int INFO_BAR_HEIGHT = TileGrid.SIZE * 2;
+	public static final int INFO_BAR_WIDTH_TILES = 6;
+	public static final int INFO_BAR_HEIGHT_TILES = 2;
+	public static final int INFO_BAR_WIDTH = TileGrid.SIZE * INFO_BAR_WIDTH_TILES;
+	public static final int INFO_BAR_HEIGHT = TileGrid.SIZE * INFO_BAR_HEIGHT_TILES;
 	
 	private TileGrid grid;
 	
@@ -33,10 +35,12 @@ public class Game
 		this(new TileGrid());
 	}
 	
+	/*
 	public Game(int[][] map)
 	{
 		this(new TileGrid(map));
 	}
+	*/
 	
 	public Game(TileGrid tg)
 	{
@@ -57,11 +61,11 @@ public class Game
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();
-		jewelList.add(new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1));
-		jewelList.add(new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid, 2));
-		jewelList.add(new Jewel(quickLoad("jewel_blue"), grid.getTile(0, 0), grid, 3));
-		jewelList.add(new Jewel(quickLoad("jewel_purple"), grid.getTile(0, 0), grid, 4));
-		jewelList.add(new Jewel(quickLoad("jewel_yellow"), grid.getTile(0, 0), grid, 5));
+		jewelList.add(new Jewel(quickLoad("jewel_green_32"), grid.getTile(6, 7), grid, 1));
+		jewelList.add(new Jewel(quickLoad("jewel_red"), grid.getTile(6, 7), grid, 2));
+		jewelList.add(new Jewel(quickLoad("jewel_blue"), grid.getTile(6, 7), grid, 3));
+		jewelList.add(new Jewel(quickLoad("jewel_purple"), grid.getTile(6, 7), grid, 4));
+		jewelList.add(new Jewel(quickLoad("jewel_yellow"), grid.getTile(6, 7), grid, 5));
 		
 		jewelSpawner = new JewelSpawner(10, grid, jewelList);
 	}

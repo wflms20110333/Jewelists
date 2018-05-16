@@ -172,7 +172,7 @@ public class Monster extends Entity
 				j++;
 			else if (c == 'R')
 				i++;
-			if (valid(i, j))
+			if (getGrid().canEnter(i, j))
 			{
 				nextTile = getGrid().getTile(i, j);
 				direction = c;
@@ -201,7 +201,7 @@ public class Monster extends Entity
 			j++;
 		else if (dir == 'R')
 			i++;
-		if (valid(i, j))
+		if (getGrid().canEnter(i, j))
 		{
 			nextTile = getGrid().getTile(i, j);
 			direction = dir;
@@ -219,11 +219,14 @@ public class Monster extends Entity
 	 * @param y the y index of the tile
 	 * @return whether or not the given tile is valid to move into
 	 */
+	/*
 	private boolean valid(int x, int y)
 	{
+		
 		return !(x < 0 || y < 0 || x >= TileGrid.COLS || y >= TileGrid.ROWS
 				|| TileType.Cave != getGrid().getTile(x, y).getType());
 	}
+	*/
 	
 	/**
 	 * Returns the speed of the monster.

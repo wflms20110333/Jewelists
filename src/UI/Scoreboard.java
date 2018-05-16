@@ -14,43 +14,47 @@ import data.Player;
 
 /**
  * 
- * OR YOU CAN JUST CHANCE IT YOU KNOW. AS LONG AS YOU MAKE A GOOD GAME
- * 											- Ishman, 2018
+ * OR YOU CAN JUST CHANCE IT YOU KNOW. AS LONG AS YOU MAKE A GOOD GAME - Ishman,
+ * 2018
  *
  */
 
-public class Scoreboard extends UIItem {
-	
-	public static final Color[] colors = new Color[] {Color.red, Color.blue, Color.green, Color.yellow};
+public class Scoreboard extends UIItem
+{
+
+	public static final Color[] colors = new Color[]
+	{ Color.red, Color.blue, Color.green, Color.yellow };
 	Game game;
-	
-	
-	public Scoreboard(Texture texture, Rectangle rect, Game game) {
+
+	public Scoreboard(Texture texture, Rectangle rect, Game game)
+	{
 		super(texture, rect);
 		this.game = game;
 	}
 
 	@Override
-	public void draw() {
-		
+	public void draw()
+	{
 		Rectangle rect = getRect();
 		drawQuad(rect, Color.black);
-		
+
 		long sum = 0;
 		for (Player player : game.getPlayers())
 			sum += player.getScore();
-		
+
 		int x = rect.x;
-		
-		for (Player player : game.getPlayers()) {
+
+		for (Player player : game.getPlayers())
+		{
 			int portion = (int) ((double) player.getScore() / sum * rect.width);
 			drawQuad(x, rect.y, portion, rect.height, Color.white);
 			x += portion;
 		}
 	}
-	
+
 	@Override
-	public void update(long miliseconds) {
+	public void update(long miliseconds)
+	{
 		// prob make it more efficient
 		draw();
 	}

@@ -49,8 +49,11 @@ public class TileGrid
 	public TileGrid()
 	{
 		map = new Tile[COLS][ROWS];
-		for (int i = 0; i < map.length; i++)
-			for (int j = 0; j < map[i].length; j++)
+		for (int j = 0; j < Game.INFO_BAR_HEIGHT_TILES; j++)
+			for (int i = Game.INFO_BAR_WIDTH_TILES; i < COLS - Game.INFO_BAR_WIDTH_TILES; i++)
+				map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Cave);
+		for (int j = Game.INFO_BAR_HEIGHT_TILES; j < ROWS; j++)
+			for (int i = 0; i < COLS; i++)
 				map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Cave);
 		entities = new Entity[COLS][ROWS];
 	}
@@ -64,6 +67,7 @@ public class TileGrid
 	 *               2 representing player 1's deposit, and 3 representing player
 	 *               2's deposit.
 	 */
+	/*
 	public TileGrid(int[][] newMap)
 	{
 		map = new Tile[COLS][ROWS];
@@ -93,6 +97,7 @@ public class TileGrid
 		}
 		entities = new Entity[COLS][ROWS];
 	}
+	*/
 
 	/**
 	 * Draws the tile grid.
@@ -101,7 +106,8 @@ public class TileGrid
 	{
 		for (Tile[] arr : map)
 			for (Tile t : arr)
-				t.draw();
+				if (t != null)
+					t.draw();
 	}
 
 	/**
@@ -228,6 +234,8 @@ public class TileGrid
 		{
 			int x = (int) (Math.random() * COLS);
 			int y = (int) (Math.random() * ROWS);
+			if (!validIndex(x, y))
+				continue;
 			Tile tile = getTile(x, y);
 			if (tile.getType() == TileType.Cave && getEntity(x, y) == null)
 				return tile;
@@ -245,7 +253,7 @@ public class TileGrid
 	 */
 	public boolean canEnter(int xCoord, int yCoord)
 	{
-		if (xCoord < 0 || yCoord < 0 || xCoord >= COLS || yCoord >= ROWS)
+		if (!validIndex(xCoord, yCoord))
 			return false;
 		return map[xCoord][yCoord].getType() == TileType.Cave;
 	}
@@ -258,7 +266,7 @@ public class TileGrid
 	 */
 	public Tile up(Tile tile)
 	{
-		if (tile.getIndY() == 0)
+		if (!validIndex(tile.getIndX(), tile.getIndY() - 1))
 			return null;
 		return map[tile.getIndX()][tile.getIndY() - 1];
 	}
@@ -273,7 +281,7 @@ public class TileGrid
 	 */
 	public Tile left(Tile tile)
 	{
-		if (tile.getIndX() == 0)
+		if (!validIndex(tile.getIndX() - 1, tile.getIndY()))
 			return null;
 		return map[tile.getIndX() - 1][tile.getIndY()];
 	}
@@ -286,7 +294,7 @@ public class TileGrid
 	 */
 	public Tile down(Tile tile)
 	{
-		if (tile.getIndY() == ROWS - 1)
+		if (!validIndex(tile.getIndX(), tile.getIndY() + 1))
 			return null;
 		return map[tile.getIndX()][tile.getIndY() + 1];
 	}
@@ -301,8 +309,18 @@ public class TileGrid
 	 */
 	public Tile right(Tile tile)
 	{
-		if (tile.getIndX() == COLS - 1)
+		if (!validIndex(tile.getIndX() + 1, tile.getIndY()))
 			return null;
 		return map[tile.getIndX() + 1][tile.getIndY()];
+	}
+	
+	public boolean validIndex(int xCoord, int yCoord)
+	{
+		if (xCoord < 0 || yCoord < 0 || xCoord >= COLS || yCoord >= ROWS)
+			return false;
+		if (yCoord < Game.INFO_BAR_HEIGHT_TILES && (xCoord < Game.INFO_BAR_WIDTH_TILES ||
+				xCoord >= COLS - Game.INFO_BAR_WIDTH_TILES))
+			return false;
+		return true;
 	}
 }
