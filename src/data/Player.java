@@ -41,14 +41,14 @@ public class Player
 	private int health, maxhealth;
 	private long score;
 	
-	private Queue<Deposit> deposits;
+	//private Queue<Deposit> deposits;
 	
-	private Deposit currentDeposit;
+	//private Deposit currentDeposit;
 	
 	/**
 	 * The tile type of the opposing Player's deposits.
 	 */
-	private TileType otherPlayerDeposit;
+	//private TileType otherPlayerDeposit;
 	
 	
 	
@@ -60,7 +60,7 @@ public class Player
 	 * @param texture the texture of the sprite of the player
 	 * @param other the tile type of the opposing player's deposits
 	 */
-	public Player(TileGrid grid, int[] keys, Texture texture, TileType thisDeposit, TileType otherDeposit)
+	public Player(TileGrid grid, int[] keys, Texture texture) //, TileType thisDeposit, TileType otherDeposit)
 	{
 		this.grid = grid;
 		for (int i = 0; i < this.keys.length; i++)
@@ -70,12 +70,14 @@ public class Player
 		health = maxhealth = DEFAULT_HEALTH;
 		sprite = new Sprite(texture, tile, grid, 10, this);
 		totalJewels = 0;
+		/*
 		deposits = new LinkedList<Deposit>();
 		currentDeposit = new Deposit(quickLoad(thisDeposit.textureName), tile, grid);
 		deposits.add(currentDeposit);
 		grid.setTile(tile.getIndX(), tile.getIndY(), thisDeposit);
 		grid.setEntity(tile.getIndX(), tile.getIndY(), currentDeposit);
 		otherPlayerDeposit = otherDeposit;
+		*/
 	}
 	
 	public Sprite getSprite() {
@@ -183,10 +185,11 @@ public class Player
 		// graphics of attacking??
 		if (tile.getType() == TileType.Wall && spendJewels(DESTROY_WALL_COST))
 			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
+		/*
 		if (tile.getType() == otherPlayerDeposit) {
 			Deposit o = (Deposit) grid.getEntity(tile);
 		}
-		
+		*/
 	}
 	
 	/**
@@ -202,6 +205,7 @@ public class Player
 		if (totalJewels < count)
 			return false;
 		totalJewels -= count;
+		/*
 		while (count > 0)
 		{
 			Deposit d = deposits.peek();
@@ -221,6 +225,7 @@ public class Player
 				count = 0;
 			}
 		}
+		*/
 		return true;
 	}
 	
@@ -241,7 +246,7 @@ public class Player
 	{
 		if (j.exists())
 		{
-			currentDeposit.add(j.getValue());
+			//currentDeposit.add(j.getValue());
 			totalJewels += j.getValue();
 			j.remove();
 		}
@@ -267,7 +272,7 @@ public class Player
 	{
 		grid = tg;
 		sprite.setGrid(tg);
-		for (Deposit d : deposits)
-			d.setGrid(tg);
+		//for (Deposit d : deposits)
+			//d.setGrid(tg);
 	}
 }

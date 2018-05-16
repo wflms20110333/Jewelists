@@ -24,7 +24,7 @@ public class TileGrid
 	/**
 	 * The number of cells in the TileGrid.
 	 */
-	private static final int NUM_CELLS = COLS * ROWS;
+	//private static final int NUM_CELLS = COLS * ROWS;
 
 	/**
 	 * The tiles that form the TileGrid.

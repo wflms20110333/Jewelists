@@ -58,8 +58,8 @@ public class Game
 		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
 				Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
 		players = new Player[] {
-			new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit1, TileType.Deposit2),
-			new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit2, TileType.Deposit1)
+			new Player(grid, keys1, quickLoad("emoji")), //, TileType.Deposit1, TileType.Deposit2),
+			new Player(grid, keys2, quickLoad("emoji2")) //, TileType.Deposit2, TileType.Deposit1)
 		};
 		
 		ui = new UI();
