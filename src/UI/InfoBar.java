@@ -10,6 +10,11 @@ import org.newdawn.slick.Color;
 import data.Player;
 import data.TileGrid;
 
+/**
+ * The InfoBar class blah blah
+ * 
+ * @author An Nguyen
+ */
 public class InfoBar extends UIItem
 {
 	public static final int SCALE = 5;
@@ -52,7 +57,7 @@ public class InfoBar extends UIItem
 		
 		Texture texture = player.getSprite().getTexture();
 		drawQuadTex(texture, rect.x + PADDING, rect.y + PADDING, TileGrid.SIZE, TileGrid.SIZE);
-		drawString(rect.x + PADDING * 2 + TileGrid.SIZE, rect.y + PADDING, "" + player.getTotalJewels(), Color.white);
+		drawString(rect.x + PADDING * 2 + TileGrid.SIZE, rect.y + PADDING, "" + player.getJewels(), Color.white);
 		
 
 		// health bar

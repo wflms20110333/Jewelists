@@ -26,7 +26,7 @@ public class Clock
 	 */
 	private static long totalTime;
 	
-	private static long prevSecond;
+	private static long second;
 
 	/**
 	 * The change in time since {@link #update} was last called.
@@ -69,10 +69,10 @@ public class Clock
 	{
 		d = getDelta();
 		totalTime += (int) (d * 100);
-		long second = totalTime / 1000;
-		if (second != prevSecond)
+		long newSecond = totalTime / 1000;
+		if (newSecond != second)
 		{
-			prevSecond = second;
+			second = newSecond;
 			// call ur method COLLIN
 		}
 	}
@@ -135,6 +135,11 @@ public class Clock
 	public static void resetTime()
 	{
 		totalTime = 0;
-		prevSecond = 0;
+		second = 0;
+	}
+	
+	public static long getSecond()
+	{
+		return second;
 	}
 }

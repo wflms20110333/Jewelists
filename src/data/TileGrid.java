@@ -14,17 +14,22 @@ public class TileGrid
 	 * The dimensions (in pixels) of each square cell in the TileGrid.
 	 */
 	public static final int SIZE = 32;
+	
+	/**
+	 * Half the number of tiles the middle area is wide.
+	 */
+	public static final int MIDDLE_HALF_TILES = 4;
 
 	/**
 	 * The number of columns and rows in the TileGrid.
 	 */
 	public static final int COLS = WIDTH / SIZE;
-	public static final int ROWS = HEIGHT / SIZE;
+	public static final int ROWS = HEIGHT / SIZE - Game.SCOREBOARD_HEIGHT_TILES;
 
 	/**
 	 * The number of cells in the TileGrid.
 	 */
-	private static final int NUM_CELLS = COLS * ROWS;
+	//private static final int NUM_CELLS = COLS * ROWS;
 
 	/**
 	 * The tiles that form the TileGrid.
@@ -55,6 +60,14 @@ public class TileGrid
 		for (int j = Game.INFO_BAR_HEIGHT_TILES; j < ROWS; j++)
 			for (int i = 0; i < COLS; i++)
 				map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Cave);
+		for (int j = 0; j < MIDDLE_HALF_TILES; j++) {
+			for (int i = 0; i < MIDDLE_HALF_TILES - j; i++) {
+				map[COLS / 2 + i][ROWS / 2 + j] = new Tile(COLS / 2 + i, ROWS / 2 + j, SIZE, SIZE, TileType.Dirt);
+				map[COLS / 2 + i][ROWS / 2 - j - 1] = new Tile(COLS / 2 + i, ROWS / 2 - j - 1, SIZE, SIZE, TileType.Dirt);
+				map[COLS / 2 - i - 1][ROWS / 2 + j] = new Tile(COLS / 2 - i - 1, ROWS / 2 + j, SIZE, SIZE, TileType.Dirt);
+				map[COLS / 2 - i - 1][ROWS / 2 - j - 1] = new Tile(COLS / 2 - i - 1, ROWS / 2 - j - 1, SIZE, SIZE, TileType.Dirt);
+			}
+		}
 		entities = new Entity[COLS][ROWS];
 	}
 
@@ -130,6 +143,12 @@ public class TileGrid
 		map[xCoord][yCoord].setType(type);
 	}
 	
+	/**
+	 * Sets the type of a tile at a given cell in the tile grid.
+	 * 
+	 * @param tile the tile at the given cell
+	 * @param type the new type of the new tile
+	 */
 	public void setTile(Tile tile, TileType type)
 	{
 		if (map[tile.getIndX()][tile.getIndY()].getType() == type)
@@ -168,6 +187,12 @@ public class TileGrid
 		//fillCount++;
 	}
 	
+	/**
+	 * Places an entity into a given cell in the tile grid.
+	 * 
+	 * @param tile the tile at the given cell
+	 * @param entity the entity to place into the tile grid
+	 */
 	public void setEntity(Tile tile, Entity entity)
 	{
 		entities[tile.getIndX()][tile.getIndY()] = entity;
@@ -186,6 +211,11 @@ public class TileGrid
 		//fillCount--;
 	}
 	
+	/**
+	 * Removes an entity from a given cell in the tile grid.
+	 * 
+	 * @param tile the tile at the given cell
+	 */
 	public void removeEntity(Tile tile)
 	{
 		entities[tile.getIndX()][tile.getIndY()] = null;
@@ -255,7 +285,7 @@ public class TileGrid
 	{
 		if (!validIndex(xCoord, yCoord))
 			return false;
-		return map[xCoord][yCoord].getType() == TileType.Cave;
+		return map[xCoord][yCoord].getType() == TileType.Cave || map[xCoord][yCoord].getType() == TileType.Dirt;
 	}
 	
 	/**
@@ -314,6 +344,15 @@ public class TileGrid
 		return map[tile.getIndX() + 1][tile.getIndY()];
 	}
 	
+	/**
+	 * Returns whether a given position is valid. The position is valid if it
+	 * is within the bounds of the tile grid and not part of an area covered by
+	 * an info bar.
+	 * 
+	 * @param xCoord the x index of the given position
+	 * @param yCoord the y index of the given position
+	 * @return
+	 */
 	public boolean validIndex(int xCoord, int yCoord)
 	{
 		if (xCoord < 0 || yCoord < 0 || xCoord >= COLS || yCoord >= ROWS)

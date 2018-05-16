@@ -27,12 +27,15 @@ public class Sprite extends Entity
 	 */
 	private char direction;
 	
-	private char keyDown = 0;
-	
 	/**
 	 * The tile the Sprite is currently moving into.
 	 */
 	private Tile nextTile;
+	
+	/**
+	 * Whether or not the Sprite is trapped.
+	 */
+	private boolean trapped;
 	
 	/**
 	 * Constructs a Sprite.
@@ -47,11 +50,7 @@ public class Sprite extends Entity
 		super(texture, startTile, grid);
 		this.speed = speed;
 		this.player = player;
-	}
-	
-	public void setKeyDown(char c)
-	{
-		keyDown = c;
+		trapped = false;
 	}
 	
 	/**
@@ -61,8 +60,8 @@ public class Sprite extends Entity
 	@Override
 	public void update()
 	{
-		if (keyDown != 0)
-			updatePath(keyDown);
+		if (trapped)
+			return;
 		
 		// collect jewels
 		Tile[] check = new Tile[3];
@@ -97,6 +96,7 @@ public class Sprite extends Entity
 			{
 				setY(nextY);
 				nextTile = null;
+				checkTrap();
 			}
 			else
 				setY(y);
@@ -108,6 +108,7 @@ public class Sprite extends Entity
 			{
 				setX(nextX);
 				nextTile = null;
+				checkTrap();
 			}
 			else
 				setX(x);
@@ -119,6 +120,7 @@ public class Sprite extends Entity
 			{
 				setY(nextY);
 				nextTile = null;
+				checkTrap();
 			}
 			else
 				setY(y);
@@ -130,6 +132,7 @@ public class Sprite extends Entity
 			{
 				setX(nextX);
 				nextTile = null;
+				checkTrap();
 			}
 			else
 				setX(x);
@@ -168,6 +171,31 @@ public class Sprite extends Entity
 		}
 	}
 	
+	/**
+	 * Checks if the tile the sprite is currently on contains an inactivated
+	 * trap. If such a trap is found, the sprite will become trapped by it.
+	 */
+	private void checkTrap()
+	{
+		Entity e = getGrid().getEntity(currTile());
+		if (e instanceof Trap && getX() == e.getX() && getY() == e.getY())
+		{
+			Trap trap = (Trap) e;
+			if (!trap.getBufferPassed() || trap.activated())
+				return;
+			trapped = true;
+			trap.setTrappedSprite(this);
+		}
+	}
+	
+	/**
+	 * Returns whether the sprite currently occupies, partially or completely,
+	 * a given cell.
+	 * 
+	 * @param tile the tile that forms the given cell
+	 * @return whether the sprite currently occupies, partially or completely,
+	 * 		   the given cell
+	 */
 	public boolean in(Tile tile)
 	{
 		float tx = getX();
@@ -179,5 +207,13 @@ public class Sprite extends Entity
 		int oy = tile.getY();
 		int oY = oy + TileGrid.SIZE;
 		return tx < oX && tX > ox && ty < oY && tY > oY;
+	}
+	
+	/**
+	 * If the sprite is currently trapped, it becomes free, and vice versa.
+	 */
+	public void toggleTrap()
+	{
+		trapped =  !trapped;
 	}
 }

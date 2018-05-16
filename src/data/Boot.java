@@ -8,6 +8,13 @@ import org.lwjgl.opengl.Display;
 import helpers.Clock;
 import helpers.StateManager;
 
+/**
+ * The Boot class blah
+ * 
+ * @author Elizabeth Zou
+ * @author An Nguyen
+ */
+
 public class Boot
 {
 	public Boot()
