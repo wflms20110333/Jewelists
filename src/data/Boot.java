@@ -29,6 +29,7 @@ public class Boot
 
 	public static void main(String[] args)
 	{
+		// hey hello yay
 		new Boot();
 	}
 }
