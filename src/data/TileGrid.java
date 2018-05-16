@@ -14,12 +14,14 @@ public class TileGrid
 	 * The dimensions (in pixels) of each square cell in the TileGrid.
 	 */
 	public static final int SIZE = 32;
+	
+	public static final int MIDDLE_HALF_TILES = 4;
 
 	/**
 	 * The number of columns and rows in the TileGrid.
 	 */
 	public static final int COLS = WIDTH / SIZE;
-	public static final int ROWS = HEIGHT / SIZE;
+	public static final int ROWS = HEIGHT / SIZE - Game.SCOREBOARD_HEIGHT_TILES;
 
 	/**
 	 * The number of cells in the TileGrid.
@@ -55,6 +57,14 @@ public class TileGrid
 		for (int j = Game.INFO_BAR_HEIGHT_TILES; j < ROWS; j++)
 			for (int i = 0; i < COLS; i++)
 				map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Cave);
+		for (int j = 0; j < MIDDLE_HALF_TILES; j++) {
+			for (int i = 0; i < MIDDLE_HALF_TILES - j; i++) {
+				map[COLS / 2 + i][ROWS / 2 + j] = new Tile(COLS / 2 + i, ROWS / 2 + j, SIZE, SIZE, TileType.Dirt);
+				map[COLS / 2 + i][ROWS / 2 - j - 1] = new Tile(COLS / 2 + i, ROWS / 2 - j - 1, SIZE, SIZE, TileType.Dirt);
+				map[COLS / 2 - i - 1][ROWS / 2 + j] = new Tile(COLS / 2 - i - 1, ROWS / 2 + j, SIZE, SIZE, TileType.Dirt);
+				map[COLS / 2 - i - 1][ROWS / 2 - j - 1] = new Tile(COLS / 2 - i - 1, ROWS / 2 - j - 1, SIZE, SIZE, TileType.Dirt);
+			}
+		}
 		entities = new Entity[COLS][ROWS];
 	}
 
@@ -255,7 +265,7 @@ public class TileGrid
 	{
 		if (!validIndex(xCoord, yCoord))
 			return false;
-		return map[xCoord][yCoord].getType() == TileType.Cave;
+		return map[xCoord][yCoord].getType() == TileType.Cave || map[xCoord][yCoord].getType() == TileType.Dirt;
 	}
 	
 	/**

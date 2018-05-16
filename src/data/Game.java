@@ -26,8 +26,9 @@ public class Game
 	public static final int INFO_BAR_WIDTH = TileGrid.SIZE * INFO_BAR_WIDTH_TILES;
 	public static final int INFO_BAR_HEIGHT = TileGrid.SIZE * INFO_BAR_HEIGHT_TILES;
 	
+	public static final int SCOREBOARD_HEIGHT_TILES = 2;
 	public static final int SCOREBOARD_WIDTH = WIDTH;
-	public static final int SCOREBOARD_HEIGHT = TileGrid.SIZE * 2;
+	public static final int SCOREBOARD_HEIGHT = TileGrid.SIZE * SCOREBOARD_HEIGHT_TILES;
 	
 	private TileGrid grid;
 	

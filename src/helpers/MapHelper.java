@@ -38,10 +38,10 @@ public class MapHelper
 			return "0";
 		case Wall:
 			return "1";
-		case Deposit1:
-			return "2";
-		case Deposit2:
-			return "3";
+		//case Deposit1:
+			//return "2";
+		//case Deposit2:
+			//return "3";
 		case Grass:
 			return "4";
 		case Dirt:
