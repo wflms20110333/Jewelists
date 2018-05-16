@@ -110,6 +110,7 @@ public class Artist
 			glVertex2f(rect.x, rect.y + rect.height); // Bottom left corner
 		glEnd();
 		glColor3f(255,255,255);
+		glEnable(GL_TEXTURE_2D);
 	}
 	
 	

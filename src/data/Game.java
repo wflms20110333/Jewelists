@@ -3,13 +3,16 @@ package data;
 import static helpers.Artist.*;
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
 import UI.InfoBar;
+import UI.Scoreboard;
 import UI.UI;
+import helpers.StateManager;
 
 /**
  * The Game class represents the actual gameplay of the game.
@@ -22,6 +25,9 @@ public class Game
 	public static final int INFO_BAR_HEIGHT_TILES = 2;
 	public static final int INFO_BAR_WIDTH = TileGrid.SIZE * INFO_BAR_WIDTH_TILES;
 	public static final int INFO_BAR_HEIGHT = TileGrid.SIZE * INFO_BAR_HEIGHT_TILES;
+	
+	public static final int SCOREBOARD_WIDTH = WIDTH;
+	public static final int SCOREBOARD_HEIGHT = TileGrid.SIZE * 2;
 	
 	private TileGrid grid;
 	
@@ -59,6 +65,9 @@ public class Game
 		ui = new UI();
 		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
+		ui.addItem(new Scoreboard(null, new Rectangle((WIDTH - SCOREBOARD_WIDTH) / 2, 
+			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 30000)
+		);
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();
 		jewelList.add(new Jewel(quickLoad("jewel_green_32"), grid.getTile(6, 7), grid, 1));
@@ -77,7 +86,7 @@ public class Game
 		jewelSpawner.update();
 		for (Player player : players)
 			player.update(miliseconds);
-		ui.draw();
+		ui.update(miliseconds);
 	}
 	
 	public Player[] getPlayers() {
@@ -98,5 +107,9 @@ public class Game
 			player.setGrid(tg);
 		jewelSpawner.setGrid(tg);
 		monsterSpawner.setGrid(tg);
+	}
+	
+	public void end() {
+		StateManager.setState(StateManager.GameState.MAINMENU);
 	}
 }
