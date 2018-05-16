@@ -47,9 +47,9 @@ public class InfoBar extends UIItem
 	public void draw()
 	{
 		Rectangle rect = getRect();
-
+		
 		drawQuad(rect, Color.black);
-
+		
 		Texture texture = player.getSprite().getTexture();
 		drawQuadTex(texture, rect.x + PADDING, rect.y + PADDING, TileGrid.SIZE, TileGrid.SIZE);
 		drawString(rect.x + PADDING * 2 + TileGrid.SIZE, rect.y + PADDING, "" + player.getTotalJewels(), Color.white);

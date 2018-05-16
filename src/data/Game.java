@@ -28,8 +28,6 @@ public class Game
 	Player[] players;
 	UI ui;
 	
-	//private KeyboardHelper keyboard;
-	
 	public Game()
 	{
 		this(new TileGrid());
@@ -57,7 +55,7 @@ public class Game
 		ui = new UI();
 		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
-
+		
 		ArrayList<Entity> jewelList = new ArrayList<>();
 		jewelList.add(new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1));
 		jewelList.add(new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid, 2));
@@ -66,8 +64,6 @@ public class Game
 		jewelList.add(new Jewel(quickLoad("jewel_yellow"), grid.getTile(0, 0), grid, 5));
 		
 		jewelSpawner = new JewelSpawner(10, grid, jewelList);
-		
-		//keyboard = new KeyboardHelper();
 	}
 	
 	public void update()
