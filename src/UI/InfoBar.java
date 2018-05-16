@@ -38,13 +38,16 @@ public class InfoBar extends UIItem {
 	public void draw() {
 		Rectangle rect = getRect();
 		
-		drawQuad(rect, Color.pink);
+		drawQuad(rect, Color.black);
+		
+		Texture texture = player.getSprite().getTexture();
+		drawQuadTex(texture, rect.x + 10, rect.y + 10, texture.getWidth(), texture.getHeight());
 		
 		drawString(rect.x + 10, rect.y + 10, "Jewels: " + player.getTotalJewels(), Color.white);
 		
 		// health bar
-		drawQuad(rect.x, rect.y + 2 * rect.height / 3, rect.width, rect.height, Color.gray);
-		drawQuad(rect.x, rect.y + 2 * rect.height / 3, rect.width * player.getPercent(), rect.height, Color.gray);
+		drawQuad(rect.x, rect.y + 2 * rect.height / 3, rect.width, rect.height / 3, Color.gray);
+		drawQuad(rect.x, rect.y + 2 * rect.height / 3, rect.width * player.getPercent(), rect.height / 3, Color.red);
 	}
 	
 	@Override

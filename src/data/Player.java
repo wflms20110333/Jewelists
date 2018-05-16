@@ -18,7 +18,7 @@ public class Player
 	/**
 	 * The cost to destroy a wall.
 	 */
-	private static final int WALL_COST = 2;
+	private static final int DESTROY_WALL_COST = 2;
 	private static final int DEFAULT_HEALTH = 10;
 	
 	/**
@@ -55,21 +55,28 @@ public class Player
 	 * @param texture the texture of the sprite of the player
 	 * @param other the tile type of the opposing player's deposits
 	 */
-	public Player(TileGrid grid, int[] keys, Texture texture, TileType other)
+	public Player(TileGrid grid, int[] keys, Texture texture, TileType thisDeposit, TileType otherDeposit)
 	{
 		this.grid = grid;
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
+		Tile tile = grid.randEmptyTile();
 		health = maxhealth = DEFAULT_HEALTH;
 		health /= 2;
-		Tile tile = grid.randEmptyTile();
 		sprite = new Sprite(texture, tile, grid, 10, this);
+		totalJewels = 0;
 		deposits = new LinkedList<Deposit>();
-		currentDeposit = new Deposit(quickLoad(TileType.Deposit1.textureName), tile, grid); // lol change texture
+		currentDeposit = new Deposit(quickLoad(thisDeposit.textureName), tile, grid);
 		deposits.add(currentDeposit);
-		otherPlayerDeposit = other;
+		grid.setTile(tile.getIndX(), tile.getIndY(), thisDeposit);
+		grid.setEntity(tile.getIndX(), tile.getIndY(), currentDeposit);
+		otherPlayerDeposit = otherDeposit;
 	}
 	
+	public Sprite getSprite() {
+		return sprite;
+	}
+
 	public float getPercent() {
 		return (float) health / maxhealth;
 	}
@@ -163,11 +170,12 @@ public class Player
 	private void attack(Tile tile)
 	{
 		// graphics of attacking??
-		if (tile.getType() == TileType.Wall) // && spendJewels(WALL_COST))
+		if (tile.getType() == TileType.Wall && spendJewels(DESTROY_WALL_COST))
 			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
 		if (tile.getType() == otherPlayerDeposit) {
-			// steal from deposit
+			Deposit o = (Deposit) grid.getEntity(tile);
 		}
+		
 	}
 	
 	/**
@@ -189,7 +197,12 @@ public class Player
 			if (d.getNumJewels() <= count)
 			{
 				count -= d.getNumJewels();
-				deposits.poll();
+				if (deposits.size() > 1)
+				{
+					deposits.poll();
+					grid.setTile(d.currTile(), TileType.Cave);
+					grid.removeEntity(d.currTile());
+				}
 			}
 			else
 			{
@@ -215,9 +228,12 @@ public class Player
 	 */
 	public void collect(Jewel j)
 	{
-		currentDeposit.add(j.getValue());
-		totalJewels += j.getValue();
-		j.remove();
+		if (j.exists())
+		{
+			currentDeposit.add(j.getValue());
+			totalJewels += j.getValue();
+			j.remove();
+		}
 	}
 	
 	/**

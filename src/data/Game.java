@@ -47,8 +47,8 @@ public class Game
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
 		
 		players = new Player[] {
-			new Player(grid, keys, quickLoad("emoji"), TileType.Deposit2),
-			new Player(grid, keys, quickLoad("emoji2"), TileType.Deposit1)
+			new Player(grid, keys, quickLoad("emoji"), TileType.Deposit2, TileType.Deposit1),
+			new Player(grid, keys, quickLoad("emoji2"), TileType.Deposit1, TileType.Deposit2)
 		};
 		
 		ui = new UI();
