@@ -39,6 +39,7 @@ public class Player
 	 */
 	private int totalJewels;
 	private int health, maxhealth;
+	private long score;
 	
 	private Queue<Deposit> deposits;
 	
@@ -65,8 +66,8 @@ public class Player
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
 		Tile tile = grid.randEmptyTile();
+		score = 1;
 		health = maxhealth = DEFAULT_HEALTH;
-		health /= 2;
 		sprite = new Sprite(texture, tile, grid, 10, this);
 		totalJewels = 0;
 		deposits = new LinkedList<Deposit>();
@@ -100,8 +101,12 @@ public class Player
 	public void setMaxhealth(int maxhealth) {
 		this.maxhealth = maxhealth;
 	}
+	
+	public long getScore() {
+		return score;
+	}
 
-	public void update()
+	public void update(long miliseconds)
 	{
 		/*
 		 * if (Mouse.isButtonDown(0)) { //setTile(); }

@@ -70,14 +70,18 @@ public class Game
 		//keyboard = new KeyboardHelper();
 	}
 	
-	public void update()
+	public void update(long miliseconds)
 	{
 		grid.draw();
 		monsterSpawner.update();
 		jewelSpawner.update();
 		for (Player player : players)
-			player.update();
+			player.update(miliseconds);
 		ui.draw();
+	}
+	
+	public Player[] getPlayers() {
+		return players;
 	}
 	
 	public void setPlayerKeys(int player, int index, int key) {
