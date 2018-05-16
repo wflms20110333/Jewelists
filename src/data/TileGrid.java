@@ -15,6 +15,9 @@ public class TileGrid
 	 */
 	public static final int SIZE = 32;
 	
+	/**
+	 * Half the number of tiles the middle area is wide.
+	 */
 	public static final int MIDDLE_HALF_TILES = 4;
 
 	/**
@@ -140,6 +143,12 @@ public class TileGrid
 		map[xCoord][yCoord].setType(type);
 	}
 	
+	/**
+	 * Sets the type of a tile at a given cell in the tile grid.
+	 * 
+	 * @param tile the tile at the given cell
+	 * @param type the new type of the new tile
+	 */
 	public void setTile(Tile tile, TileType type)
 	{
 		if (map[tile.getIndX()][tile.getIndY()].getType() == type)
@@ -178,6 +187,12 @@ public class TileGrid
 		//fillCount++;
 	}
 	
+	/**
+	 * Places an entity into a given cell in the tile grid.
+	 * 
+	 * @param tile the tile at the given cell
+	 * @param entity the entity to place into the tile grid
+	 */
 	public void setEntity(Tile tile, Entity entity)
 	{
 		entities[tile.getIndX()][tile.getIndY()] = entity;
@@ -196,6 +211,11 @@ public class TileGrid
 		//fillCount--;
 	}
 	
+	/**
+	 * Removes an entity from a given cell in the tile grid.
+	 * 
+	 * @param tile the tile at the given cell
+	 */
 	public void removeEntity(Tile tile)
 	{
 		entities[tile.getIndX()][tile.getIndY()] = null;
@@ -324,6 +344,15 @@ public class TileGrid
 		return map[tile.getIndX() + 1][tile.getIndY()];
 	}
 	
+	/**
+	 * Returns whether a given position is valid. The position is valid if it
+	 * is within the bounds of the tile grid and not part of an area covered by
+	 * an info bar.
+	 * 
+	 * @param xCoord the x index of the given position
+	 * @param yCoord the y index of the given position
+	 * @return
+	 */
 	public boolean validIndex(int xCoord, int yCoord)
 	{
 		if (xCoord < 0 || yCoord < 0 || xCoord >= COLS || yCoord >= ROWS)

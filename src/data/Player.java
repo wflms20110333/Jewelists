@@ -1,10 +1,5 @@
 package data;
 
-import static helpers.Artist.quickLoad;
-
-import java.util.LinkedList;
-import java.util.Queue;
-
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.opengl.Texture;
 
@@ -12,17 +7,29 @@ import org.newdawn.slick.opengl.Texture;
  * The Player class blah blah
  * 
  * @author Elizabeth Zou
+ * @author An Nguyen
  */
 public class Player
 {
 	/**
-	 * The costs to build and destroy a wall.
+	 * The default health of a Player.
 	 */
 	private static final int DEFAULT_HEALTH = 10;
+	
+	/**
+	 * The costs to build and destroy a wall.
+	 */
 	private static final int WALL_COST = 2;
 	private static final int DESTROY_WALL_COST = 5;
+	
+	/**
+	 * The cost to build a trap.
+	 */
 	private static final int TRAP_COST = 4;
 	
+	/**
+	 * The game that the Player interacts with.
+	 */
 	private Game game;
 	
 	/**
@@ -35,15 +42,29 @@ public class Player
 	 */
 	private int[] keys = new int[9];
 	
+	/**
+	 * The maximum health of the Player.
+	 */
+	private int maxhealth;
+	
+	/**
+	 * The health of the Player.
+	 */
+	private int health;
+	
+	/**
+	 * The sprite of the Player.
+	 */
 	private Sprite sprite;
 	
 	/**
 	 * The total number of jewels the Player possesses.
 	 */
-	private int totalJewels;
+	private int jewels;
 	
-	private int health, maxhealth;
-	
+	/**
+	 * The score of the Player.
+	 */
 	private long score;
 	
 	//private Queue<Deposit> deposits;
@@ -55,15 +76,13 @@ public class Player
 	 */
 	//private TileType otherPlayerDeposit;
 	
-	
-	
 	/**
 	 * Constructs a Player.
 	 * 
+	 * @param game the game that the player interacts with
 	 * @param grid the grid of the game that the player interacts with
 	 * @param keys the keyboard commands of the player
 	 * @param texture the texture of the sprite of the player
-	 * @param other the tile type of the opposing player's deposits
 	 */
 	public Player(Game game, TileGrid grid, int[] keys, Texture texture) //, TileType thisDeposit, TileType otherDeposit)
 	{
@@ -75,7 +94,7 @@ public class Player
 		score = 1;
 		health = maxhealth = DEFAULT_HEALTH;
 		sprite = new Sprite(texture, tile, grid, 10, this);
-		totalJewels = 0;
+		jewels = 0;
 		/*
 		deposits = new LinkedList<Deposit>();
 		currentDeposit = new Deposit(quickLoad(thisDeposit.textureName), tile, grid);
@@ -86,36 +105,71 @@ public class Player
 		*/
 	}
 	
+	/**
+	 * Returns the sprite of the player.
+	 * 
+	 * @return the sprite of the player
+	 */
 	public Sprite getSprite()
 	{
 		return sprite;
 	}
-
+	
+	/**
+	 * Returns the health percentage of the player.
+	 * 
+	 * @return the health percentage of the player
+	 */
 	public float getPercent()
 	{
 		return (float) health / maxhealth;
 	}
 	
+	/**
+	 * Returns the health of the player.
+	 * 
+	 * @return the health of the player
+	 */
 	public int getHealth()
 	{
 		return health;
 	}
-
+	
+	/**
+	 * Sets the health of the player.
+	 * 
+	 * @param health the new health of the player
+	 */
 	public void sethealth(int health)
 	{
 		this.health = health;
 	}
-
+	
+	/**
+	 * Returns the maximum health of the player.
+	 * 
+	 * @return the maximum health of the player
+	 */
 	public int getMaxhealth()
 	{
 		return maxhealth;
 	}
-
+	
+	/**
+	 * Sets the maximum health of the player.
+	 * 
+	 * @param maxhealth the new maximum health of the player
+	 */
 	public void setMaxhealth(int maxhealth)
 	{
 		this.maxhealth = maxhealth;
 	}
 	
+	/**
+	 * Returns the score of the player.
+	 * 
+	 * @return the score of the player
+	 */
 	public long getScore()
 	{
 		return score;
@@ -222,9 +276,9 @@ public class Player
 	 */
 	private boolean spendJewels(int count)
 	{
-		if (totalJewels < count)
+		if (jewels < count)
 			return false;
-		totalJewels -= count;
+		jewels -= count;
 		/*
 		while (count > 0)
 		{
@@ -249,14 +303,14 @@ public class Player
 		return true;
 	}
 	
-	public int getTotalJewels()
+	/**
+	 * Returns the number of jewels the player possesses.
+	 * 
+	 * @return the number of jewels the player possesses
+	 */
+	public int getJewels()
 	{
-		return totalJewels;
-	}
-
-	public void setTotalJewels(int totalJewels)
-	{
-		this.totalJewels = totalJewels;
+		return jewels;
 	}
 
 	/**
@@ -269,7 +323,7 @@ public class Player
 		if (j.exists())
 		{
 			//currentDeposit.add(j.getValue());
-			totalJewels += j.getValue();
+			jewels += j.getValue();
 			j.remove();
 		}
 	}
