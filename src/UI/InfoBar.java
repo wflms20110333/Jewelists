@@ -8,10 +8,13 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.Color;
 
 import data.Player;
+import data.TileGrid;
 
 public class InfoBar extends UIItem
 {
-
+	public static final int SCALE = 5;
+	public static final int PADDING = 10;
+	
 	private Player player;
 
 	public InfoBar(Player player, Texture texture, int x, int y, int width, int height)
@@ -48,12 +51,12 @@ public class InfoBar extends UIItem
 		drawQuad(rect, Color.black);
 
 		Texture texture = player.getSprite().getTexture();
-		drawQuadTex(texture, rect.x + 10, rect.y + 10, 32, 32);
-		drawString(rect.x + 52, rect.y + 10, "" + player.getTotalJewels(), Color.white);
+		drawQuadTex(texture, rect.x + PADDING, rect.y + PADDING, TileGrid.SIZE, TileGrid.SIZE);
+		drawString(rect.x + PADDING * 2 + TileGrid.SIZE, rect.y + PADDING, "" + player.getTotalJewels(), Color.white);
 
 		// health bar
-		drawQuad(rect.x, rect.y + 2 * rect.height / 3, rect.width, rect.height / 3, Color.gray);
-		drawQuad(rect.x, rect.y + 2 * rect.height / 3, rect.width * player.getPercent(), rect.height / 3, Color.red);
+		drawQuad(rect.x, rect.y + (SCALE - 1) * rect.height / SCALE, rect.width, rect.height / SCALE, Color.gray);
+		drawQuad(rect.x, rect.y + (SCALE - 1) * rect.height / SCALE, rect.width * player.getPercent(), rect.height / SCALE, Color.red);
 	}
 
 	@Override
