@@ -41,9 +41,8 @@ public class InfoBar extends UIItem {
 		drawQuad(rect, Color.black);
 		
 		Texture texture = player.getSprite().getTexture();
-		drawQuadTex(texture, rect.x + 10, rect.y + 10, texture.getWidth(), texture.getHeight());
-		
-		drawString(rect.x + 10, rect.y + 10, "Jewels: " + player.getTotalJewels(), Color.white);
+		drawQuadTex(texture, rect.x + 10, rect.y + 10, 32, 32);
+		drawString(rect.x + 52, rect.y + 10, "" + player.getTotalJewels(), Color.white);
 		
 		// health bar
 		drawQuad(rect.x, rect.y + 2 * rect.height / 3, rect.width, rect.height / 3, Color.gray);
