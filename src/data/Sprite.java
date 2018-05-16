@@ -12,6 +12,9 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Sprite extends Entity
 {
+	
+	public static final int DEFAULT_SPEED = 10;
+	
 	/**
 	 * The player that the Sprite belongs to.
 	 */
@@ -36,6 +39,10 @@ public class Sprite extends Entity
 	 * Whether or not the Sprite is trapped.
 	 */
 	private boolean trapped;
+	
+	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player) {
+		this(texture, startTile, grid, DEFAULT_SPEED, player);
+	}
 	
 	/**
 	 * Constructs a Sprite.
