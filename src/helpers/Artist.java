@@ -34,8 +34,8 @@ public class Artist
 	/**
 	 * The width and height of the window that displays the game.
 	 */
-	public static final int WIDTH = (int) (screenSize.getWidth() / TileGrid.SIZE) * TileGrid.SIZE; //1280;
-	public static final int HEIGHT = (int) (screenSize.getHeight() / TileGrid.SIZE - 2) * TileGrid.SIZE; //736; //960
+	public static final int WIDTH = (int) (screenSize.getWidth() / TileGrid.SIZE) * TileGrid.SIZE;
+	public static final int HEIGHT = (int) (screenSize.getHeight() / TileGrid.SIZE - 2) * TileGrid.SIZE;
 	
 	public static final Color DEFAULT_COLOR = Color.black;
 	public static final Color MASTER_COLOR = Color.white;
@@ -62,7 +62,7 @@ public class Artist
 		glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
-
+		
 		// makes sprite backgrounds not black, blending with background tiles
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -76,15 +76,15 @@ public class Artist
 	}
 	
 	public static void setFont(String name, int sz) {
-		try {
+		try
+		{
 			InputStream input = ResourceLoader.getResourceAsStream("Assets/" + name + ".ttf");
-			
 			Font temp = Font.createFont(Font.TRUETYPE_FONT, input);
 			temp = temp.deriveFont((float) sz);
 			System.out.println(temp);
 			font = new TrueTypeFont(temp, true);
-			
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			System.err.println("Cannot find font: " + name + ".ttf");
 		}
 	}
@@ -111,10 +111,10 @@ public class Artist
 		glColor3f(color.getRed(), color.getGreen(), color.getBlue());
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
-			glVertex2f(rect.x, rect.y); // Top left corner
-			glVertex2f(rect.x + rect.width, rect.y); // Top right corner
-			glVertex2f(rect.x + rect.width, rect.y + rect.height); // Bottom right corner
-			glVertex2f(rect.x, rect.y + rect.height); // Bottom left corner
+		glVertex2f(rect.x, rect.y); // Top left corner
+		glVertex2f(rect.x + rect.width, rect.y); // Top right corner
+		glVertex2f(rect.x + rect.width, rect.y + rect.height); // Bottom right corner
+		glVertex2f(rect.x, rect.y + rect.height); // Bottom left corner
 		glEnd();
 		glColor3f(255,255,255);
 		glEnable(GL_TEXTURE_2D);

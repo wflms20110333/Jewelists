@@ -36,6 +36,7 @@ public class Game
 	Spawner jewelSpawner;
 	Player[] players;
 	UI ui;
+	ArrayList<Trap> traps;
 	
 	public Game()
 	{
@@ -59,8 +60,8 @@ public class Game
 		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
 				Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
 		players = new Player[] {
-			new Player(grid, keys1, quickLoad("emoji")), //, TileType.Deposit1, TileType.Deposit2),
-			new Player(grid, keys2, quickLoad("emoji2")) //, TileType.Deposit2, TileType.Deposit1)
+			new Player(this, grid, keys1, quickLoad("emoji")), //, TileType.Deposit1, TileType.Deposit2),
+			new Player(this, grid, keys2, quickLoad("emoji2")) //, TileType.Deposit2, TileType.Deposit1)
 		};
 		
 		ui = new UI();
@@ -78,6 +79,7 @@ public class Game
 		jewelList.add(new Jewel(quickLoad("jewel_yellow"), grid.getTile(6, 7), grid, 5));
 		
 		jewelSpawner = new JewelSpawner(10, grid, jewelList);
+		traps = new ArrayList<>();
 	}
 	
 	public void update(long miliseconds)
@@ -88,13 +90,25 @@ public class Game
 		for (Player player : players)
 			player.update(miliseconds);
 		ui.update(miliseconds);
+		for (int i = traps.size() - 1; i >= 0; i--)
+		{
+			Trap trap = traps.get(i);
+			trap.update();
+			if (!trap.exists())
+			{
+				traps.remove(i);
+				grid.removeEntity(trap.currTile());
+			}
+		}
 	}
 	
-	public Player[] getPlayers() {
+	public Player[] getPlayers()
+	{
 		return players;
 	}
 	
-	public void setPlayerKeys(int player, int index, int key) {
+	public void setPlayerKeys(int player, int index, int key)
+	{
 		if (players.length < player)
 			System.err.println();
 		else
@@ -110,7 +124,13 @@ public class Game
 		monsterSpawner.setGrid(tg);
 	}
 	
-	public void end() {
+	public void end()
+	{
 		StateManager.setState(StateManager.GameState.MAINMENU);
+	}
+	
+	public void addTrap(Trap trap)
+	{
+		traps.add(trap);
 	}
 }

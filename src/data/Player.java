@@ -21,6 +21,9 @@ public class Player
 	private static final int DEFAULT_HEALTH = 10;
 	private static final int WALL_COST = 2;
 	private static final int DESTROY_WALL_COST = 5;
+	private static final int TRAP_COST = 4;
+	
+	private Game game;
 	
 	/**
 	 * The grid of the game that the Player interacts with.
@@ -62,8 +65,9 @@ public class Player
 	 * @param texture the texture of the sprite of the player
 	 * @param other the tile type of the opposing player's deposits
 	 */
-	public Player(TileGrid grid, int[] keys, Texture texture) //, TileType thisDeposit, TileType otherDeposit)
+	public Player(Game game, TileGrid grid, int[] keys, Texture texture) //, TileType thisDeposit, TileType otherDeposit)
 	{
+		this.game = game;
 		this.grid = grid;
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
@@ -162,13 +166,20 @@ public class Player
 
 		if (Keyboard.isKeyDown(keys[5]) && Keyboard.getEventKeyState())
 		{
-			// new deposit
+			Tile tile = sprite.currTile();
+			if (tile.getType() == TileType.Cave && spendJewels(WALL_COST))
+				grid.setTile(tile, TileType.Wall);
 		}
 		if (Keyboard.isKeyDown(keys[6]) && Keyboard.getEventKeyState())
 		{
+			// trap
 			Tile tile = sprite.currTile();
-			if (tile.getType() == TileType.Cave && spendJewels(WALL_COST))
-				grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Wall);
+			if (grid.getEntity(tile) == null && spendJewels(TRAP_COST))
+			{
+				Trap trap = new Trap(tile, grid);
+				grid.setEntity(tile, trap);
+				game.addTrap(trap);
+			}
 		}
 		if (Keyboard.isKeyDown(keys[7]) && Keyboard.getEventKeyState())
 		{
@@ -176,7 +187,7 @@ public class Player
 		}
 		if (Keyboard.isKeyDown(keys[8]) && Keyboard.getEventKeyState())
 		{
-			// trap
+			
 		}
 		
 		/*
