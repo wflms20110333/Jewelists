@@ -2,6 +2,8 @@ package data;
 
 import static helpers.Clock.getSeconds;
 
+import java.time.Year;
+
 import org.newdawn.slick.opengl.Texture;
 
 import helpers.Clock;
@@ -17,19 +19,15 @@ public class Sprite extends Entity
 	
 	public static final int DEFAULT_SPEED = 100;
 	
-	/**
-	 * The player that the Sprite belongs to.
-	 */
+	private static final char[] order = {'U', 'R', 'L', 'D'};
+	// Change in X relative to order Up, Right, Left, Down;
+	private static final int[] changeX = {0, 1, -1, 0};
+	private static final int[] changeY = {-1, 0, 0, 1};
+	
 	private Player player;
 	
-	/**
-	 * The speed of the Sprite.
-	 */
 	private float speed;
 	
-	/**
-	 * The direction the Sprite is currently moving.
-	 */
 	private char direction;
 	
 	/**
@@ -37,10 +35,8 @@ public class Sprite extends Entity
 	 */
 	private Tile nextTile;
 	
-	/**
-	 * Whether or not the Sprite is trapped.
-	 */
-	private boolean trapped;
+	
+	
 	
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player) {
 		this(texture, startTile, grid, DEFAULT_SPEED, player);
@@ -59,7 +55,6 @@ public class Sprite extends Entity
 		super(texture, startTile, grid);
 		this.speed = speed;
 		this.player = player;
-		trapped = false;
 	}
 	
 	/**
@@ -69,9 +64,6 @@ public class Sprite extends Entity
 	@Override
 	public void update()
 	{
-		if (trapped)
-			return;
-		
 		// collect jewels
 		Tile[] check = new Tile[5];
 		check[0] = currTile();
@@ -98,55 +90,37 @@ public class Sprite extends Entity
 		// move
 		if (nextTile == null)
 			return;
+		
+		float adjusted_speed = speed;
+		if (player.hasStatus(Status.SLOW))
+			adjusted_speed *= Status.SLOW.getMultiplier();
+		if (player.hasStatus(Status.SPEED))
+			adjusted_speed *= Status.SPEED.getMultiplier();
+		
 		int nextX = nextTile.getX();
 		int nextY = nextTile.getY();
-		if (direction == 'U')
-		{
-			float y = getY() - getSeconds() * speed;
-			if (nextY > y)
-			{
-				setY(nextY);
-				nextTile = null;
-				checkTrap();
-			}
-			else
-				setY(y);
-		}
-		else if (direction == 'L')
-		{
-			float x = getX() - getSeconds() * speed;
-			if (nextX > x)
-			{
-				setX(nextX);
-				nextTile = null;
-				checkTrap();
-			}
-			else
+		
+		for (int k = 0; k < order.length; k++) {
+			if (direction == order[k]) {
+				// compute position
+				float x = getX() + getSeconds() * adjusted_speed * changeX[k];
+				float y = getY() + getSeconds() * adjusted_speed * changeY[k];
+				System.out.println(x + " " + y + " " + direction);
+				
+				// adjust for overshot
+				if (changeX[k] * (nextX - x) < 0)
+					x = nextX;
+				if (changeY[k] * (nextY - y) < 0)
+					y = nextY;
+				
 				setX(x);
-		}
-		else if (direction == 'D')
-		{
-			float y = getY() + getSeconds() * speed;
-			if (nextY < y)
-			{
-				setY(nextY);
-				nextTile = null;
-				checkTrap();
-			}
-			else
 				setY(y);
-		}
-		else if (direction == 'R')
-		{
-			float x = getX() + getSeconds() * speed;
-			if (nextX < x)
-			{
-				setX(nextX);
-				nextTile = null;
-				checkTrap();
+				
+				if (x == nextX && y == nextY) {
+					nextTile = null;
+					checkTrap();
+				}
 			}
-			else
-				setX(x);
 		}
 	}
 	
@@ -164,21 +138,16 @@ public class Sprite extends Entity
 			direction = d;
 			Tile current = currTile();
 			if (direction == 'U' && getGrid().canEnter(current.getIndX(), current.getIndY() - 1))
-			{
 				nextTile = getGrid().getTile(current.getIndX(), current.getIndY() - 1);
-			}
+			
 			else if (direction == 'L' && getGrid().canEnter(current.getIndX() - 1, current.getIndY()))
-			{
 				nextTile = getGrid().getTile(current.getIndX() - 1, current.getIndY());
-			}
+			
 			else if (direction == 'D' && getGrid().canEnter(current.getIndX(), current.getIndY() + 1))
-			{
 				nextTile = getGrid().getTile(current.getIndX(), current.getIndY() + 1);
-			}
+			
 			else if (direction == 'R' && getGrid().canEnter(current.getIndX() + 1, current.getIndY()))
-			{
 				nextTile = getGrid().getTile(current.getIndX() + 1, current.getIndY());
-			}
 		}
 	}
 	
