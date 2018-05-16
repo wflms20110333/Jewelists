@@ -43,7 +43,7 @@ public class UIItem
 		drawQuadTex(texture, rect.x, rect.y, rect.width, rect.height);
 	}
 
-	public void update(long seconds)
+	public void update()
 	{
 		// does nothing as of now, should be overriden
 	}

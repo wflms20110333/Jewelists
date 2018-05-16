@@ -27,8 +27,6 @@ public class Button extends UIItem
 	public Button(String name, Texture texture, Rectangle rect) {
 		super(texture, rect);
 		this.name = name;
-		System.out.println(name + " " + rect);
-		System.out.println(rect.contains(new Point(581, 232)));
 	}
 	
 	public String getName()

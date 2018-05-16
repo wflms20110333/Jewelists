@@ -135,7 +135,7 @@ public class StateManager
 		case GAME:
 			if (game == null)
 				game = new Game();
-			game.update((long) Clock.delta());
+			game.update();
 			break;
 		case EDITOR:
 			if (editor == null)

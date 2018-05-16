@@ -49,10 +49,10 @@ public class UI
 		return null;
 	}
 
-	public void update(long seconds)
+	public void update()
 	{
 		for (UIItem uiItem : uiList)
-			uiItem.update(seconds);
+			uiItem.update();
 	}
 
 	public void draw()

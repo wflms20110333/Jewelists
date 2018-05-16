@@ -61,7 +61,7 @@ public class Game
 		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new Scoreboard(null, new Rectangle((WIDTH - SCOREBOARD_WIDTH) / 2, 
-			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 30000)
+			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 5)
 		);
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();
@@ -75,14 +75,14 @@ public class Game
 		traps = new ArrayList<>();
 	}
 	
-	public void update(long miliseconds)
+	public void update()
 	{
 		grid.draw();
 		monsterSpawner.update();
 		jewelSpawner.update();
 		for (Player player : players)
-			player.update(miliseconds);
-		ui.update(miliseconds);
+			player.update();
+		ui.update();
 		for (int i = traps.size() - 1; i >= 0; i--)
 		{
 			Trap trap = traps.get(i);

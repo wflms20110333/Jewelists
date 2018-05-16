@@ -9,6 +9,7 @@ import static helpers.Artist.*;
 
 import data.Game;
 import data.Player;
+import helpers.Clock;
 
 /**
  * 
@@ -24,12 +25,14 @@ public class Scoreboard extends UIItem
 	{ Color.red, Color.blue, Color.green, Color.yellow };
 	Game game;
 	long time;
+	long lastTime;
 
 	public Scoreboard(Texture texture, Rectangle rect, Game game, long time)
 	{
 		super(texture, rect);
 		this.game = game;
 		this.time = time;
+		this.lastTime = Clock.getSecond();
 	}
 
 	@Override
@@ -55,9 +58,12 @@ public class Scoreboard extends UIItem
 	}
 
 	@Override
-	public void update(long miliseconds)
+	public void update()
 	{
-		time -= miliseconds;
+		time -= Clock.getSecond() - lastTime;
+		lastTime = Clock.getSecond();
 		draw();
+		if (time < 0)
+			game.end();
 	}
 }

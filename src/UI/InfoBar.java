@@ -66,7 +66,7 @@ public class InfoBar extends UIItem
 	}
 
 	@Override
-	public void update(long seconds)
+	public void update()
 	{
 		draw();
 	}

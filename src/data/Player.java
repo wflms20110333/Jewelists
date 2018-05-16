@@ -175,7 +175,7 @@ public class Player
 		return score;
 	}
 
-	public void update(long miliseconds)
+	public void update()
 	{
 		/*
 		 * if (Mouse.isButtonDown(0)) { //setTile(); }
