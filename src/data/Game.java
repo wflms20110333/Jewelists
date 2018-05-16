@@ -29,7 +29,6 @@ public class Game
 	public static final int SCOREBOARD_HEIGHT_TILES = 2;
 	public static final int SCOREBOARD_WIDTH = WIDTH;
 	public static final int SCOREBOARD_HEIGHT = TileGrid.SIZE * SCOREBOARD_HEIGHT_TILES;
-	
 	private TileGrid grid;
 	
 	Spawner monsterSpawner;
@@ -46,8 +45,9 @@ public class Game
 	public Game(TileGrid tg)
 	{
 		grid = tg;
-		Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 5);
-		monsterSpawner = new MonsterSpawner(10, e);
+		Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 100);
+		monsterSpawner = new MonsterSpawner(5, e);
+		
 		int[] keys1 = { Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
 		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
@@ -61,7 +61,7 @@ public class Game
 		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new Scoreboard(null, new Rectangle((WIDTH - SCOREBOARD_WIDTH) / 2, 
-			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 50)
+			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 30)
 		);
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();
@@ -120,6 +120,7 @@ public class Game
 	public void end()
 	{
 		StateManager.setState(StateManager.GameState.MAINMENU);
+		StateManager.game = null;
 	}
 	
 	public void addTrap(Trap trap)

@@ -5,6 +5,8 @@ import static helpers.Clock.*;
 
 import org.newdawn.slick.opengl.Texture;
 
+import helpers.Clock;
+
 /**
  * The Trap class blah blah
  * 
@@ -38,9 +40,9 @@ public class Trap extends Entity
 	private Sprite trappedSprite;
 	
 	/**
-	 * The start second of the current period being checked.
+	 * The time since the trap was planted
 	 */
-	private long startSecond;
+	private long timeSinceStart;
 	
 	/**
 	 * Constructs a Trap.
@@ -52,7 +54,7 @@ public class Trap extends Entity
 	{
 		super(tex, startTile, grid);
 		bufferPassed = false;
-		startSecond = getSecond();
+		timeSinceStart = 0;
 	}
 	
 	/**
@@ -63,16 +65,17 @@ public class Trap extends Entity
 	@Override
 	public void update()
 	{
+		timeSinceStart += Clock.getSeconds();
 		if (!bufferPassed)
 		{
 			draw();
-			if (getSecond() - startSecond == BUFFER)
+			if (timeSinceStart == BUFFER)
 				bufferPassed = true;
 		}
 		if (trappedSprite == null)
 			return;
 		draw();
-		if (getSecond() - startSecond == DURATION)
+		if (timeSinceStart == DURATION)
 		{
 			trappedSprite.toggleTrap();
 			trappedSprite = null;
@@ -98,7 +101,7 @@ public class Trap extends Entity
 	public void setTrappedSprite(Sprite s)
 	{
 		trappedSprite = s;
-		startSecond = getSecond();
+		timeSinceStart = 0;
 	}
 	
 	/**

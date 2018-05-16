@@ -51,6 +51,7 @@ public class Monster extends Entity
 	{
 		super(texture, startTile, grid);
 		this.speed = speed;
+		System.out.println(speed);
 		permutations = new ArrayList<>();
 		genPerms("", "ULDR");
 		randSetNextTile();
@@ -97,7 +98,7 @@ public class Monster extends Entity
 			int nextY = nextTile.getIndY() * TileGrid.SIZE;
 			if (direction == 'U')
 			{
-				float y = getY() - delta() * speed;
+				float y = getY() - getSeconds() * speed;
 				if (nextY > y)
 				{
 					setY(nextY);
@@ -108,7 +109,7 @@ public class Monster extends Entity
 			}
 			else if (direction == 'L')
 			{
-				float x = getX() - delta() * speed;
+				float x = getX() - getSeconds() * speed;
 				if (nextX > x)
 				{
 					setX(nextX);
@@ -119,7 +120,7 @@ public class Monster extends Entity
 			}
 			else if (direction == 'D')
 			{
-				float y = getY() + delta() * speed;
+				float y = getY() + getSeconds() * speed;
 				if (nextY < y)
 				{
 					setY(nextY);
@@ -130,7 +131,7 @@ public class Monster extends Entity
 			}
 			else if (direction == 'R')
 			{
-				float x = getX() + delta() * speed;
+				float x = getX() + getSeconds() * speed;
 				if (nextX < x)
 				{
 					setX(nextX);

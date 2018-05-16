@@ -2,12 +2,14 @@ package data;
 
 import java.util.Random;
 
+import helpers.Clock;
+
 public class AbilityManager {
 	
 	Player player;
 	Ability ability;
 	
-	long durationTick, cooldownTick;
+	double durationTick, cooldownTick;
 	
 	public AbilityManager(Player player) {
 		this(player, Ability.random());
@@ -18,11 +20,21 @@ public class AbilityManager {
 		this.ability = ability;
 	}
 	
-	// MANAGES EACH ABILITY
-	
-	private void activateSpeed() { 
+	public void update() {
+		durationTick += Clock.getSeconds();
 		
 	}
+	
+	// MANAGES EACH ABILITY
+	private void toggleSpeed() {
+		
+	}
+	
+	private void toggleDmgBoost() {
+		
+	}
+	
+	
 	
 	static enum Ability {
 		

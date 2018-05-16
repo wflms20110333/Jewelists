@@ -19,47 +19,25 @@ public class Clock
 	/**
 	 * The time at which {@link #update} was last called.
 	 */
-	private static long lastFrame; // = getTime();
-
-	/**
-	 * The total time that the game has been running.
-	 */
-	private static long totalTime;
-	
-	private static long second;
-
-	/**
-	 * The change in time since {@link #update} was last called.
-	 */
-	private static float d = 0;
+	private static double lastFrame;
+	private static double thisFrame;
 
 	/**
 	 * The speed at which the game is running.
 	 */
-	private static float multiplier = 1;
-
-	/**
-	 * Returns the current time in milliseconds as a long.
-	 * 
-	 * @return the current time in milliseconds as a long
-	 */
-	public static long getTime()
-	{
-		return Sys.getTime() * 1000 / Sys.getTimerResolution();
+	private static double multiplier = 1;
+	
+	
+	public Clock() {
+		lastFrame = getTime();
 	}
 
 	/**
-	 * Returns the change in time since {@link #update} was last called.
-	 * 
-	 * @return the change in time since {@link #update} was last called
+	 * @return the current time in milliseconds as a double
 	 */
-	public static float getDelta()
+	private static double getTime()
 	{
-		long currentTime = getTime();
-		int delta = (int) (currentTime - lastFrame);
-		lastFrame = getTime();
-		// return Math.min(delta * 0.01f, 0.5f);
-		return delta * 0.01f;
+		return 1000.0 * Sys.getTime() / Sys.getTimerResolution();
 	}
 
 	/**
@@ -67,46 +45,14 @@ public class Clock
 	 */
 	public static void update()
 	{
-		d = getDelta();
-		totalTime += (int) (d * 100);
-		long newSecond = totalTime / 1000;
-		if (newSecond != second)
-		{
-			second = newSecond;
-			// call ur method COLLIN
-		}
-	}
-
-	/**
-	 * Returns the change in time since {@link #update} was last called, 0 if
-	 * the game is paused.
-	 * 
-	 * @return the change in time since {@link #update} was last called, 0 if
-	 *         the game is paused
-	 */
-	public static float delta()
-	{
-		if (paused)
-			return 0;
-		else
-			return d * multiplier;
+		lastFrame = thisFrame;
+		thisFrame = getTime();
 	}
 	
 	/**
-	 * Returns the total time that the game has been running.
-	 * @return the total time that the game has been running
-	 */
-	public static float getTotalTime()
-	{
-		return totalTime;
-		
-	}
-	
-	/**
-	 * Returns the speed at which the game is running.
 	 * @return the speed at which the game is running
 	 */
-	public static float getMultiplier()
+	public static double getMultiplier()
 	{
 		return multiplier;
 	}
@@ -121,25 +67,16 @@ public class Clock
 			multiplier += change;
 	}
 	
-	/**
-	 * Pauses the game if it is running, unpauses the game if it is paused.
-	 */
 	public static void togglePause()
 	{
 		paused = !paused;
 	}
 	
-	/**
-	 * Resets total time.
-	 */
-	public static void resetTime()
-	{
-		totalTime = 0;
-		second = 0;
+	public static float getSeconds() {
+		return (float) (getMiliseconds() / 1000.0);
 	}
 	
-	public static long getSecond()
-	{
-		return second;
+	public static float getMiliseconds() {
+		return (float) (multiplier * (thisFrame - lastFrame));
 	}
 }

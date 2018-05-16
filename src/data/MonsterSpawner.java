@@ -8,6 +8,8 @@ package data;
 
 public class MonsterSpawner extends Spawner
 {
+	public static final float MONSTER_DEFAULT_SPEED = 100;
+	
 	/**
 	 * The maximum number of monsters allowed on the grid.
 	 */
@@ -21,7 +23,7 @@ public class MonsterSpawner extends Spawner
 	/**
 	 * Constructs a MonsterSpawner.
 	 * 
-	 * @param spawnTime the time interval between spawns
+	 * @param spawnTime the number of seconds between spawns
 	 * @param entityType the template entity for spawning
 	 */
 	public MonsterSpawner(float spawnTime, Entity entityType)
@@ -31,8 +33,6 @@ public class MonsterSpawner extends Spawner
 	}
 	
 	/**
-	 * Returns the template entity for spawning.
-	 * 
 	 * @return the template entity for spawning
 	 */
 	public Entity getEntityType()
@@ -50,6 +50,6 @@ public class MonsterSpawner extends Spawner
 			return;
 		Tile tile = getGrid().randEmptyTile();
 		if (tile != null)
-			add(new Monster(getEntityType().getTexture(), tile, getGrid(), ((Monster) getEntityType()).getSpeed()));
+			add(new Monster(getEntityType().getTexture(), tile, getGrid(), MONSTER_DEFAULT_SPEED));
 	}
 }

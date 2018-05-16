@@ -24,15 +24,13 @@ public class Scoreboard extends UIItem
 	public static final Color[] colors = new Color[]
 	{ Color.red, Color.blue, Color.green, Color.yellow };
 	Game game;
-	long time;
-	long lastTime;
+	double time;
 
 	public Scoreboard(Texture texture, Rectangle rect, Game game, long time)
 	{
 		super(texture, rect);
 		this.game = game;
 		this.time = time;
-		this.lastTime = Clock.getSecond();
 	}
 
 	@Override
@@ -40,7 +38,7 @@ public class Scoreboard extends UIItem
 	{
 		Rectangle rect = getRect();
 		drawQuad(rect, Color.black);
-		drawString(rect.x, rect.y, "Time: " + time, Color.white);
+		drawString(rect.x, rect.y, "Time: " + (int) time, Color.white);
 
 		long sum = 0;
 		for (Player player : game.getPlayers())
@@ -60,8 +58,7 @@ public class Scoreboard extends UIItem
 	@Override
 	public void update()
 	{
-		time -= Clock.getSecond() - lastTime;
-		lastTime = Clock.getSecond();
+		time -= Clock.getSeconds();
 		draw();
 		if (time < 0)
 			game.end();

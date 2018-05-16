@@ -1,8 +1,10 @@
 package data;
 
-import static helpers.Clock.delta;
+import static helpers.Clock.getSeconds;
 
 import org.newdawn.slick.opengl.Texture;
+
+import helpers.Clock;
 
 /**
  * The Sprite class blah blah
@@ -13,7 +15,7 @@ import org.newdawn.slick.opengl.Texture;
 public class Sprite extends Entity
 {
 	
-	public static final int DEFAULT_SPEED = 10;
+	public static final int DEFAULT_SPEED = 100;
 	
 	/**
 	 * The player that the Sprite belongs to.
@@ -71,10 +73,12 @@ public class Sprite extends Entity
 			return;
 		
 		// collect jewels
-		Tile[] check = new Tile[3];
+		Tile[] check = new Tile[5];
 		check[0] = currTile();
 		check[1] = getGrid().right(check[0]);
 		check[2] = getGrid().down(check[0]);
+		check[3] = getGrid().left(check[0]);
+		check[4] = getGrid().up(check[0]);
 		for (int i = 0; i < check.length; i++)
 		{
 			Tile t = check[i];
@@ -86,9 +90,7 @@ public class Sprite extends Entity
 			if (e == null)
 				continue;
 			if (e instanceof Jewel)
-			{
 				player.collect((Jewel) e);
-			}
 		}
 		
 		// move
@@ -98,7 +100,7 @@ public class Sprite extends Entity
 		int nextY = nextTile.getY();
 		if (direction == 'U')
 		{
-			float y = getY() - delta() * speed;
+			float y = getY() - getSeconds() * speed;
 			if (nextY > y)
 			{
 				setY(nextY);
@@ -110,7 +112,7 @@ public class Sprite extends Entity
 		}
 		else if (direction == 'L')
 		{
-			float x = getX() - delta() * speed;
+			float x = getX() - getSeconds() * speed;
 			if (nextX > x)
 			{
 				setX(nextX);
@@ -122,7 +124,7 @@ public class Sprite extends Entity
 		}
 		else if (direction == 'D')
 		{
-			float y = getY() + delta() * speed;
+			float y = getY() + getSeconds() * speed;
 			if (nextY < y)
 			{
 				setY(nextY);
@@ -134,7 +136,7 @@ public class Sprite extends Entity
 		}
 		else if (direction == 'R')
 		{
-			float x = getX() + delta() * speed;
+			float x = getX() + getSeconds() * speed;
 			if (nextX < x)
 			{
 				setX(nextX);

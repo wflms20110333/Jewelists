@@ -42,29 +42,12 @@ public class Player
 	 */
 	private int[] keys = new int[9];
 	
-	/**
-	 * The maximum health of the Player.
-	 */
 	private int maxhealth;
-	
-	/**
-	 * The health of the Player.
-	 */
 	private int health;
-	
-	/**
-	 * The sprite of the Player.
-	 */
 	private Sprite sprite;
 	
-	/**
-	 * The total number of jewels the Player possesses.
-	 */
 	private int jewels;
 	
-	/**
-	 * The score of the Player.
-	 */
 	private long score;
 	
 	//private Queue<Deposit> deposits;
@@ -95,19 +78,9 @@ public class Player
 		health = maxhealth = DEFAULT_HEALTH;
 		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
-		/*
-		deposits = new LinkedList<Deposit>();
-		currentDeposit = new Deposit(quickLoad(thisDeposit.textureName), tile, grid);
-		deposits.add(currentDeposit);
-		grid.setTile(tile.getIndX(), tile.getIndY(), thisDeposit);
-		grid.setEntity(tile.getIndX(), tile.getIndY(), currentDeposit);
-		otherPlayerDeposit = otherDeposit;
-		*/
 	}
 	
 	/**
-	 * Returns the sprite of the player.
-	 * 
 	 * @return the sprite of the player
 	 */
 	public Sprite getSprite()
@@ -116,8 +89,6 @@ public class Player
 	}
 	
 	/**
-	 * Returns the health percentage of the player.
-	 * 
 	 * @return the health percentage of the player
 	 */
 	public float getPercent()
@@ -126,8 +97,6 @@ public class Player
 	}
 	
 	/**
-	 * Returns the health of the player.
-	 * 
 	 * @return the health of the player
 	 */
 	public int getHealth()
@@ -136,8 +105,6 @@ public class Player
 	}
 	
 	/**
-	 * Sets the health of the player.
-	 * 
 	 * @param health the new health of the player
 	 */
 	public void sethealth(int health)
@@ -146,8 +113,6 @@ public class Player
 	}
 	
 	/**
-	 * Returns the maximum health of the player.
-	 * 
 	 * @return the maximum health of the player
 	 */
 	public int getMaxhealth()
@@ -156,8 +121,6 @@ public class Player
 	}
 	
 	/**
-	 * Sets the maximum health of the player.
-	 * 
 	 * @param maxhealth the new maximum health of the player
 	 */
 	public void setMaxhealth(int maxhealth)
@@ -166,21 +129,19 @@ public class Player
 	}
 	
 	/**
-	 * Returns the score of the player.
-	 * 
 	 * @return the score of the player
 	 */
 	public long getScore()
 	{
 		return score;
 	}
+	
+	public void setScore(long score) {
+		this.score = score;
+	}
 
 	public void update()
 	{
-		/*
-		 * if (Mouse.isButtonDown(0)) { //setTile(); }
-		 */
-		// while (Keyboard.next()) {
 		Keyboard.next();
 		
 		char[] updates = new char[] {'U', 'L', 'D', 'R'};
@@ -244,12 +205,6 @@ public class Player
 			
 		}
 		
-		/*
-		for (Deposit d : deposits) {
-			//d.update();
-			d.draw();
-		}
-		*/
 		sprite.update();
 		sprite.draw();
 	}
@@ -259,11 +214,6 @@ public class Player
 		// graphics of attacking??
 		if (tile.getType() == TileType.Wall && spendJewels(DESTROY_WALL_COST))
 			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
-		/*
-		if (tile.getType() == otherPlayerDeposit) {
-			Deposit o = (Deposit) grid.getEntity(tile);
-		}
-		*/
 	}
 	
 	/**
@@ -279,27 +229,6 @@ public class Player
 		if (jewels < count)
 			return false;
 		jewels -= count;
-		/*
-		while (count > 0)
-		{
-			Deposit d = deposits.peek();
-			if (d.getNumJewels() <= count)
-			{
-				count -= d.getNumJewels();
-				if (deposits.size() > 1)
-				{
-					deposits.poll();
-					grid.setTile(d.currTile(), TileType.Cave);
-					grid.removeEntity(d.currTile());
-				}
-			}
-			else
-			{
-				d.remove(count);
-				count = 0;
-			}
-		}
-		*/
 		return true;
 	}
 	
@@ -322,7 +251,6 @@ public class Player
 	{
 		if (j.exists())
 		{
-			//currentDeposit.add(j.getValue());
 			jewels += j.getValue();
 			j.remove();
 		}
@@ -348,7 +276,5 @@ public class Player
 	{
 		grid = tg;
 		sprite.setGrid(tg);
-		//for (Deposit d : deposits)
-			//d.setGrid(tg);
 	}
 }
