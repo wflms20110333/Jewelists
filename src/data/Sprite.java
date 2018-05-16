@@ -79,12 +79,14 @@ public class Sprite extends Entity
 		check[2] = getGrid().down(check[0]);
 		check[3] = getGrid().left(check[0]);
 		check[4] = getGrid().up(check[0]);
+		
 		for (int i = 0; i < check.length; i++)
 		{
 			Tile t = check[i];
 			if (t == null)
 				continue;
-			if (i != 0 && !in(t))
+			// hey magnet allows u to collect multiple
+			if (i != 0 && !in(t) && !player.hasStatus(Status.MAGNET))
 				continue;
 			Entity e = getGrid().getEntity(t);
 			if (e == null)
@@ -190,10 +192,8 @@ public class Sprite extends Entity
 		if (e instanceof Trap && getX() == e.getX() && getY() == e.getY())
 		{
 			Trap trap = (Trap) e;
-			if (!trap.getBufferPassed() || trap.activated())
-				return;
-			trapped = true;
-			trap.setTrappedSprite(this);
+			if (trap.getBufferPassed() && !trap.activated())
+				trap.setTrappedSprite(this);
 		}
 	}
 	
@@ -218,11 +218,7 @@ public class Sprite extends Entity
 		return tx < oX && tX > ox && ty < oY && tY > oY;
 	}
 	
-	/**
-	 * If the sprite is currently trapped, it becomes free, and vice versa.
-	 */
-	public void toggleTrap()
-	{
-		trapped =  !trapped;
+	public Player getPlayer() {
+		return player;
 	}
 }

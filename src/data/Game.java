@@ -46,7 +46,7 @@ public class Game
 	{
 		grid = tg;
 		Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 100);
-		monsterSpawner = new MonsterSpawner(5, e);
+		monsterSpawner = new MonsterSpawner(3, e);
 		
 		int[] keys1 = { Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
@@ -61,7 +61,7 @@ public class Game
 		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new Scoreboard(null, new Rectangle((WIDTH - SCOREBOARD_WIDTH) / 2, 
-			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 30)
+			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 30000)
 		);
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();
@@ -71,7 +71,7 @@ public class Game
 		jewelList.add(new Jewel(quickLoad("jewel_purple"), grid.getTile(6, 7), grid, 4));
 		jewelList.add(new Jewel(quickLoad("jewel_yellow"), grid.getTile(6, 7), grid, 5));
 		
-		jewelSpawner = new JewelSpawner(10, grid, jewelList);
+		jewelSpawner = new JewelSpawner(3, grid, jewelList);
 		traps = new ArrayList<>();
 	}
 	

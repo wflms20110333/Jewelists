@@ -51,7 +51,6 @@ public class Monster extends Entity
 	{
 		super(texture, startTile, grid);
 		this.speed = speed;
-		System.out.println(speed);
 		permutations = new ArrayList<>();
 		genPerms("", "ULDR");
 		randSetNextTile();

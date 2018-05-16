@@ -30,11 +30,6 @@ public class Trap extends Entity
 	private static Texture tex = quickLoad("trap");
 	
 	/**
-	 * Whether the buffer period has passed.
-	 */
-	private boolean bufferPassed;
-	
-	/**
 	 * The sprite trapped in the Trap.
 	 */
 	private Sprite trappedSprite;
@@ -42,7 +37,7 @@ public class Trap extends Entity
 	/**
 	 * The time since the trap was planted
 	 */
-	private long timeSinceStart;
+	private double timeSinceStart;
 	
 	/**
 	 * Constructs a Trap.
@@ -53,7 +48,6 @@ public class Trap extends Entity
 	public Trap(Tile startTile, TileGrid grid)
 	{
 		super(tex, startTile, grid);
-		bufferPassed = false;
 		timeSinceStart = 0;
 	}
 	
@@ -66,26 +60,20 @@ public class Trap extends Entity
 	public void update()
 	{
 		timeSinceStart += Clock.getSeconds();
-		if (!bufferPassed)
-		{
+		if (timeSinceStart < BUFFER)
 			draw();
-			if (timeSinceStart == BUFFER)
-				bufferPassed = true;
-		}
 		if (trappedSprite == null)
 			return;
 		draw();
-		if (timeSinceStart == DURATION)
+		if (timeSinceStart >= DURATION)
 		{
-			trappedSprite.toggleTrap();
+			trappedSprite.getPlayer().removeStatus(Status.STUN);
 			trappedSprite = null;
 			remove();
 		}
 	}
 	
 	/**
-	 * Returns whether the trap has been activated.
-	 * 
 	 * @return whether the trap has been activated
 	 */
 	public boolean activated()
@@ -102,6 +90,7 @@ public class Trap extends Entity
 	{
 		trappedSprite = s;
 		timeSinceStart = 0;
+		trappedSprite.getPlayer().addStatus(Status.STUN);
 	}
 	
 	/**
@@ -111,6 +100,6 @@ public class Trap extends Entity
 	 */
 	public boolean getBufferPassed()
 	{
-		return bufferPassed;
+		return timeSinceStart >= BUFFER;
 	}
 }

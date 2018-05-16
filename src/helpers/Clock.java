@@ -25,7 +25,7 @@ public class Clock
 	/**
 	 * The speed at which the game is running.
 	 */
-	private static double multiplier = 1;
+	private static double multiplier = 3;
 	
 	
 	public Clock() {

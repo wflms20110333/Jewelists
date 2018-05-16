@@ -1,5 +1,8 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.opengl.Texture;
 
@@ -22,19 +25,10 @@ public class Player
 	private static final int WALL_COST = 2;
 	private static final int DESTROY_WALL_COST = 5;
 	
-	/**
-	 * The cost to build a trap.
-	 */
 	private static final int TRAP_COST = 4;
 	
-	/**
-	 * The game that the Player interacts with.
-	 */
 	private Game game;
 	
-	/**
-	 * The grid of the game that the Player interacts with.
-	 */
 	private TileGrid grid;
 	
 	/**
@@ -45,10 +39,11 @@ public class Player
 	private int maxhealth;
 	private int health;
 	private Sprite sprite;
-	
 	private int jewels;
-	
 	private long score;
+	
+	private List<Status> status;
+	
 	
 	//private Queue<Deposit> deposits;
 	
@@ -78,6 +73,7 @@ public class Player
 		health = maxhealth = DEFAULT_HEALTH;
 		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
+		status = new ArrayList<Status>();
 	}
 	
 	/**
@@ -128,6 +124,19 @@ public class Player
 		this.maxhealth = maxhealth;
 	}
 	
+	
+	public void addStatus(Status effect) {
+		status.add(effect);
+	}
+	
+	public void removeStatus(Status effect) {
+		status.remove(effect);
+	}
+	
+	public boolean hasStatus(Status effect) {
+		return status.contains(effect);
+	}
+	
 	/**
 	 * @return the score of the player
 	 */
@@ -146,9 +155,10 @@ public class Player
 		
 		char[] updates = new char[] {'U', 'L', 'D', 'R'};
 		
-		for (int i = 0; i < updates.length; i++)
-			if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
-				sprite.updatePath(updates[i]);
+		if (!hasStatus(Status.STUN))
+			for (int i = 0; i < updates.length; i++)
+				if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
+					sprite.updatePath(updates[i]);
 		
 		// shift
 		if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())

@@ -2,6 +2,9 @@ package data;
 
 import static helpers.Artist.drawQuadTex;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -24,6 +27,8 @@ public abstract class Entity
 	 */
 	private int width;
 	private int height;
+	
+	private List<Status> status;
 	
 	/**
 	 * The texture of the Entity.
@@ -55,6 +60,7 @@ public abstract class Entity
 		this.width = TileGrid.SIZE;
 		this.height = TileGrid.SIZE;
 		this.grid = grid;
+		status = new ArrayList<Status>();
 	}
 	
 	/**
@@ -187,4 +193,16 @@ public abstract class Entity
 	 * Updates the state of the entity.
 	 */
 	public abstract void update();
+	
+	public void addStatus(Status effect) {
+		status.add(effect);
+	}
+	
+	public void removeStatus(Status effect) {
+		status.remove(effect);
+	}
+	
+	public boolean hasStatus(Status effect) {
+		return status.contains(effect);
+	}
 }
