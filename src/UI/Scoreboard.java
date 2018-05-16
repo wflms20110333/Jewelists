@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
+import org.omg.PortableServer.POAManagerOperations;
 import org.w3c.dom.css.Rect;
 
 import static helpers.Artist.*;
@@ -11,7 +12,6 @@ import static helpers.Artist.*;
 import data.Game;
 import data.Player;
 
-<<<<<<< HEAD
 /**
  * 
  * OR YOU CAN JUST CHANCE IT YOU KNOW. AS LONG AS YOU MAKE A GOOD GAME
@@ -43,7 +43,9 @@ public class Scoreboard extends UIItem {
 		int x = rect.x;
 		
 		for (Player player : game.getPlayers()) {
-			drawQuad(rect, Color.);
+			int portion = (int) ((double) player.getScore() / sum * rect.width);
+			drawQuad(x, rect.y, portion, rect.height, Color.white);
+			x += portion;
 		}
 	}
 	
@@ -52,23 +54,4 @@ public class Scoreboard extends UIItem {
 		// prob make it more efficient
 		draw();
 	}
-=======
-public class Scoreboard extends UIItem
-{
-
-	Player[] players;
-
-	public Scoreboard(Texture texture, Rectangle rect)
-	{
-		super(texture, rect);
-
-	}
-
-	@Override
-	public void draw()
-	{
-
-	}
-
->>>>>>> 2509da0a66e0a5983c54a821475dc34454994bf0
 }
