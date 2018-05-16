@@ -1,7 +1,6 @@
 package data;
 
-import static helpers.Artist.quickLoad;
-import static helpers.Artist.drawString;
+import static helpers.Artist.*;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.util.ArrayList;
@@ -12,8 +11,6 @@ import org.newdawn.slick.Color;
 import UI.InfoBar;
 import UI.UI;
 
-import helpers.KeyboardHelper;
-
 /**
  * The Game class represents the actual gameplay of the game.
  * 
@@ -21,6 +18,9 @@ import helpers.KeyboardHelper;
  */
 public class Game
 {
+	public static final int INFO_BAR_WIDTH = TileGrid.SIZE * 6;
+	public static final int INFO_BAR_HEIGHT = TileGrid.SIZE * 2;
+	
 	private TileGrid grid;
 	
 	Spawner monsterSpawner;
@@ -55,8 +55,8 @@ public class Game
 		};
 		
 		ui = new UI();
-		ui.addItem(new InfoBar(players[0], null, 0, 0, 200, 80));
-		ui.addItem(new InfoBar(players[1], null, 0, 100, 200, 80));
+		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
+		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 
 		ArrayList<Entity> jewelList = new ArrayList<>();
 		jewelList.add(new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1));
