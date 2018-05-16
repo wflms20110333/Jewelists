@@ -85,6 +85,10 @@ public abstract class Spawner
 		entityList.add(e);
 	}
 	
+	public void remove(Entity e) {
+		entityList.remove(e);
+	}
+	
 	/**
 	 * Returns the tile grid in which spawns take place.
 	 * 

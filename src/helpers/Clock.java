@@ -108,20 +108,14 @@ public class Clock
 	 */
 	public static void changeMultiplier(float change)
 	{
-		if (multiplier + change < 0 || multiplier + change > 7)
-		{
-
-		}
-		else
-		{
+		if (multiplier + change >= 0 && multiplier + change <= 7)
 			multiplier += change;
-		}
 	}
 	
 	/**
 	 * Pauses the game if it is running, unpauses the game if it is paused.
 	 */
-	public static void pause()
+	public static void toggle_pause()
 	{
 		paused = !paused;
 	}

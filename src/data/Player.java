@@ -1,13 +1,12 @@
 package data;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.newdawn.slick.opengl.Texture;
+import static helpers.Artist.quickLoad;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import static helpers.Artist.*;
+import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.opengl.Texture;
 
 /**
  * The Player class blah blah
@@ -19,6 +18,7 @@ public class Player
 	/**
 	 * The costs to build and destroy a wall.
 	 */
+	private static final int DEFAULT_HEALTH = 10;
 	private static final int WALL_COST = 2;
 	private static final int DESTROY_WALL_COST = 5;
 	
@@ -32,19 +32,14 @@ public class Player
 	 */
 	private int[] keys = new int[9];
 	
-	/**
-	 * The sprite of the Player.
-	 */
 	private Sprite sprite;
 	
 	/**
 	 * The total number of jewels the Player possesses.
 	 */
 	private int totalJewels;
+	private int health, maxhealth;
 	
-	/**
-	 * The deposits of the Player.
-	 */
 	private Queue<Deposit> deposits;
 	
 	private Deposit currentDeposit;
@@ -53,6 +48,8 @@ public class Player
 	 * The tile type of the opposing Player's deposits.
 	 */
 	private TileType otherPlayerDeposit;
+	
+	
 	
 	/**
 	 * Constructs a Player.
@@ -68,6 +65,8 @@ public class Player
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
 		Tile tile = grid.randEmptyTile();
+		health = maxhealth = DEFAULT_HEALTH;
+		health /= 2;
 		sprite = new Sprite(texture, tile, grid, 10, this);
 		totalJewels = 0;
 		deposits = new LinkedList<Deposit>();
@@ -76,6 +75,30 @@ public class Player
 		grid.setTile(tile.getIndX(), tile.getIndY(), thisDeposit);
 		grid.setEntity(tile.getIndX(), tile.getIndY(), currentDeposit);
 		otherPlayerDeposit = otherDeposit;
+	}
+	
+	public Sprite getSprite() {
+		return sprite;
+	}
+
+	public float getPercent() {
+		return (float) health / maxhealth;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+
+	public void sethealth(int health) {
+		this.health = health;
+	}
+
+	public int getMaxhealth() {
+		return maxhealth;
+	}
+
+	public void setMaxhealth(int maxhealth) {
+		this.maxhealth = maxhealth;
 	}
 
 	public void update()
@@ -86,22 +109,12 @@ public class Player
 		// while (Keyboard.next()) {
 		Keyboard.next();
 		
-		if (Keyboard.isKeyDown(keys[0]) && Keyboard.getEventKeyState())
-		{
-			sprite.updatePath('U');
-		}
-		else if (Keyboard.isKeyDown(keys[1]) && Keyboard.getEventKeyState())
-		{
-			sprite.updatePath('L');
-		}
-		else if (Keyboard.isKeyDown(keys[2]) && Keyboard.getEventKeyState())
-		{
-			sprite.updatePath('D');
-		}
-		else if (Keyboard.isKeyDown(keys[3]) && Keyboard.getEventKeyState())
-		{
-			sprite.updatePath('R');
-		}
+		char[] updates = new char[] {'U', 'L', 'D', 'R'};
+		
+		for (int i = 0; i < updates.length; i++)
+			if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
+				sprite.updatePath(updates[i]);
+		
 		// shift
 		if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
 		{
@@ -165,10 +178,10 @@ public class Player
 		// graphics of attacking??
 		if (tile.getType() == TileType.Wall && spendJewels(DESTROY_WALL_COST))
 			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
-		if (tile.getType() == otherPlayerDeposit)
-		{
+		if (tile.getType() == otherPlayerDeposit) {
 			Deposit o = (Deposit) grid.getEntity(tile);
 		}
+		
 	}
 	
 	/**
@@ -206,6 +219,14 @@ public class Player
 		return true;
 	}
 	
+	public int getTotalJewels() {
+		return totalJewels;
+	}
+
+	public void setTotalJewels(int totalJewels) {
+		this.totalJewels = totalJewels;
+	}
+
 	/**
 	 * Collects a jewel.
 	 * 

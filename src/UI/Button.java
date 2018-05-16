@@ -1,34 +1,34 @@
 package UI;
 
+import java.awt.Point;
+import java.awt.Rectangle;
+
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
-public class Button
+import helpers.Artist;
+
+public class Button extends UIItem
 {
+	public static int LEFT_MOUSE = 0;
+	
 	private String name;
-	private Texture texture;
-	private int x;
-	private int y;
-	private int width;
-	private int height;
 	
 	public Button(String name, Texture texture, int x, int y, int width, int height)
 	{
-		this.name = name;
-		this.texture = texture;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		this(name, texture, new Rectangle(x, y, width, height));
 	}
 	
 	public Button(String name, Texture texture, int x, int y)
 	{
+		this(name, texture, new Rectangle(x, y, texture.getImageWidth(), texture.getImageHeight()));
+	}
+	
+	public Button(String name, Texture texture, Rectangle rect) {
+		super(texture, rect);
 		this.name = name;
-		this.texture = texture;
-		this.x = x;
-		this.y = y;
-		this.width = texture.getImageWidth();
-		this.height = texture.getImageHeight();
+		System.out.println(name + " " + rect);
+		System.out.println(rect.contains(new Point(581, 232)));
 	}
 	
 	public String getName()
@@ -40,54 +40,15 @@ public class Button
 	{
 		this.name = name;
 	}
-
-	public Texture getTexture()
-	{
-		return texture;
+	
+	public boolean isClicked() {
+		return Mouse.isButtonDown(LEFT_MOUSE) && super.getRect().contains(
+			Mouse.getX(), Artist.HEIGHT - Mouse.getY() - 1
+		);
 	}
-
-	public void setTexture(Texture texture)
-	{
-		this.texture = texture;
-	}
-
-	public int getX()
-	{
-		return x;
-	}
-
-	public void setX(int x)
-	{
-		this.x = x;
-	}
-
-	public int getY()
-	{
-		return y;
-	}
-
-	public void setY(int y)
-	{
-		this.y = y;
-	}
-
-	public int getWidth()
-	{
-		return width;
-	}
-
-	public void setWidth(int width)
-	{
-		this.width = width;
-	}
-
-	public int getHeight()
-	{
-		return height;
-	}
-
-	public void setHeight(int height)
-	{
-		this.height = height;
+	
+	@Override
+	public String toString() {
+		return "Button: " + name + " " + getRect();
 	}
 }

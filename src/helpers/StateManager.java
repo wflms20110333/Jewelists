@@ -1,10 +1,10 @@
 package helpers;
 
+import data.Editor;
+import data.Game;
 import data.MainMenu;
 import data.Settings;
 import data.TileGrid;
-import data.Game;
-import data.Editor;
 
 /**
  * The StateManager class manages the state of the game blah blah
@@ -184,10 +184,7 @@ public class StateManager
 	 */
 	public static void setKeys(int playerNumber, int index, int key)
 	{
-		if (playerNumber == 1)
-			game.setPlayer1Keys(index, key);
-		if (playerNumber == 2)
-			game.setPlayer2Keys(index, key);
+		game.setPlayerKeys(playerNumber, index, key);
 	}
 	
 	/**
