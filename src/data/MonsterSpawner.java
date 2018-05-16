@@ -9,6 +9,11 @@ package data;
 public class MonsterSpawner extends Spawner
 {
 	/**
+	 * The maximum number of monsters allowed on the grid.
+	 */
+	private static final int MAX = 10;
+	
+	/**
 	 * The template entity for spawning.
 	 */
 	private Entity entityType;
@@ -41,6 +46,8 @@ public class MonsterSpawner extends Spawner
 	@Override
 	public void spawn()
 	{
+		if (getNumSpawned() == MAX)
+			return;
 		Tile tile = getGrid().randEmptyTile();
 		if (tile != null)
 			add(new Monster(getEntityType().getTexture(), tile, getGrid(), ((Monster) getEntityType()).getSpeed()));

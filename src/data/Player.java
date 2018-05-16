@@ -16,10 +16,15 @@ import org.newdawn.slick.opengl.Texture;
 public class Player
 {
 	/**
-	 * The cost to destroy a wall.
+	 * The costs to build and destroy a wall.
 	 */
+<<<<<<< HEAD
 	private static final int DESTROY_WALL_COST = 2;
 	private static final int DEFAULT_HEALTH = 10;
+=======
+	private static final int WALL_COST = 2;
+	private static final int DESTROY_WALL_COST = 5;
+>>>>>>> master
 	
 	/**
 	 * The grid of the game that the Player interacts with.
@@ -33,6 +38,12 @@ public class Player
 	
 	private Sprite sprite;
 	
+<<<<<<< HEAD
+=======
+	/**
+	 * The total number of jewels the Player possesses.
+	 */
+>>>>>>> master
 	private int totalJewels;
 	private int health, maxhealth;
 	
@@ -71,6 +82,7 @@ public class Player
 		grid.setTile(tile.getIndX(), tile.getIndY(), thisDeposit);
 		grid.setEntity(tile.getIndX(), tile.getIndY(), currentDeposit);
 		otherPlayerDeposit = otherDeposit;
+<<<<<<< HEAD
 	}
 	
 	public Sprite getSprite() {
@@ -95,6 +107,8 @@ public class Player
 
 	public void setMaxhealth(int maxhealth) {
 		this.maxhealth = maxhealth;
+=======
+>>>>>>> master
 	}
 
 	public void update()
@@ -105,12 +119,31 @@ public class Player
 		// while (Keyboard.next()) {
 		Keyboard.next();
 		
+<<<<<<< HEAD
 		char[] updates = new char[] {'U', 'L', 'D', 'R'};
 		
 		for (int i = 0; i < updates.length; i++)
 			if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
 				sprite.updatePath(updates[i]);
 		
+=======
+		if (Keyboard.isKeyDown(keys[0]) && Keyboard.getEventKeyState())
+		{
+			sprite.updatePath('U');
+		}
+		else if (Keyboard.isKeyDown(keys[1]) && Keyboard.getEventKeyState())
+		{
+			sprite.updatePath('L');
+		}
+		else if (Keyboard.isKeyDown(keys[2]) && Keyboard.getEventKeyState())
+		{
+			sprite.updatePath('D');
+		}
+		else if (Keyboard.isKeyDown(keys[3]) && Keyboard.getEventKeyState())
+		{
+			sprite.updatePath('R');
+		}
+>>>>>>> master
 		// shift
 		if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
 		{
@@ -147,7 +180,7 @@ public class Player
 		if (Keyboard.isKeyDown(keys[6]) && Keyboard.getEventKeyState())
 		{
 			Tile tile = sprite.currTile();
-			if (tile.getType() == TileType.Cave) // && spendJewels(WALL_COST))
+			if (tile.getType() == TileType.Cave && spendJewels(WALL_COST))
 				grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Wall);
 		}
 		if (Keyboard.isKeyDown(keys[7]) && Keyboard.getEventKeyState())
@@ -159,10 +192,12 @@ public class Player
 			// trap
 		}
 		
+		/*
 		for (Deposit d : deposits) {
 			//d.update();
 			d.draw();
 		}
+		*/
 		sprite.update();
 		sprite.draw();
 	}
@@ -172,7 +207,12 @@ public class Player
 		// graphics of attacking??
 		if (tile.getType() == TileType.Wall && spendJewels(DESTROY_WALL_COST))
 			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
+<<<<<<< HEAD
 		if (tile.getType() == otherPlayerDeposit) {
+=======
+		if (tile.getType() == otherPlayerDeposit)
+		{
+>>>>>>> master
 			Deposit o = (Deposit) grid.getEntity(tile);
 		}
 		
