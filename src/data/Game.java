@@ -23,8 +23,6 @@ public class Game
 {
 	private TileGrid grid;
 	
-	//Spawner monsterSpawner;
-	
 	Spawner monsterSpawner;
 	Spawner jewelSpawner;
 	Player[] players;
@@ -58,6 +56,7 @@ public class Game
 		
 		ui = new UI();
 		ui.addItem(new InfoBar(players[0], null, 0, 0, 200, 80));
+		ui.addItem(new InfoBar(players[1], null, 0, 100, 200, 80));
 
 		ArrayList<Entity> jewelList = new ArrayList<>();
 		jewelList.add(new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1));
