@@ -2,8 +2,10 @@ package helpers;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -13,6 +15,9 @@ import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
+
+import data.TileGrid;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -24,11 +29,13 @@ import org.newdawn.slick.TrueTypeFont;
 
 public class Artist
 {
+	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	/**
 	 * The width and height of the window that displays the game.
 	 */
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 736; //960
+	public static final int WIDTH = (int) (screenSize.getWidth() / TileGrid.SIZE) * TileGrid.SIZE; //1280;
+	public static final int HEIGHT = (int) (screenSize.getHeight() / TileGrid.SIZE - 2) * TileGrid.SIZE; //736; //960
 	
 	public static final Color DEFAULT_COLOR = Color.black;
 	public static final Color MASTER_COLOR = Color.white;

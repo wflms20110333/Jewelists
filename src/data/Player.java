@@ -38,7 +38,9 @@ public class Player
 	 * The total number of jewels the Player possesses.
 	 */
 	private int totalJewels;
+	
 	private int health, maxhealth;
+	
 	private long score;
 	
 	//private Queue<Deposit> deposits;
@@ -80,31 +82,38 @@ public class Player
 		*/
 	}
 	
-	public Sprite getSprite() {
+	public Sprite getSprite()
+	{
 		return sprite;
 	}
 
-	public float getPercent() {
+	public float getPercent()
+	{
 		return (float) health / maxhealth;
 	}
 	
-	public int getHealth() {
+	public int getHealth()
+	{
 		return health;
 	}
 
-	public void sethealth(int health) {
+	public void sethealth(int health)
+	{
 		this.health = health;
 	}
 
-	public int getMaxhealth() {
+	public int getMaxhealth()
+	{
 		return maxhealth;
 	}
 
-	public void setMaxhealth(int maxhealth) {
+	public void setMaxhealth(int maxhealth)
+	{
 		this.maxhealth = maxhealth;
 	}
 	
-	public long getScore() {
+	public long getScore()
+	{
 		return score;
 	}
 
@@ -229,11 +238,13 @@ public class Player
 		return true;
 	}
 	
-	public int getTotalJewels() {
+	public int getTotalJewels()
+	{
 		return totalJewels;
 	}
 
-	public void setTotalJewels(int totalJewels) {
+	public void setTotalJewels(int totalJewels)
+	{
 		this.totalJewels = totalJewels;
 	}
 
