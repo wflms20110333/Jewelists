@@ -25,6 +25,8 @@ public class Clock
 	 * The total time that the game has been running.
 	 */
 	private static long totalTime;
+	
+	private static long prevSecond;
 
 	/**
 	 * The change in time since {@link #update} was last called.
@@ -66,7 +68,13 @@ public class Clock
 	public static void update()
 	{
 		d = getDelta();
-		totalTime += d;
+		totalTime += (int) (d * 100);
+		long second = totalTime / 1000;
+		if (second != prevSecond)
+		{
+			prevSecond = second;
+			// call ur method COLLIN
+		}
 	}
 
 	/**
@@ -91,6 +99,7 @@ public class Clock
 	public static float getTotalTime()
 	{
 		return totalTime;
+		
 	}
 	
 	/**
@@ -115,8 +124,17 @@ public class Clock
 	/**
 	 * Pauses the game if it is running, unpauses the game if it is paused.
 	 */
-	public static void toggle_pause()
+	public static void togglePause()
 	{
 		paused = !paused;
+	}
+	
+	/**
+	 * Resets total time.
+	 */
+	public static void resetTime()
+	{
+		totalTime = 0;
+		prevSecond = 0;
 	}
 }
