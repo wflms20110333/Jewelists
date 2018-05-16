@@ -61,6 +61,7 @@ public class Player
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
 		health = maxhealth = DEFAULT_HEALTH;
+		health /= 2;
 		Tile tile = grid.randEmptyTile();
 		sprite = new Sprite(texture, tile, grid, 10, this);
 		deposits = new LinkedList<Deposit>();
@@ -199,6 +200,14 @@ public class Player
 		return true;
 	}
 	
+	public int getTotalJewels() {
+		return totalJewels;
+	}
+
+	public void setTotalJewels(int totalJewels) {
+		this.totalJewels = totalJewels;
+	}
+
 	/**
 	 * Collects a jewel.
 	 * 

@@ -52,7 +52,7 @@ public class Game
 		};
 		
 		ui = new UI();
-		ui.addItem(new InfoBar(players[0], quickLoad("pikachu"), 400, 400, 50, 20));
+		ui.addItem(new InfoBar(players[0], null, 0, 0, 200, 80));
 
 		ArrayList<Entity> jewelList = new ArrayList<>();
 		jewelList.add(new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1));
@@ -72,7 +72,6 @@ public class Game
 		for (Player player : players)
 			player.update();
 		ui.draw();
-		drawString(0, 0, "hi how is this", Color.white);
 	}
 	
 	public void setPlayerKeys(int player, int index, int key) {

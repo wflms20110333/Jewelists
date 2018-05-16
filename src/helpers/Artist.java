@@ -76,7 +76,7 @@ public class Artist
 			temp = temp.deriveFont((float) sz);
 			System.out.println(temp);
 			font = new TrueTypeFont(temp, true);
-					
+			
 		} catch (Exception e) {
 			System.err.println("Cannot find font: " + name + ".ttf");
 		}
