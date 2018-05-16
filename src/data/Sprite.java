@@ -27,6 +27,8 @@ public class Sprite extends Entity
 	 */
 	private char direction;
 	
+	private char keyDown = 0;
+	
 	/**
 	 * The tile the Sprite is currently moving into.
 	 */
@@ -47,6 +49,11 @@ public class Sprite extends Entity
 		this.player = player;
 	}
 	
+	public void setKeyDown(char c)
+	{
+		keyDown = c;
+	}
+	
 	/**
 	 * Updates the status of the sprite. A sprite stops after moving into a
 	 * cell.
@@ -54,12 +61,16 @@ public class Sprite extends Entity
 	@Override
 	public void update()
 	{
+		if (keyDown != 0)
+			updatePath(keyDown);
+		
 		// collect jewels
 		Tile[] check = new Tile[3];
 		check[0] = currTile();
 		check[1] = getGrid().right(check[0]);
 		check[2] = getGrid().down(check[0]);
-		for (int i = 0; i < check.length; i++) {
+		for (int i = 0; i < check.length; i++)
+		{
 			Tile t = check[i];
 			if (t == null)
 				continue;
@@ -68,7 +79,8 @@ public class Sprite extends Entity
 			Entity e = getGrid().getEntity(t);
 			if (e == null)
 				continue;
-			if (e instanceof Jewel) {
+			if (e instanceof Jewel)
+			{
 				player.collect((Jewel) e);
 			}
 		}

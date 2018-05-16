@@ -108,6 +108,16 @@ public abstract class Spawner
 	}
 	
 	/**
+	 * Returns the number of entities currently managed by the Spawner.
+	 * 
+	 * @return the number of entities currently managed by the Spawner
+	 */
+	public int getNumSpawned()
+	{
+		return entityList.size();
+	}
+	
+	/**
 	 * Spawns a new entity into the tile grid.
 	 */
 	public abstract void spawn();

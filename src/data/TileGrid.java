@@ -41,7 +41,7 @@ public class TileGrid
 	 * The number of cells that are currently filled, either by a wall or an
 	 * occupying static entity.
 	 */
-	private int fillCount = 0;
+	//private int fillCount = 0;
 
 	/**
 	 * Constructs a TileGrid formed by cave tiles.
@@ -78,15 +78,15 @@ public class TileGrid
 					break;
 				case 1:
 					map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Wall);
-					fillCount++;
+					//fillCount++;
 					break;
 				case 2:
 					map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Deposit1);
-					fillCount++;
+					//fillCount++;
 					break;
 				case 3:
 					map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Deposit2);
-					fillCount++;
+					//fillCount++;
 					break;
 				}
 			}
@@ -113,14 +113,28 @@ public class TileGrid
 	 */
 	public void setTile(int xCoord, int yCoord, TileType type)
 	{
-		if (map[xCoord][yCoord].getType() != type)
-		{
-			if (map[xCoord][yCoord].getType() == TileType.Cave)
-				fillCount++;
-			else if (type == TileType.Cave)
-				fillCount--;
-		}
+		if (map[xCoord][yCoord].getType() == type)
+			return;
+		/*
+		if (map[xCoord][yCoord].getType() == TileType.Cave)
+			fillCount++;
+		else if (type == TileType.Cave)
+			fillCount--;
+		*/
 		map[xCoord][yCoord].setType(type);
+	}
+	
+	public void setTile(Tile tile, TileType type)
+	{
+		if (map[tile.getIndX()][tile.getIndY()].getType() == type)
+			return;
+		/*
+		if (map[tile.getIndX()][tile.getIndY()].getType() == TileType.Cave)
+			fillCount++;
+		else if (type == TileType.Cave)
+			fillCount--;
+		*/
+		map[tile.getIndX()][tile.getIndY()].setType(type);
 	}
 
 	/**
@@ -145,7 +159,13 @@ public class TileGrid
 	public void setEntity(int xCoord, int yCoord, Entity entity)
 	{
 		entities[xCoord][yCoord] = entity;
-		fillCount++;
+		//fillCount++;
+	}
+	
+	public void setEntity(Tile tile, Entity entity)
+	{
+		entities[tile.getIndX()][tile.getIndY()] = entity;
+		//fillCount++;
 	}
 
 	/**
@@ -157,7 +177,13 @@ public class TileGrid
 	public void removeEntity(int xCoord, int yCoord)
 	{
 		entities[xCoord][yCoord] = null;
-		fillCount--;
+		//fillCount--;
+	}
+	
+	public void removeEntity(Tile tile)
+	{
+		entities[tile.getIndX()][tile.getIndY()] = null;
+		//fillCount--;
 	}
 
 	/**
@@ -196,8 +222,8 @@ public class TileGrid
 	 */
 	public Tile randEmptyTile()
 	{
-		if (fillCount == NUM_CELLS)
-			return null;
+		//if (fillCount == NUM_CELLS)
+			//return null;
 		while (true)
 		{
 			int x = (int) (Math.random() * COLS);

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
 
+import helpers.KeyboardHelper;
+
 /**
  * The Game class represents the actual gameplay of the game.
  * 
@@ -22,6 +24,8 @@ public class Game
 	Player player1;
 	Player player2;
 	
+	//private KeyboardHelper keyboard;
+	
 	public Game()
 	{
 		grid = new TileGrid();
@@ -29,10 +33,10 @@ public class Game
 		monsterSpawner = new MonsterSpawner(10, e);
 		int[] keys1 = { Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
-		player1 = new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit2);
+		player1 = new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit1, TileType.Deposit2);
 		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
 					Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
-		player2 = new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit1);
+		player2 = new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit2, TileType.Deposit1);
 
 		Jewel j1 = new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1);
 		Jewel j2 = new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid, 2);
@@ -46,6 +50,8 @@ public class Game
 		jewelList.add(j4);
 		jewelList.add(j5);
 		jewelSpawner = new JewelSpawner(10, grid, jewelList);
+		
+		//keyboard = new KeyboardHelper();
 	}
 	
 	public Game(int[][] map)
@@ -55,10 +61,10 @@ public class Game
 		monsterSpawner = new MonsterSpawner(10, e);
 		int[] keys1 = { Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
-		player1 = new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit2);
+		player1 = new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit1, TileType.Deposit2);
 		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
 					Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
-		player2 = new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit1);
+		player2 = new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit2, TileType.Deposit1);
 
 		Jewel j1 = new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1);
 		Jewel j2 = new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid, 2);
@@ -72,6 +78,8 @@ public class Game
 		jewelList.add(j4);
 		jewelList.add(j5);
 		jewelSpawner = new JewelSpawner(10, grid, jewelList);
+		
+		//keyboard = new KeyboardHelper();
 	}
 	
 	public Game(TileGrid tg)
@@ -81,10 +89,10 @@ public class Game
 		monsterSpawner = new MonsterSpawner(10, e);
 		int[] keys1 = { Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
-		player1 = new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit2);
+		player1 = new Player(grid, keys1, quickLoad("emoji"), TileType.Deposit1, TileType.Deposit2);
 		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
 					Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
-		player2 = new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit1);
+		player2 = new Player(grid, keys2, quickLoad("emoji2"), TileType.Deposit2, TileType.Deposit1);
 
 		Jewel j1 = new Jewel(quickLoad("jewel_green_32"), grid.getTile(0, 0), grid, 1);
 		Jewel j2 = new Jewel(quickLoad("jewel_red"), grid.getTile(0, 0), grid, 2);
@@ -98,6 +106,8 @@ public class Game
 		jewelList.add(j4);
 		jewelList.add(j5);
 		jewelSpawner = new JewelSpawner(10, grid, jewelList);
+		
+		//keyboard = new KeyboardHelper();
 	}
 	
 	public void update()
