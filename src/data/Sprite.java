@@ -57,13 +57,8 @@ public class Sprite extends Entity
 	@Override
 	public void update()
 	{
-		System.out.println("lol yeah");
 		if (trapped)
-		{
-			System.out.println("I'M TRAPPED");
-			System.out.println(getX() + " " + getY());
 			return;
-		}
 		
 		// collect jewels
 		Tile[] check = new Tile[3];
