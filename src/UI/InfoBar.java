@@ -53,6 +53,7 @@ public class InfoBar extends UIItem
 		Texture texture = player.getSprite().getTexture();
 		drawQuadTex(texture, rect.x + PADDING, rect.y + PADDING, TileGrid.SIZE, TileGrid.SIZE);
 		drawString(rect.x + PADDING * 2 + TileGrid.SIZE, rect.y + PADDING, "" + player.getTotalJewels(), Color.white);
+		
 
 		// health bar
 		drawQuad(rect.x, rect.y + (SCALE - 1) * rect.height / SCALE, rect.width, rect.height / SCALE, Color.gray);
