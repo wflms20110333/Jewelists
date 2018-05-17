@@ -4,6 +4,7 @@ import static helpers.Artist.*;
 import static helpers.Clock.*;
 
 import org.newdawn.slick.opengl.Texture;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker.StateContributionInfo;
 
 import helpers.Clock;
 
@@ -24,15 +25,12 @@ public class Trap extends Entity
 	 */
 	private static final long DURATION = 3;
 	
+	private boolean activated;
+	
 	/**
 	 * The texture of Traps.
 	 */
 	private static Texture tex = quickLoad("trap");
-	
-	/**
-	 * The sprite trapped in the Trap.
-	 */
-	private Sprite trappedSprite;
 	
 	/**
 	 * The time since the trap was planted
@@ -62,15 +60,11 @@ public class Trap extends Entity
 		timeSinceStart += Clock.getSeconds();
 		if (timeSinceStart < BUFFER)
 			draw();
-		if (trappedSprite == null)
+		if (!activated)
 			return;
 		draw();
 		if (timeSinceStart >= DURATION)
-		{
-			trappedSprite.getPlayer().removeStatus(Status.STUN);
-			trappedSprite = null;
 			remove();
-		}
 	}
 	
 	/**
@@ -78,7 +72,7 @@ public class Trap extends Entity
 	 */
 	public boolean activated()
 	{
-		return trappedSprite != null;
+		return activated;
 	}
 	
 	/**
@@ -86,11 +80,11 @@ public class Trap extends Entity
 	 * 
 	 * @param s the sprite
 	 */
-	public void setTrappedSprite(Sprite s)
+	public void activate(Sprite s)
 	{
-		trappedSprite = s;
+		s.getPlayer().addStatus(Status.STUN, DURATION);
 		timeSinceStart = 0;
-		trappedSprite.getPlayer().addStatus(Status.STUN);
+		activated = true;
 	}
 	
 	/**

@@ -42,7 +42,7 @@ public class Player
 	private int jewels;
 	private long score;
 	
-	private List<Status> status;
+	private StatusManager statuses;
 	
 	
 	//private Queue<Deposit> deposits;
@@ -73,7 +73,7 @@ public class Player
 		health = maxhealth = DEFAULT_HEALTH;
 		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
-		status = new ArrayList<Status>();
+		statuses = new StatusManager();
 	}
 	
 	/**
@@ -125,16 +125,12 @@ public class Player
 	}
 	
 	
-	public void addStatus(Status effect) {
-		status.add(effect);
+	public void addStatus(Status effect, long duration) {
+		statuses.addStatus(effect, duration);
 	}
 	
-	public void removeStatus(Status effect) {
-		status.remove(effect);
-	}
-	
-	public boolean hasStatus(Status effect) {
-		return status.contains(effect);
+	public boolean statusActive(Status effect) {
+		return statuses.statusActive(effect);
 	}
 	
 	/**
@@ -155,7 +151,7 @@ public class Player
 		
 		char[] updates = new char[] {'U', 'L', 'D', 'R'};
 		
-		if (!hasStatus(Status.STUN))
+		if (!statusActive(Status.STUN))
 			for (int i = 0; i < updates.length; i++)
 				if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
 					sprite.updatePath(updates[i]);
@@ -215,6 +211,7 @@ public class Player
 			
 		}
 		
+		statuses.update();
 		sprite.update();
 		sprite.draw();
 	}

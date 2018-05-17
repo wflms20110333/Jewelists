@@ -78,7 +78,7 @@ public class Sprite extends Entity
 			if (t == null)
 				continue;
 			// hey magnet allows u to collect multiple
-			if (i != 0 && !in(t) && !player.hasStatus(Status.MAGNET))
+			if (i != 0 && !in(t) && !player.statusActive(Status.MAGNET))
 				continue;
 			Entity e = getGrid().getEntity(t);
 			if (e == null)
@@ -92,9 +92,9 @@ public class Sprite extends Entity
 			return;
 		
 		float adjusted_speed = speed;
-		if (player.hasStatus(Status.SLOW))
+		if (player.statusActive(Status.SLOW))
 			adjusted_speed *= Status.SLOW.getMultiplier();
-		if (player.hasStatus(Status.SPEED))
+		if (player.statusActive(Status.SPEED))
 			adjusted_speed *= Status.SPEED.getMultiplier();
 		
 		int nextX = nextTile.getX();
@@ -105,7 +105,6 @@ public class Sprite extends Entity
 				// compute position
 				float x = getX() + getSeconds() * adjusted_speed * changeX[k];
 				float y = getY() + getSeconds() * adjusted_speed * changeY[k];
-				System.out.println(x + " " + y + " " + direction);
 				
 				// adjust for overshot
 				if (changeX[k] * (nextX - x) < 0)
@@ -162,7 +161,7 @@ public class Sprite extends Entity
 		{
 			Trap trap = (Trap) e;
 			if (trap.getBufferPassed() && !trap.activated())
-				trap.setTrappedSprite(this);
+				trap.activate(this);
 		}
 	}
 	
