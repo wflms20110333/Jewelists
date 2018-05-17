@@ -17,27 +17,64 @@ import helpers.StateManager;
  */
 public class Game
 {
+	/**
+	 * Dimensions of the info bars.
+	 */
 	public static final int INFO_BAR_WIDTH_TILES = 6;
 	public static final int INFO_BAR_HEIGHT_TILES = 2;
 	public static final int INFO_BAR_WIDTH = TileGrid.SIZE * INFO_BAR_WIDTH_TILES;
 	public static final int INFO_BAR_HEIGHT = TileGrid.SIZE * INFO_BAR_HEIGHT_TILES;
 	
+	/**
+	 * Dimensions of the scoreboard.
+	 */
 	public static final int SCOREBOARD_HEIGHT_TILES = 2;
 	public static final int SCOREBOARD_WIDTH = WIDTH;
 	public static final int SCOREBOARD_HEIGHT = TileGrid.SIZE * SCOREBOARD_HEIGHT_TILES;
+	
+	/**
+	 * The tile grid that represents the Game.
+	 */
 	private TileGrid grid;
 	
+	/**
+	 * The spawners of the Game.
+	 */
 	Spawner monsterSpawner;
 	Spawner jewelSpawner;
+	
+	/**
+	 * The players of the Game.
+	 */
 	Player[] players;
+	
+	/**
+	 * The user interface of the Game, which displays the info bars and
+	 * scoreboard.
+	 */
 	UI ui;
+	
+	/**
+	 * The traps currently set up in the Game.
+	 */
 	ArrayList<Trap> traps;
 	
+	/**
+	 * Constructs a Game.
+	 * 
+	 * @param keys the keyboard commands of the players
+	 */
 	public Game(int[][] keys)
 	{
 		this(new TileGrid(), keys);
 	}
 	
+	/**
+	 * Constructs a Game.
+	 * 
+	 * @param tg the tile grid that represents the game
+	 * @param keys the keyboard commands of the players
+	 */
 	public Game(TileGrid tg, int[][] keys)
 	{
 		grid = tg;
@@ -66,6 +103,9 @@ public class Game
 		traps = new ArrayList<>();
 	}
 	
+	/**
+	 * Updates the state of the game.
+	 */
 	public void update()
 	{
 		grid.draw();
@@ -86,21 +126,30 @@ public class Game
 		}
 	}
 	
-	public void setGrid(TileGrid grid) {
-		this.grid = grid;
-	}
-	
+	/**
+	 * Returns the players of the game.
+	 * 
+	 * @return the players of the game
+	 */
 	public Player[] getPlayers()
 	{
 		return players;
 	}
 	
+	/**
+	 * Ends the game. The screen returns to the main menu.
+	 */
 	public void end()
 	{
 		StateManager.setState(StateManager.GameState.MAINMENU);
 		StateManager.game = null;
 	}
 	
+	/**
+	 * Adds a given trap to the game.
+	 * 
+	 * @param trap the given trap
+	 */
 	public void addTrap(Trap trap)
 	{
 		traps.add(trap);

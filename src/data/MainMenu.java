@@ -18,14 +18,23 @@ import helpers.StateManager.GameState;
  */
 public class MainMenu
 {
+	/**
+	 * Constants for placing the location of items.
+	 */
 	private static final int SETTINGS_PADDING = 50;
 	private static final int BUTTON_HALF_WIDTH = 106;
 	
+	/**
+	 * Constants for scaling the location of items.
+	 */
 	private static final float SCALE_TITLE = 0.1f;
 	private static final float SCALE_PLAY = 0.6f;
 	private static final float SCALE_EDIT = 0.7f;
 	private static final float SCALE_QUIT = 0.8f;
 	
+	/**
+	 * The wait time before button clicking is allowed.
+	 */
 	private static final int COUNT_LIMIT = 10;
 	
 	/**

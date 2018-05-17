@@ -7,8 +7,6 @@ import java.util.ArrayList;
  * 
  * @author Elizabeth Zou
  */
-
-// change to iterate thru, grid, at any moment half (or probably a lot smaller) chance to spawn??
 public class JewelSpawner extends Spawner
 {
 	/**
@@ -21,7 +19,7 @@ public class JewelSpawner extends Spawner
 	 * 
 	 * @param spawnTime the time interval between spawns
 	 * @param grid the tile grid in which spawns take place
-	 * @param entityType the template entity for spawning
+	 * @param entityType the template entities for spawning
 	 */
 	public JewelSpawner(float spawnTime, TileGrid grid, ArrayList<Entity> entityTypes)
 	{
