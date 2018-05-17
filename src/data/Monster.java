@@ -40,7 +40,7 @@ public class Monster extends Entity
 	private ArrayList<String> permutations;
 	
 	private static final char[] order = {'U', 'L', 'D', 'R'};
-	// Change in X relative to order Up, Right, Left, Down;
+	// Change in X relative to order Up, Left, Down, Right;
 	private static final int[] changeX = {0, -1, 0, 1};
 	private static final int[] changeY = {-1, 0, 1, 0};
 	

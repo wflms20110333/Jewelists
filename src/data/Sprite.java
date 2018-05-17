@@ -12,13 +12,12 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Sprite extends Entity
 {
-	
 	public static final int DEFAULT_SPEED = 100;
 	
-	private static final char[] order = {'U', 'R', 'L', 'D'};
-	// Change in X relative to order Up, Right, Left, Down;
-	private static final int[] changeX = {0, 1, -1, 0};
-	private static final int[] changeY = {-1, 0, 0, 1};
+	private static final char[] order = {'U', 'L', 'D', 'R'};
+	// Change in X relative to order Up, Left, Down, Right;
+	private static final int[] changeX = {0, -1, 0, 1};
+	private static final int[] changeY = {-1, 0, 1, 0};
 	
 	private Player player;
 	
