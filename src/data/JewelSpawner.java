@@ -7,8 +7,6 @@ import java.util.ArrayList;
  * 
  * @author Elizabeth Zou
  */
-
-// change to iterate thru, grid, at any moment half (or probably a lot smaller) chance to spawn??
 public class JewelSpawner extends Spawner
 {
 	/**

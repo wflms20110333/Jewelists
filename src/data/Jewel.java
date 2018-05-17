@@ -7,7 +7,6 @@ import org.newdawn.slick.opengl.Texture;
  * 
  * @author Elizabeth Zou
  */
-
 public class Jewel extends Entity
 {
 	/**
@@ -30,12 +29,14 @@ public class Jewel extends Entity
 	}
 	
 	/**
-	 * Lol?
+	 * Unimplemented method inherited from the Entity class.
+	 * 
+	 * @throws UnsupportedOperationException if this method is called
 	 */
 	@Override
 	public void update()
 	{
-
+		throw new java.lang.UnsupportedOperationException();
 	}
 	
 	/**

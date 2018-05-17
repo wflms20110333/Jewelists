@@ -8,7 +8,6 @@ import UI.UI;
 import static helpers.Artist.*;
 import static helpers.StateManager.*;
 
-
 /**
  * The Editor class allows users to customize the map layout of their games.
  * 
@@ -23,6 +22,9 @@ public class Editor
 	private static final int ALERT_BOX_Y = HEIGHT / 2 - ALERT_BOX_HEIGHT / 2;
 	*/
 	
+	/**
+	 * The user interface of the Editor.
+	 */
 	private UI menuUI;
 	
 	//private UI alertBox;
@@ -75,25 +77,15 @@ public class Editor
 		updateButtons();
 		
 		if (Mouse.isButtonDown(0))
-		{
 			setTile();
-		}
 		while (Keyboard.next())
-		{
 			if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState())
 				moveIndex();
-			//if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.getEventKeyState())
-				//saveMap("mapTest", grid);
-			/*
-			if (Keyboard.getEventKey() == Keyboard.KEY_LEFT && Keyboard.getEventKeyState())
-			{
-				setGrid(grid);
-				setState(GameState.GAME);
-			}
-			*/
-		}
 	}
 	
+	/**
+	 * Checks for clicking of the buttons, and carries out respective actions.
+	 */
 	public void updateButtons()
 	{
 		if (menuUI.isButtonClicked("Play"))

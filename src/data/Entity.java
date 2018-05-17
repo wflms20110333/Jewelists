@@ -2,9 +2,6 @@ package data;
 
 import static helpers.Artist.drawQuadTex;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -13,7 +10,6 @@ import org.newdawn.slick.opengl.Texture;
  * 
  * @author Elizabeth Zou
  */
-
 public abstract class Entity
 {
 	/**
@@ -28,7 +24,6 @@ public abstract class Entity
 	private int width;
 	private int height;
 	
-	
 	/**
 	 * The texture of the Entity.
 	 */
@@ -39,6 +34,9 @@ public abstract class Entity
 	 */
 	private TileGrid grid;
 	
+	/**
+	 * The tile that the Entity is currently at.
+	 */
 	private Tile currentTile;
 	
 	/**
@@ -180,7 +178,13 @@ public abstract class Entity
 		return exists;
 	}
 	
-	public void setCurrentTile(Tile currentTile) {
+	/**
+	 * Sets the current tile.
+	 * 
+	 * @param currentTile the new current tile
+	 */
+	public void setCurrentTile(Tile currentTile)
+	{
 		this.currentTile = currentTile;
 	}
 	

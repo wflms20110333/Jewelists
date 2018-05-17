@@ -14,13 +14,14 @@ import helpers.StateManager;
  * @author Elizabeth Zou
  * @author An Nguyen
  */
-
 public class Boot
 {
+	/**
+	 * Constructs a Boot.
+	 */
 	public Boot()
 	{
 		beginSession();
-
 		while (!Display.isCloseRequested())
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
@@ -30,10 +31,9 @@ public class Boot
 			Display.update();
 			Display.sync(60);
 		}
-
 		Display.destroy();
 	}
-
+	
 	public static void main(String[] args)
 	{
 		new Boot();
