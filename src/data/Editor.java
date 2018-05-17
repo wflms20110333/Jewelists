@@ -41,10 +41,9 @@ public class Editor
 		menuUI.addButton("Play", "button_play", 0, 0);
 		
 		this.grid = new TileGrid();
-		this.types = new TileType[3];
+		this.types = new TileType[2];
 		this.types[0] = TileType.Cave;
-		this.types[1] = TileType.Dirt;
-		this.types[2] = TileType.Water;
+		this.types[1] = TileType.Water;
 		this.index = 0;
 	}
 	
