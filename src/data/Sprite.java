@@ -16,13 +16,24 @@ import helpers.Clock;
 
 public class Sprite extends Entity
 {
-	
+	/**
+	 * The default speed of a Sprite.
+	 */
 	public static final int DEFAULT_SPEED = 100;
 	
+	/**
+	 * The player that the Sprite belongs to.
+	 */
 	private Player player;
 	
+	/**
+	 * The speed of the Sprite.
+	 */
 	private float speed;
 	
+	/**
+	 * The direction the Sprite is currently moving in.
+	 */
 	private char direction;
 	private char facingDirection;
 	
@@ -31,8 +42,16 @@ public class Sprite extends Entity
 	 */
 	private Tile nextTile;
 	
-	
-	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player) {
+	/**
+	 * Constructs a Sprite.
+	 * 
+	 * @param texture the texture of the sprite
+	 * @param startTile the starting tile of the sprite
+	 * @param grid the grid in which the sprite exists
+	 * @param player the player that the sprite belongs to
+	 */
+	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player)
+	{
 		this(texture, startTile, grid, DEFAULT_SPEED, player);
 	}
 	
