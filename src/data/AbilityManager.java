@@ -12,7 +12,7 @@ public class AbilityManager {
 	Player player;
 	Ability ability;
 	
-	double cooldownTick;
+	float cooldownTick;
 	
 	public AbilityManager(Player player) {
 		this(player, Ability.random());
@@ -27,7 +27,7 @@ public class AbilityManager {
 	public void update() {
 		if (cooldownTick != -1)
 			cooldownTick += getSeconds();
-		if (cooldownTick >= ability.getDuration())
+		if (cooldownTick >= ability.getCooldown())
 			cooldownTick = -1;
 	}
 	
@@ -49,7 +49,8 @@ public class AbilityManager {
 			
 			if (applied)
 				cooldownTick = 0;
-		}
+		} else
+			System.out.println("ON COOLDOWN MATE");
 	}
 	
 	public Ability getAbility() {
@@ -58,7 +59,6 @@ public class AbilityManager {
 	
 	// MANAGES EACH ABILITY
 	private boolean applySpeed() {
-		System.out.println("applied speed");
 		player.addStatus(Status.SPEED, ability.getDuration());
 		return true;
 	}
@@ -74,7 +74,6 @@ public class AbilityManager {
 	}
 	
 	private boolean blink() {
-		System.out.println("blinked");
 		Sprite sprite = player.getSprite();
 		char direction = sprite.getFacingDirection();
 		Tile thisTile = sprite.getCurrentTile();
@@ -119,7 +118,7 @@ public class AbilityManager {
 		// buff
 		SPEED("Speed", true), DMG_BOOST("Damage boost", true), MAGNET("Magnet", true),
 		// activated instantly
-		BLINK("Blink", 2), HEAL("Heal", 2), SLOW("Slow", true);
+		BLINK("Blink", 3), HEAL("Heal", 2), SLOW("Slow", true);
 		
 		private static final Ability[] abilities = values();
 		
@@ -144,11 +143,11 @@ public class AbilityManager {
 		}
 		
 		private Ability(String name, boolean buff, int value) {
-			if (buff) {
+			if (buff)
 				this.duration = BUFF_DURATION;
-				this.cooldown = BUFF_COOLDOWN;
-			} else
-				this.duration = this.cooldown = -1;
+			else
+				this.duration = -1;
+			this.cooldown = BUFF_COOLDOWN;
 			this.value = value;
 			this.name = name;
 		}

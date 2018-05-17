@@ -152,6 +152,8 @@ public class Sprite extends Entity
 		if (nextTile != null)
 			getGrid().toggleOccupied(nextTile);
 		setCurrentTile(tile);
+		setX(getCurrentTile().getX());
+		setY(getCurrentTile().getY());
 		nextTile = null;
 	}
 	

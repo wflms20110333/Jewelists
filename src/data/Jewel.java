@@ -36,7 +36,7 @@ public class Jewel extends Entity
 	@Override
 	public void update()
 	{
-		throw new java.lang.UnsupportedOperationException();
+//		throw new java.lang.UnsupportedOperationException();
 	}
 	
 	/**
