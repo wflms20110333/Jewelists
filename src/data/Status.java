@@ -58,7 +58,7 @@ public enum Status
 	}
 	
 	/**
-	 * Returns the multiplier of the status
+	 * Returns the multiplier of the status.
 	 * 
 	 * @return the multiplier of the status
 	 */
