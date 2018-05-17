@@ -1,5 +1,7 @@
 package helpers;
 
+import org.lwjgl.input.Keyboard;
+
 import data.Editor;
 import data.Game;
 import data.MainMenu;
@@ -69,6 +71,11 @@ public class StateManager
 	 */
 	public static Settings settings;
 	
+	public static int[][] keys = {
+			{ Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT, Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J },
+			{ Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT, Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y }
+	};
+	
 	/*
 	static int[][] map =
 	{
@@ -134,21 +141,17 @@ public class StateManager
 			break;
 		case GAME:
 			if (game == null)
-				game = new Game();
+				game = new Game(keys);
 			game.update();
 			break;
 		case EDITOR:
 			if (editor == null)
 				editor = new Editor();
-			if (game == null)
-				game = new Game();
 			editor.update();
 			break;
 		case SETTINGS:
 			if (settings == null)
 				settings = new Settings();
-			if (game == null)
-				game = new Game();
 			settings.update();
 			break;
 		}
@@ -184,7 +187,7 @@ public class StateManager
 	 */
 	public static void setKeys(int playerNumber, int index, int key)
 	{
-		game.setPlayerKeys(playerNumber, index, key);
+		keys[playerNumber][index] = key;
 	}
 	
 	/**
