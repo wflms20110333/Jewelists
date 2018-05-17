@@ -22,13 +22,6 @@ public class Sprite extends Entity
 	public static final int DEFAULT_SPEED = 100;
 	
 	/**
-	 * Information for movement in each of the four cardinal directions.
-	 */
-	private static final char[] order = {'U', 'L', 'D', 'R'};
-	private static final int[] changeX = {0, -1, 0, 1};
-	private static final int[] changeY = {-1, 0, 1, 0};
-	
-	/**
 	 * The player that the Sprite belongs to.
 	 */
 	private Player player;
