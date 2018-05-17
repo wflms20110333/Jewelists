@@ -55,7 +55,7 @@ public abstract class Spawner
 	 */
 	public void update()
 	{
-		timeSinceLastSpawn += delta();
+		timeSinceLastSpawn += getSeconds();
 		if (timeSinceLastSpawn > spawnTime)
 		{
 			spawn();
