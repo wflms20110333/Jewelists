@@ -17,13 +17,13 @@ public class StatusManager {
 		durations = new HashMap<Status, Float>();
 	}
 	
-	public void addStatus(Status effect, float duration) {
+	public void addStatus(Status effect, float seconds) {
 		if (timeLeft.containsKey(effect)) {
-			timeLeft.put(effect, Math.max(duration, timeLeft.get(effect)));
-			durations.put(effect, Math.max(duration, durations.get(effect)));
+			timeLeft.put(effect, Math.max(seconds, timeLeft.get(effect)));
+			durations.put(effect, Math.max(seconds, durations.get(effect)));
 		} else {
-			timeLeft.put(effect, duration);
-			durations.put(effect, duration);
+			timeLeft.put(effect, seconds);
+			durations.put(effect, seconds);
 		}
 	}
 	

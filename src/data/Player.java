@@ -125,8 +125,8 @@ public class Player
 	}
 	
 	
-	public void addStatus(Status effect, long duration) {
-		statuses.addStatus(effect, duration);
+	public void addStatus(Status effect, long seconds) {
+		statuses.addStatus(effect, seconds);
 	}
 	
 	public boolean statusActive(Status effect) {
