@@ -42,8 +42,8 @@ public class Game
 	public Game(TileGrid tg, int[][] keys)
 	{
 		grid = tg;
-		Monster e = new Monster(quickLoad("monster"), grid.getTile(10, 10), grid, 5);
-		monsterSpawner = new MonsterSpawner(10, e);
+		//Monster e = new Monster(quickLoad("monster"), grid.getTile(30, 10), grid, 5);
+		monsterSpawner = new MonsterSpawner(10, grid, quickLoad("monster"), 5);
 		
 		players = new Player[] {
 			new Player(this, grid, keys[0], quickLoad("emoji")), //, TileType.Deposit1, TileType.Deposit2),

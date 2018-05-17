@@ -40,7 +40,8 @@ public class Sprite extends Entity
 	 */
 	private boolean trapped;
 	
-	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player) {
+	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player)
+	{
 		this(texture, startTile, grid, DEFAULT_SPEED, player);
 	}
 	
@@ -55,6 +56,7 @@ public class Sprite extends Entity
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, float speed, Player player)
 	{
 		super(texture, startTile, grid);
+		getGrid().toggleOccupied(startTile);
 		this.speed = speed;
 		this.player = player;
 		trapped = false;
@@ -86,9 +88,7 @@ public class Sprite extends Entity
 			if (e == null)
 				continue;
 			if (e instanceof Jewel)
-			{
 				player.collect((Jewel) e);
-			}
 		}
 		
 		// move
@@ -101,6 +101,7 @@ public class Sprite extends Entity
 			float y = getY() - delta() * speed;
 			if (nextY > y)
 			{
+				getGrid().toggleOccupied(getGrid().down(currTile()));
 				setY(nextY);
 				nextTile = null;
 				checkTrap();
@@ -113,6 +114,7 @@ public class Sprite extends Entity
 			float x = getX() - delta() * speed;
 			if (nextX > x)
 			{
+				getGrid().toggleOccupied(getGrid().right(currTile()));
 				setX(nextX);
 				nextTile = null;
 				checkTrap();
@@ -125,6 +127,7 @@ public class Sprite extends Entity
 			float y = getY() + delta() * speed;
 			if (nextY < y)
 			{
+				getGrid().toggleOccupied(currTile());
 				setY(nextY);
 				nextTile = null;
 				checkTrap();
@@ -137,6 +140,7 @@ public class Sprite extends Entity
 			float x = getX() + delta() * speed;
 			if (nextX < x)
 			{
+				getGrid().toggleOccupied(currTile());
 				setX(nextX);
 				nextTile = null;
 				checkTrap();
@@ -162,18 +166,22 @@ public class Sprite extends Entity
 			if (direction == 'U' && getGrid().canEnter(current.getIndX(), current.getIndY() - 1))
 			{
 				nextTile = getGrid().getTile(current.getIndX(), current.getIndY() - 1);
+				getGrid().toggleOccupied(nextTile);
 			}
 			else if (direction == 'L' && getGrid().canEnter(current.getIndX() - 1, current.getIndY()))
 			{
 				nextTile = getGrid().getTile(current.getIndX() - 1, current.getIndY());
+				getGrid().toggleOccupied(nextTile);
 			}
 			else if (direction == 'D' && getGrid().canEnter(current.getIndX(), current.getIndY() + 1))
 			{
 				nextTile = getGrid().getTile(current.getIndX(), current.getIndY() + 1);
+				getGrid().toggleOccupied(nextTile);
 			}
 			else if (direction == 'R' && getGrid().canEnter(current.getIndX() + 1, current.getIndY()))
 			{
 				nextTile = getGrid().getTile(current.getIndX() + 1, current.getIndY());
+				getGrid().toggleOccupied(nextTile);
 			}
 		}
 	}
