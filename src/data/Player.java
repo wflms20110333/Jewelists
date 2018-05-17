@@ -196,7 +196,7 @@ public class Player
 		}
 		if (Keyboard.isKeyDown(keys[7]) && Keyboard.getEventKeyState())
 		{
-			
+			abilityManager.activate();
 		}
 		if (Keyboard.isKeyDown(keys[8]) && Keyboard.getEventKeyState())
 		{
@@ -245,6 +245,11 @@ public class Player
 	{
 		return jewels;
 	}
+	
+	public AbilityManager.Ability getAbility() {
+		return abilityManager.getAbility();
+	}
+	
 
 	/**
 	 * Collects a jewel.

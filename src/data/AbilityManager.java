@@ -4,6 +4,8 @@ import static helpers.Clock.*;
 
 import java.awt.GridBagConstraints;
 
+import org.w3c.dom.NamedNodeMap;
+
 
 public class AbilityManager {
 	
@@ -19,6 +21,7 @@ public class AbilityManager {
 	public AbilityManager(Player player, Ability ability) {
 		this.player = player;
 		this.ability = ability;
+		this.cooldownTick = -1;
 	}
 	
 	public void update() {
@@ -30,14 +33,32 @@ public class AbilityManager {
 	
 	public void activate() {
 		if (cooldownTick == -1) {
+			boolean applied = false;
+			if (ability == Ability.SPEED)
+				applied = applySpeed();
+			if (ability == Ability.DMG_BOOST)
+				applied = applyDmgBoost();
+			if (ability == Ability.MAGNET)
+				applied = applyMagnet();
+			if (ability == Ability.SLOW)
+				applied = applySlow();
+			if (ability == Ability.BLINK)
+				applied = blink();
+			if (ability == Ability.HEAL)
+				applied = heal();
 			
-			
-			cooldownTick = 0;
+			if (applied)
+				cooldownTick = 0;
 		}
+	}
+	
+	public Ability getAbility() {
+		return ability;
 	}
 	
 	// MANAGES EACH ABILITY
 	private boolean applySpeed() {
+		System.out.println("applied speed");
 		player.addStatus(Status.SPEED, ability.getDuration());
 		return true;
 	}
@@ -53,6 +74,7 @@ public class AbilityManager {
 	}
 	
 	private boolean blink() {
+		System.out.println("blinked");
 		Sprite sprite = player.getSprite();
 		char direction = sprite.getFacingDirection();
 		Tile thisTile = sprite.getCurrentTile();
@@ -95,39 +117,41 @@ public class AbilityManager {
 	}
 	
 	static enum Ability {
-		
 		// buff
-		SPEED(true), DMG_BOOST(true), MAGNET(true),
+		SPEED("Speed", true), DMG_BOOST("Damage boost", true), MAGNET("Magnet", true),
 		// activated instantly
-		BLINK(2), HEAL(2), SLOW(true);
+		BLINK("Blink", 2), HEAL("Heal", 2), SLOW("Slow", true);
 		
-		private final long duration;
-		private final long cooldown;
-		private final int value;
 		private static final Ability[] abilities = values();
 		
 		public static final long BUFF_DURATION = 10;
 		public static final long BUFF_COOLDOWN = 10;
 		
-		private Ability() {
-			this(false);
+		private final long duration;
+		private final long cooldown;
+		private final int value;
+		private final String name;
+		
+		private Ability(String name) {
+			this(name, false);
 		}
 		
-		private Ability(boolean buff) {
-			this(buff, -1);
+		private Ability(String name, boolean buff) {
+			this(name, buff, -1);
 		}
 		
-		private Ability(int value) {
-			this(false, value);
+		private Ability(String name, int value) {
+			this(name, false, value);
 		}
 		
-		private Ability(boolean buff, int value) {
+		private Ability(String name, boolean buff, int value) {
 			if (buff) {
 				this.duration = BUFF_DURATION;
 				this.cooldown = BUFF_COOLDOWN;
 			} else
 				this.duration = this.cooldown = -1;
 			this.value = value;
+			this.name = name;
 		}
 		
 		public long getDuration() {
@@ -144,6 +168,11 @@ public class AbilityManager {
 		
 		public static Ability random() {
 			return abilities[(int) (Math.random() * abilities.length)];
+		}
+		
+		@Override
+		public String toString() {
+			return name;
 		}
 	}
 }
