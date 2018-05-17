@@ -36,8 +36,6 @@ public class Sprite extends Entity
 	private Tile nextTile;
 	
 	
-	
-	
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player) {
 		this(texture, startTile, grid, DEFAULT_SPEED, player);
 	}
@@ -53,6 +51,7 @@ public class Sprite extends Entity
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, float speed, Player player)
 	{
 		super(texture, startTile, grid);
+		getGrid().toggleOccupied(startTile);
 		this.speed = speed;
 		this.player = player;
 	}
@@ -138,15 +137,14 @@ public class Sprite extends Entity
 			Tile current = currTile();
 			if (direction == 'U' && getGrid().canEnter(current.getIndX(), current.getIndY() - 1))
 				nextTile = getGrid().getTile(current.getIndX(), current.getIndY() - 1);
-			
 			else if (direction == 'L' && getGrid().canEnter(current.getIndX() - 1, current.getIndY()))
 				nextTile = getGrid().getTile(current.getIndX() - 1, current.getIndY());
-			
 			else if (direction == 'D' && getGrid().canEnter(current.getIndX(), current.getIndY() + 1))
 				nextTile = getGrid().getTile(current.getIndX(), current.getIndY() + 1);
-			
 			else if (direction == 'R' && getGrid().canEnter(current.getIndX() + 1, current.getIndY()))
 				nextTile = getGrid().getTile(current.getIndX() + 1, current.getIndY());
+			if (nextTile != null)
+				getGrid().toggleOccupied(nextTile);
 		}
 	}
 	

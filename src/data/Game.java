@@ -43,17 +43,11 @@ public class Game
 	public Game(TileGrid tg, int[][] keys)
 	{
 		grid = tg;
-		Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 100);
-		monsterSpawner = new MonsterSpawner(3, e);
-		
-		int[] keys1 = { Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT,
-				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
-		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
-				Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
+		monsterSpawner = new MonsterSpawner(10, grid, quickLoad("monster"), 5);
 		
 		players = new Player[] {
-			new Player(this, grid, keys[0], quickLoad("emoji")), //, TileType.Deposit1, TileType.Deposit2),
-			new Player(this, grid, keys[1], quickLoad("emoji2")) //, TileType.Deposit2, TileType.Deposit1)
+			new Player(this, grid, keys[0], quickLoad("emoji")),
+			new Player(this, grid, keys[1], quickLoad("emoji2"))
 		};
 		
 		ui = new UI();
@@ -94,28 +88,13 @@ public class Game
 		}
 	}
 	
+	public void setGrid(TileGrid grid) {
+		this.grid = grid;
+	}
+	
 	public Player[] getPlayers()
 	{
 		return players;
-	}
-	
-	/*
-	public void setPlayerKeys(int player, int index, int key)
-	{
-		if (players.length < player)
-			System.err.println();
-		else
-			players[player - 1].setKey(index, key);
-	}
-	*/
-	
-	public void setGrid(TileGrid tg)
-	{
-		grid = tg;
-		for (Player player : players)
-			player.setGrid(tg);
-		jewelSpawner.setGrid(tg);
-		monsterSpawner.setGrid(tg);
 	}
 	
 	public void end()

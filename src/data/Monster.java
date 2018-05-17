@@ -39,6 +39,11 @@ public class Monster extends Entity
 	 */
 	private ArrayList<String> permutations;
 	
+	private static final char[] order = {'U', 'R', 'L', 'D'};
+	// Change in X relative to order Up, Right, Left, Down;
+	private static final int[] changeX = {0, 1, -1, 0};
+	private static final int[] changeY = {-1, 0, 0, 1};
+	
 	/**
 	 * Constructs a Monster.
 	 * 
@@ -50,6 +55,7 @@ public class Monster extends Entity
 	public Monster(Texture texture, Tile startTile, TileGrid grid, float speed)
 	{
 		super(texture, startTile, grid);
+		getGrid().toggleOccupied(startTile);
 		this.speed = speed;
 		permutations = new ArrayList<>();
 		genPerms("", "ULDR");
@@ -95,49 +101,29 @@ public class Monster extends Entity
 				return;
 			int nextX = nextTile.getIndX() * TileGrid.SIZE;
 			int nextY = nextTile.getIndY() * TileGrid.SIZE;
-			if (direction == 'U')
-			{
-				float y = getY() - getSeconds() * speed;
-				if (nextY > y)
-				{
-					setY(nextY);
-					setNextTile(direction);
-				}
-				else
-					setY(y);
-			}
-			else if (direction == 'L')
-			{
-				float x = getX() - getSeconds() * speed;
-				if (nextX > x)
-				{
-					setX(nextX);
-					setNextTile(direction);
-				}
-				else
+			
+			for (int k = 0; k < order.length; k++) {
+				if (direction == order[k]) {
+					// compute position
+					float x = getX() + getSeconds() * speed * changeX[k];
+					float y = getY() + getSeconds() * speed * changeY[k];
+					
+					// adjust for overshot
+					if (changeX[k] * (nextX - x) < 0)
+						x = nextX;
+					if (changeY[k] * (nextY - y) < 0)
+						y = nextY;
+					
 					setX(x);
-			}
-			else if (direction == 'D')
-			{
-				float y = getY() + getSeconds() * speed;
-				if (nextY < y)
-				{
-					setY(nextY);
-					setNextTile(direction);
-				}
-				else
 					setY(y);
-			}
-			else if (direction == 'R')
-			{
-				float x = getX() + getSeconds() * speed;
-				if (nextX < x)
-				{
-					setX(nextX);
-					setNextTile(direction);
+					
+					if (x == nextX && y == nextY)
+						nextTile = null;
+					else {
+						getGrid().toggleOccupied(nextTile);
+						setNextTile(direction);
+					}
 				}
-				else
-					setX(x);
 			}
 		}
 	}
@@ -209,24 +195,6 @@ public class Monster extends Entity
 		else
 			nextTile = null;
 	}
-	
-	/**
-	 * Private helper method that checks the validity of a tile. A tile is
-	 * valid if it is within the bounds of the grid in which the monster
-	 * exists, and if it is of the type cave.
-	 * 
-	 * @param x the x index of the tile
-	 * @param y the y index of the tile
-	 * @return whether or not the given tile is valid to move into
-	 */
-	/*
-	private boolean valid(int x, int y)
-	{
-		
-		return !(x < 0 || y < 0 || x >= TileGrid.COLS || y >= TileGrid.ROWS
-				|| TileType.Cave != getGrid().getTile(x, y).getType());
-	}
-	*/
 	
 	/**
 	 * Returns the speed of the monster.
