@@ -4,6 +4,7 @@ import static helpers.Clock.*;
 
 import java.awt.GridBagConstraints;
 
+import org.newdawn.slick.opengl.Texture;
 import org.w3c.dom.NamedNodeMap;
 
 
@@ -117,9 +118,9 @@ public class AbilityManager {
 	
 	static enum Ability {
 		// buff
-		SPEED("Speed", true), DMG_BOOST("Damage boost", true), MAGNET("Magnet", true),
+		SPEED("speed", true), DMG_BOOST("damage_boost", true), MAGNET("magnet", true),
 		// activated instantly
-		BLINK("Blink", 3), HEAL("Heal", 2), SLOW("Slow", true, 3);
+		BLINK("blink", 3), HEAL("heal", 2), SLOW("slow", true, 3);
 		
 		private static final Ability[] abilities = values();
 		
