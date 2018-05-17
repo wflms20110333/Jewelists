@@ -229,11 +229,11 @@ public class TileGrid
 		return entities[tile.getIndX()][tile.getIndY()];
 	}
 	
-	public boolean getOccupied(Tile tile)
-	{
-		return occupied[tile.getIndX()][tile.getIndY()];
-	}
-	
+	/**
+	 * If a given cell is occupied, it is set to unoccupied, and vice versa.
+	 * 
+	 * @param tile the tile that forms the given cell
+	 */
 	public void toggleOccupied(Tile tile)
 	{
 		occupied[tile.getIndX()][tile.getIndY()] = !occupied[tile.getIndX()][tile.getIndY()];
@@ -267,13 +267,15 @@ public class TileGrid
 	}
 	
 	/**
-	 * Returns whether the cell represented by the given indexes is within the
-	 * bounds of the tile grid and of the tile type cave.
+	 * Returns whether the cell represented by the given indexes is open for
+	 * entry by a moving entity. A cell is open for entry if it is within the
+	 * bounds of the tile grid, or the tile type cave or dirt, and not
+	 * currently occupied by another moving entity.
 	 * 
 	 * @param xCoord the x index of the cell
 	 * @param yCoord the y index of the cell
-	 * @return whether the cell represented by the given indexes is within the
-	 * 		   bounds of the tile grid and of the tile type cave
+	 * @return whether the cell represented by the given indexes is open for
+	 * 		   entry by a moving entity
 	 */
 	public boolean canEnter(int xCoord, int yCoord)
 	{

@@ -15,7 +15,14 @@ public class MonsterSpawner extends Spawner
 	 */
 	private static final int MAX = 10;
 	
+	/**
+	 * The texture of the monsters spawned.
+	 */
 	private Texture texture;
+	
+	/**
+	 * The speed of the monsters spawned.
+	 */
 	private float speed;
 	
 	/**

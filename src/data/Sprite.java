@@ -12,7 +12,9 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Sprite extends Entity
 {
-	
+	/**
+	 * The default speed of a Sprite.
+	 */
 	public static final int DEFAULT_SPEED = 10;
 	
 	/**
@@ -40,6 +42,14 @@ public class Sprite extends Entity
 	 */
 	private boolean trapped;
 	
+	/**
+	 * Constructs a Sprite.
+	 * 
+	 * @param texture the texture of the sprite
+	 * @param startTile the starting tile of the sprite
+	 * @param grid the grid in which the sprite exists
+	 * @param player the player to which the sprite belongs
+	 */
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player)
 	{
 		this(texture, startTile, grid, DEFAULT_SPEED, player);

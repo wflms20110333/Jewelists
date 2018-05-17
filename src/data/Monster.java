@@ -218,24 +218,6 @@ public class Monster extends Entity
 	}
 	
 	/**
-	 * Private helper method that checks the validity of a tile. A tile is
-	 * valid if it is within the bounds of the grid in which the monster
-	 * exists, and if it is of the type cave.
-	 * 
-	 * @param x the x index of the tile
-	 * @param y the y index of the tile
-	 * @return whether or not the given tile is valid to move into
-	 */
-	/*
-	private boolean valid(int x, int y)
-	{
-		
-		return !(x < 0 || y < 0 || x >= TileGrid.COLS || y >= TileGrid.ROWS
-				|| TileType.Cave != getGrid().getTile(x, y).getType());
-	}
-	*/
-	
-	/**
 	 * Returns the speed of the monster.
 	 * 
 	 * @return the speed of the monster
