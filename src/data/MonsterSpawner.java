@@ -7,7 +7,6 @@ import org.newdawn.slick.opengl.Texture;
  * 
  * @author Elizabeth Zou
  */
-
 public class MonsterSpawner extends Spawner
 {
 	/**
@@ -39,7 +38,9 @@ public class MonsterSpawner extends Spawner
 	}
 	
 	/**
-	 * Spawns a monster into a random empty tile, if such tile exists.
+	 * Spawns a monster into a random empty tile, if the number of monsters
+	 * currently on the grid has not exceeded MAX yet, and if such an empty
+	 * tile exists.
 	 */
 	@Override
 	public void spawn()

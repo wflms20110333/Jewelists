@@ -24,12 +24,24 @@ public class Player
 	private static final int WALL_COST = 2;
 	private static final int DESTROY_WALL_COST = 5;
 	
+	/**
+	 * The cost to build a trap.
+	 */
 	private static final int TRAP_COST = 4;
 	
+	/**
+	 * The game that the Player interacts with.
+	 */
 	private Game game;
 	
+	/**
+	 * The grid of the game that the Player interacts with.
+	 */
 	private TileGrid grid;
 	
+	/**
+	 * The ability manager that manages the Player's abilities.
+	 */
 	private AbilityManager abilityManager;
 	
 	/**
@@ -37,12 +49,34 @@ public class Player
 	 */
 	private int[] keys = new int[9];
 	
+	/**
+	 * The maximum health of the Player.
+	 */
 	private int maxHealth;
+	
+	/**
+	 * The current health of the Player.
+	 */
 	private int health;
+	
+	/**
+	 * The sprite of the Player.
+	 */
 	private Sprite sprite;
+	
+	/**
+	 * The number of jewels the Player possesses.
+	 */
 	private int jewels;
+	
+	/**
+	 * The current score of the Player.
+	 */
 	private long score;
 	
+	/**
+	 * The status manager that manages the statuses of effects.
+	 */
 	private StatusManager statuses;
 	
 	/**
@@ -53,7 +87,7 @@ public class Player
 	 * @param keys the keyboard commands of the player
 	 * @param texture the texture of the sprite of the player
 	 */
-	public Player(Game game, TileGrid grid, int[] keys, Texture texture) //, TileType thisDeposit, TileType otherDeposit)
+	public Player(Game game, TileGrid grid, int[] keys, Texture texture)
 	{
 		this.game = game;
 		this.grid = grid;
@@ -69,6 +103,8 @@ public class Player
 	}
 	
 	/**
+	 * Returns the sprite of the player.
+	 * 
 	 * @return the sprite of the player
 	 */
 	public Sprite getSprite()
@@ -77,6 +113,8 @@ public class Player
 	}
 	
 	/**
+	 * Returns the health percentage of the player.
+	 * 
 	 * @return the health percentage of the player
 	 */
 	public float getPercent()
@@ -85,6 +123,8 @@ public class Player
 	}
 	
 	/**
+	 * Returns the health of the player.
+	 * 
 	 * @return the health of the player
 	 */
 	public int getHealth()
@@ -93,6 +133,8 @@ public class Player
 	}
 	
 	/**
+	 * Sets the health of the player.
+	 * 
 	 * @param health the new health of the player
 	 */
 	public void setHealth(int health)
@@ -103,6 +145,8 @@ public class Player
 	}
 	
 	/**
+	 * Returns the maximum health of the player.
+	 * 
 	 * @return the maximum health of the player
 	 */
 	public int getMaxHealth()
@@ -111,6 +155,8 @@ public class Player
 	}
 	
 	/**
+	 * Sets the maximum health of the player.
+	 * 
 	 * @param maxhealth the new maximum health of the player
 	 */
 	public void setMaxhealth(int maxhealth)
@@ -118,16 +164,31 @@ public class Player
 		this.maxHealth = maxhealth;
 	}
 	
-	
-	public void addStatus(Status effect, long seconds) {
+	/**
+	 * Adds a status effect.
+	 * 
+	 * @param effect the given effect
+	 * @param seconds the duration of the effect
+	 */
+	public void addStatus(Status effect, long seconds)
+	{
 		statuses.addStatus(effect, seconds);
 	}
 	
-	public boolean statusActive(Status effect) {
+	/**
+	 * Returns whether a given effect is active.
+	 * 
+	 * @param effect the given effect
+	 * @return whether the given effect is active
+	 */
+	public boolean statusActive(Status effect)
+	{
 		return statuses.statusActive(effect);
 	}
 	
 	/**
+	 * Returns the score of the player.
+	 * 
 	 * @return the score of the player
 	 */
 	public long getScore()
@@ -135,10 +196,20 @@ public class Player
 		return score;
 	}
 	
-	public void setScore(long score) {
+	/**
+	 * Sets the score of the player.
+	 * 
+	 * @param score the new score of the player
+	 */
+	public void setScore(long score)
+	{
 		this.score = score;
 	}
-
+	
+	/**
+	 * Updates the status of the player. This includes updating the assets of
+	 * the player and checking for keyboard commands.
+	 */
 	public void update()
 	{
 		Keyboard.next();
@@ -211,6 +282,11 @@ public class Player
 		sprite.draw();
 	}
 	
+	/**
+	 * Attacks a given tile, if there is anything in the tile to be attacked.
+	 * 
+	 * @param tile the given tile
+	 */
 	private void attack(Tile tile)
 	{
 		// graphics of attacking??
@@ -218,7 +294,13 @@ public class Player
 			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
 	}
 	
-	public Game getGame() {
+	/**
+	 * Returns the game that the player interacts with.
+	 * 
+	 * @return the game that the player interacts with
+	 */
+	public Game getGame()
+	{
 		return game;
 	}
 	
@@ -248,11 +330,16 @@ public class Player
 		return jewels;
 	}
 	
-	public AbilityManager.Ability getAbility() {
+	/**
+	 * Returns the ability of the player.
+	 * 
+	 * @return the ability of the player
+	 */
+	public Ability getAbility()
+	{
 		return abilityManager.getAbility();
 	}
 	
-
 	/**
 	 * Collects a jewel.
 	 * 
