@@ -113,18 +113,14 @@ public class Monster extends Entity
 					setX(x);
 					setY(y);
 					
-					if (x == nextX && y == nextY) {
+					if (x == nextX && y == nextY)
+					{
 						getGrid().toggleOccupied(getCurrentTile());
 						setCurrentTile(nextTile);
 						nextTile = null;
-<<<<<<< HEAD
 						if (Math.random() < 0.5)
 							setNextTile(direction);
 					}
-=======
-					} else
-						setNextTile(direction);
->>>>>>> 90a420745aa38de61da6b18bb7f492f39d9eeeb8
 				}
 			}
 		}

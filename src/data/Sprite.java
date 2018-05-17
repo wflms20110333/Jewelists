@@ -16,7 +16,6 @@ import helpers.Clock;
 
 public class Sprite extends Entity
 {
-<<<<<<< HEAD
 	/**
 	 * The default speed of a Sprite.
 	 */
@@ -28,10 +27,6 @@ public class Sprite extends Entity
 	private static final char[] order = {'U', 'L', 'D', 'R'};
 	private static final int[] changeX = {0, -1, 0, 1};
 	private static final int[] changeY = {-1, 0, 1, 0};
-=======
-	
-	public static final int DEFAULT_SPEED = 100;
->>>>>>> 90a420745aa38de61da6b18bb7f492f39d9eeeb8
 	
 	/**
 	 * The player that the Sprite belongs to.
