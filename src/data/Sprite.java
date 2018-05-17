@@ -33,7 +33,7 @@ public class Sprite extends Entity
 	/**
 	 * The tile the Sprite is currently moving into.
 	 */
-	private Tile nextTile;
+	private Tile nextTile, currentTile;
 	
 	
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player) {
@@ -54,6 +54,7 @@ public class Sprite extends Entity
 		getGrid().toggleOccupied(startTile);
 		this.speed = speed;
 		this.player = player;
+		this.currentTile = startTile;
 	}
 	
 	/**
@@ -115,6 +116,8 @@ public class Sprite extends Entity
 				setY(y);
 				
 				if (x == nextX && y == nextY) {
+					getGrid().toggleOccupied(currentTile);
+					currentTile = nextTile;
 					nextTile = null;
 					checkTrap();
 				}

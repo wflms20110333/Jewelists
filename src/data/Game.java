@@ -43,7 +43,7 @@ public class Game
 	public Game(TileGrid tg, int[][] keys)
 	{
 		grid = tg;
-		monsterSpawner = new MonsterSpawner(10, grid, quickLoad("monster"), 5);
+		monsterSpawner = new MonsterSpawner(10, grid, quickLoad("monster"), 100);
 		
 		players = new Player[] {
 			new Player(this, grid, keys[0], quickLoad("emoji")),
@@ -54,7 +54,7 @@ public class Game
 		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new Scoreboard(null, new Rectangle((WIDTH - SCOREBOARD_WIDTH) / 2, 
-			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 30000)
+			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 50)
 		);
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();

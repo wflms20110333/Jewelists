@@ -4,6 +4,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import static helpers.Clock.*;
 
+import java.awt.Label;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +33,7 @@ public class Monster extends Entity
 	/**
 	 * The tile the Monster is currently moving into.
 	 */
-	private Tile nextTile;
+	private Tile nextTile, currentTile;
 	
 	/**
 	 * A list of all the possible permutations of "ULDR", the four directions.
@@ -56,6 +57,7 @@ public class Monster extends Entity
 	{
 		super(texture, startTile, grid);
 		getGrid().toggleOccupied(startTile);
+		this.currentTile = startTile;
 		this.speed = speed;
 		permutations = new ArrayList<>();
 		genPerms("", "ULDR");
@@ -117,12 +119,12 @@ public class Monster extends Entity
 					setX(x);
 					setY(y);
 					
-					if (x == nextX && y == nextY)
+					if (x == nextX && y == nextY) {
+						getGrid().toggleOccupied(currentTile);
+						currentTile = nextTile;
 						nextTile = null;
-					else {
-						getGrid().toggleOccupied(nextTile);
+					} else
 						setNextTile(direction);
-					}
 				}
 			}
 		}
@@ -161,6 +163,7 @@ public class Monster extends Entity
 			if (getGrid().canEnter(i, j))
 			{
 				nextTile = getGrid().getTile(i, j);
+				getGrid().toggleOccupied(nextTile);
 				direction = c;
 				return;
 			}
@@ -190,6 +193,7 @@ public class Monster extends Entity
 		if (getGrid().canEnter(i, j))
 		{
 			nextTile = getGrid().getTile(i, j);
+			getGrid().toggleOccupied(nextTile);
 			direction = dir;
 		}
 		else

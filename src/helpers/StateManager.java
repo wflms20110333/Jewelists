@@ -132,6 +132,7 @@ public class StateManager
 	 */
 	public static void update()
 	{
+//		System.out.println("HI");
 		switch (gameState)
 		{
 		case MAINMENU:
