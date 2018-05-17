@@ -42,8 +42,8 @@ public class MapHelper
 			//return "2";
 		//case Deposit2:
 			//return "3";
-		case Grass:
-			return "4";
+		//case Grass:
+			//return "4";
 		case Dirt:
 			return "5";
 		case Water:

@@ -39,10 +39,10 @@ public class MainMenu
 	 */
 	public MainMenu()
 	{
-		background = quickLoad("illuminati");
+		background = quickLoad("white");
 		menuUI = new UI();
 		menuUI.addButton("Play", "button_play", WIDTH / 2 - 128, (int) (HEIGHT * 0.45));
-		menuUI.addButton("Editor", "button_editor", WIDTH / 2 - 128, (int) (HEIGHT * 0.55));
+		menuUI.addButton("Edit", "button_edit", WIDTH / 2 - 128, (int) (HEIGHT * 0.55));
 		menuUI.addButton("Quit", "button_quit", WIDTH / 2 - 128, (int) (HEIGHT * 0.65));
 		menuUI.addButton("Settings", "button_settings", 50, 50);
 	}
@@ -52,7 +52,7 @@ public class MainMenu
 	 */
 	public void update()
 	{
-		drawQuadTex(background, 0, 0, 2048, 1024);
+		drawQuadTex(background, 0, 0, WIDTH * 2, HEIGHT * 2);
 		menuUI.draw();
 		if (count < 10)
 			count++;
@@ -67,7 +67,7 @@ public class MainMenu
 	{
 		if (menuUI.isButtonClicked("Play"))
 			StateManager.setState(GameState.GAME);
-		else if (menuUI.isButtonClicked("Editor"))
+		else if (menuUI.isButtonClicked("Edit"))
 			StateManager.setState(GameState.EDITOR);
 		else if (menuUI.isButtonClicked("Quit"))
 			System.exit(0);

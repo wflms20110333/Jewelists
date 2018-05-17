@@ -1,13 +1,9 @@
 package data;
 
 import static helpers.Artist.*;
-import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-
-import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.Color;
 
 import UI.InfoBar;
 import UI.Scoreboard;
@@ -37,12 +33,12 @@ public class Game
 	UI ui;
 	ArrayList<Trap> traps;
 	
-	public Game()
+	public Game(int[][] keys)
 	{
-		this(new TileGrid());
+		this(new TileGrid(), keys);
 	}
 	
-	public Game(TileGrid tg)
+	public Game(TileGrid tg, int[][] keys)
 	{
 		grid = tg;
 		Monster e = new Monster(quickLoad("monster_32"), grid.getTile(10, 10), grid, 100);
@@ -52,9 +48,12 @@ public class Game
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
 		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
 				Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
+		Monster e = new Monster(quickLoad("monster"), grid.getTile(10, 10), grid, 5);
+		monsterSpawner = new MonsterSpawner(10, e);
+		
 		players = new Player[] {
-			new Player(this, grid, keys1, quickLoad("emoji")), //, TileType.Deposit1, TileType.Deposit2),
-			new Player(this, grid, keys2, quickLoad("emoji2")) //, TileType.Deposit2, TileType.Deposit1)
+			new Player(this, grid, keys[0], quickLoad("emoji")), //, TileType.Deposit1, TileType.Deposit2),
+			new Player(this, grid, keys[1], quickLoad("emoji2")) //, TileType.Deposit2, TileType.Deposit1)
 		};
 		
 		ui = new UI();
@@ -65,11 +64,11 @@ public class Game
 		);
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();
-		jewelList.add(new Jewel(quickLoad("jewel_green_32"), grid.getTile(6, 7), grid, 1));
+		jewelList.add(new Jewel(quickLoad("jewel_green"), grid.getTile(6, 7), grid, 1));
 		jewelList.add(new Jewel(quickLoad("jewel_red"), grid.getTile(6, 7), grid, 2));
 		jewelList.add(new Jewel(quickLoad("jewel_blue"), grid.getTile(6, 7), grid, 3));
 		jewelList.add(new Jewel(quickLoad("jewel_purple"), grid.getTile(6, 7), grid, 4));
-		jewelList.add(new Jewel(quickLoad("jewel_yellow"), grid.getTile(6, 7), grid, 5));
+		jewelList.add(new Jewel(quickLoad("jewel_orange"), grid.getTile(6, 7), grid, 5));
 		
 		jewelSpawner = new JewelSpawner(3, grid, jewelList);
 		traps = new ArrayList<>();
@@ -100,6 +99,7 @@ public class Game
 		return players;
 	}
 	
+	/*
 	public void setPlayerKeys(int player, int index, int key)
 	{
 		if (players.length < player)
@@ -107,6 +107,7 @@ public class Game
 		else
 			players[player - 1].setKey(index, key);
 	}
+	*/
 	
 	public void setGrid(TileGrid tg)
 	{

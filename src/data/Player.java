@@ -269,10 +269,12 @@ public class Player
 	 * @param index the index of the command in keys
 	 * @param key the new keyboard command
 	 */
+	/*
 	public void setKey(int index, int key)
 	{
 		keys[index] = key;
 	}
+	*/
 	
 	/**
 	 * Sets the grid of the game that the player interacts with.

@@ -24,7 +24,8 @@ public class Button extends UIItem
 		this(name, texture, new Rectangle(x, y, texture.getImageWidth(), texture.getImageHeight()));
 	}
 	
-	public Button(String name, Texture texture, Rectangle rect) {
+	public Button(String name, Texture texture, Rectangle rect)
+	{
 		super(texture, rect);
 		this.name = name;
 	}
@@ -39,14 +40,16 @@ public class Button extends UIItem
 		this.name = name;
 	}
 	
-	public boolean isClicked() {
+	public boolean isClicked()
+	{
 		return Mouse.isButtonDown(LEFT_MOUSE) && super.getRect().contains(
 			Mouse.getX(), Artist.HEIGHT - Mouse.getY() - 1
 		);
 	}
 	
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Button: " + name + " " + getRect();
 	}
 }

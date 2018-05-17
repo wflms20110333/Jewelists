@@ -3,6 +3,8 @@ package data;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import UI.UI;
+
 import static helpers.Artist.*;
 import static helpers.StateManager.*;
 
@@ -13,6 +15,8 @@ import static helpers.StateManager.*;
  */
 public class Editor
 {
+	private UI menuUI;
+	
 	/**
 	 * The tile grid that the user is editing.
 	 */
@@ -33,6 +37,9 @@ public class Editor
 	 */
 	public Editor()
 	{
+		menuUI = new UI();
+		menuUI.addButton("Play", "button_play", 0, 0);
+		
 		this.grid = new TileGrid();
 		this.types = new TileType[3];
 		this.types[0] = TileType.Cave;
@@ -49,6 +56,7 @@ public class Editor
 	public void update()
 	{
 		grid.draw();
+		menuUI.draw();
 		if (Mouse.isButtonDown(0))
 		{
 			setTile();
@@ -59,11 +67,24 @@ public class Editor
 				moveIndex();
 			//if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.getEventKeyState())
 				//saveMap("mapTest", grid);
+			/*
 			if (Keyboard.getEventKey() == Keyboard.KEY_LEFT && Keyboard.getEventKeyState())
 			{
 				setGrid(grid);
 				setState(GameState.GAME);
 			}
+			*/
+		}
+		
+		updateButtons();
+	}
+	
+	public void updateButtons()
+	{
+		if (menuUI.isButtonClicked("Play"))
+		{
+			game = new Game(grid, keys);
+			setState(GameState.GAME);
 		}
 	}
 	
