@@ -2,10 +2,9 @@ package data;
 
 import static helpers.Clock.*;
 
-import java.awt.GridBagConstraints;
-
 import org.newdawn.slick.opengl.Texture;
-import org.w3c.dom.NamedNodeMap;
+
+import helpers.Artist;
 
 
 public class AbilityManager {
@@ -116,9 +115,9 @@ public class AbilityManager {
 		return true;
 	}
 	
-	static enum Ability {
+	public static enum Ability {
 		// buff
-		SPEED("speed", true), DMG_BOOST("damage_boost", true), MAGNET("magnet", true),
+		SPEED("speed", true), DMG_BOOST("dmg_boost", true), MAGNET("magnet", true),
 		// activated instantly
 		BLINK("blink", 3), HEAL("heal", 2), SLOW("slow", true, 3);
 		
@@ -131,6 +130,8 @@ public class AbilityManager {
 		private final long cooldown;
 		private final int value;
 		private final String name;
+		
+		private final Texture texture;
 		
 		private Ability(String name) {
 			this(name, false);
@@ -152,6 +153,7 @@ public class AbilityManager {
 			this.cooldown = BUFF_COOLDOWN;
 			this.value = value;
 			this.name = name;
+			this.texture = Artist.quickLoad(name);
 		}
 		
 		public long getDuration() {
@@ -164,6 +166,10 @@ public class AbilityManager {
 		
 		public long getValue() {
 			return value;
+		}
+		
+		public Texture getTexture() {
+			return texture;
 		}
 		
 		public static Ability random() {

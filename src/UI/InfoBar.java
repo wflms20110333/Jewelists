@@ -9,6 +9,7 @@ import org.newdawn.slick.Color;
 
 import data.Player;
 import data.TileGrid;
+import data.AbilityManager.Ability;
 
 /**
  * The InfoBar class blah blah
@@ -60,7 +61,9 @@ public class InfoBar extends UIItem
 		drawString(rect.x + PADDING * 2 + TileGrid.SIZE, rect.y + PADDING, 
 				"" + player.getJewels(), Color.white);
 		
-		
+		float abilitySize = (float) ((SCALE - 1) * rect.getHeight() / SCALE);
+		drawQuadTex(player.getAbility().getTexture(), (float) (rect.getX() + rect.getWidth() - abilitySize), 
+				(float) rect.getY(), abilitySize, abilitySize);
 
 		// health bar
 		drawQuad(rect.x, rect.y + (SCALE - 1) * rect.height / SCALE, rect.width, rect.height / SCALE, Color.gray);
