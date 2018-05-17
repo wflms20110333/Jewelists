@@ -2,18 +2,13 @@ package data;
 
 import static helpers.Clock.getSeconds;
 
-import java.time.Year;
-
 import org.newdawn.slick.opengl.Texture;
-
-import helpers.Clock;
 
 /**
  * The Sprite class blah blah
  * 
  * @author Elizabeth Zou
  */
-
 public class Sprite extends Entity
 {
 	/**
@@ -35,6 +30,10 @@ public class Sprite extends Entity
 	 * The direction the Sprite is currently moving in.
 	 */
 	private char direction;
+	
+	/**
+	 * The direction the Sprite is facing.
+	 */
 	private char facingDirection;
 	
 	/**
@@ -82,18 +81,10 @@ public class Sprite extends Entity
 		// collect jewels
 		Tile[] check = new Tile[9];
 		int index = 0;
-		for (int dx = -1; dx <= 1; dx++) {
-			for (int dy = -1; dy <= 1; dy++) {
-				if (getGrid().validIndex(getCurrentTile().getIndX() + dx, 
-						getCurrentTile().getIndY() + dy)) {
-					
-					check[index++] = getGrid().getTile(
-						getCurrentTile().getIndX() + dx,
-						getCurrentTile().getIndY() + dy
-					);
-				}
-			}
-		}
+		for (int dx = -1; dx <= 1; dx++)
+			for (int dy = -1; dy <= 1; dy++)
+				if (getGrid().validIndex(getCurrentTile().getIndX() + dx, getCurrentTile().getIndY() + dy))
+					check[index++] = getGrid().getTile(getCurrentTile().getIndX() + dx, getCurrentTile().getIndY() + dy);
 		
 		for (Tile t : check)
 		{
@@ -122,8 +113,10 @@ public class Sprite extends Entity
 		int nextX = nextTile.getX();
 		int nextY = nextTile.getY();
 		
-		for (int k = 0; k < TileGrid.order.length; k++) {
-			if (direction == TileGrid.order[k]) {
+		for (int k = 0; k < TileGrid.order.length; k++)
+		{
+			if (direction == TileGrid.order[k])
+			{
 				// compute position
 				float x = getX() + getSeconds() * adjusted_speed * TileGrid.changeX[k];
 				float y = getY() + getSeconds() * adjusted_speed * TileGrid.changeY[k];
@@ -137,7 +130,8 @@ public class Sprite extends Entity
 				setX(x);
 				setY(y);
 				
-				if (x == nextX && y == nextY) {
+				if (x == nextX && y == nextY)
+				{
 					getGrid().toggleOccupied(getCurrentTile());
 					setCurrentTile(nextTile);
 					nextTile = null;
@@ -147,7 +141,13 @@ public class Sprite extends Entity
 		}
 	}
 	
-	public void blink(Tile tile) {
+	/**
+	 * Blinks the sprite to the given tile.
+	 * 
+	 * @param tile the given tile
+	 */
+	public void blink(Tile tile)
+	{
 		getGrid().toggleOccupied(getCurrentTile());
 		if (nextTile != null)
 			getGrid().toggleOccupied(nextTile);
@@ -199,7 +199,13 @@ public class Sprite extends Entity
 		}
 	}
 	
-	public char getFacingDirection() {
+	/**
+	 * Returns the direction the sprite is facing.
+	 * 
+	 * @return the direction the sprite is facing
+	 */
+	public char getFacingDirection()
+	{
 		return facingDirection;
 	}
 	
@@ -224,7 +230,13 @@ public class Sprite extends Entity
 		return tx < oX && tX > ox && ty < oY && tY > oY;
 	}
 	
-	public Player getPlayer() {
+	/**
+	 * Returns the player that the sprite belongs to.
+	 * 
+	 * @return the player that the sprite belongs to
+	 */
+	public Player getPlayer()
+	{
 		return player;
 	}
 }
