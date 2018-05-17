@@ -33,7 +33,7 @@ public class Player
 	 */
 	private int[] keys = new int[9];
 	
-	private int maxhealth;
+	private int maxHealth;
 	private int health;
 	private Sprite sprite;
 	private int jewels;
@@ -57,7 +57,7 @@ public class Player
 			this.keys[i] = keys[i];
 		Tile tile = grid.randEmptyTile();
 		score = 1;
-		health = maxhealth = DEFAULT_HEALTH;
+		health = maxHealth = DEFAULT_HEALTH;
 		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
 		statuses = new StatusManager();
@@ -76,7 +76,7 @@ public class Player
 	 */
 	public float getPercent()
 	{
-		return (float) health / maxhealth;
+		return (float) health / maxHealth;
 	}
 	
 	/**
@@ -90,17 +90,19 @@ public class Player
 	/**
 	 * @param health the new health of the player
 	 */
-	public void sethealth(int health)
+	public void setHealth(int health)
 	{
 		this.health = health;
+		if (health > maxHealth)
+			health = maxHealth;
 	}
 	
 	/**
 	 * @return the maximum health of the player
 	 */
-	public int getMaxhealth()
+	public int getMaxHealth()
 	{
-		return maxhealth;
+		return maxHealth;
 	}
 	
 	/**
@@ -108,7 +110,7 @@ public class Player
 	 */
 	public void setMaxhealth(int maxhealth)
 	{
-		this.maxhealth = maxhealth;
+		this.maxHealth = maxhealth;
 	}
 	
 	
@@ -148,25 +150,25 @@ public class Player
 		{
 			if (Keyboard.isKeyDown(keys[0]) && Keyboard.getEventKeyState())
 			{
-				Tile tgt = grid.up(sprite.currTile());
+				Tile tgt = grid.up(sprite.getCurrentTile());
 				if (tgt != null)
 					attack(tgt);
 			}
 			if (Keyboard.isKeyDown(keys[1]) && Keyboard.getEventKeyState())
 			{
-				Tile tgt = grid.left(sprite.currTile());
+				Tile tgt = grid.left(sprite.getCurrentTile());
 				if (tgt != null)
 					attack(tgt);
 			}
 			if (Keyboard.isKeyDown(keys[2]) && Keyboard.getEventKeyState())
 			{
-				Tile tgt = grid.down(sprite.currTile());
+				Tile tgt = grid.down(sprite.getCurrentTile());
 				if (tgt != null)
 					attack(tgt);
 			}
 			if (Keyboard.isKeyDown(keys[3]) && Keyboard.getEventKeyState())
 			{
-				Tile tgt = grid.right(sprite.currTile());
+				Tile tgt = grid.right(sprite.getCurrentTile());
 				if (tgt != null)
 					attack(tgt);
 			}
@@ -174,14 +176,14 @@ public class Player
 
 		if (Keyboard.isKeyDown(keys[5]) && Keyboard.getEventKeyState())
 		{
-			Tile tile = sprite.currTile();
+			Tile tile = sprite.getCurrentTile();
 			if (tile.getType() == TileType.Cave && spendJewels(WALL_COST))
 				grid.setTile(tile, TileType.Wall);
 		}
 		if (Keyboard.isKeyDown(keys[6]) && Keyboard.getEventKeyState())
 		{
 			// trap
-			Tile tile = sprite.currTile();
+			Tile tile = sprite.getCurrentTile();
 			if (grid.getEntity(tile) == null && spendJewels(TRAP_COST))
 			{
 				Trap trap = new Trap(tile, grid);
@@ -208,6 +210,10 @@ public class Player
 		// graphics of attacking??
 		if (tile.getType() == TileType.Wall && spendJewels(DESTROY_WALL_COST))
 			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
+	}
+	
+	public Game getGame() {
+		return game;
 	}
 	
 	/**

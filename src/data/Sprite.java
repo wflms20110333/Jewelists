@@ -2,7 +2,11 @@ package data;
 
 import static helpers.Clock.getSeconds;
 
+import java.time.Year;
+
 import org.newdawn.slick.opengl.Texture;
+
+import helpers.Clock;
 
 /**
  * The Sprite class blah blah
@@ -12,6 +16,7 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Sprite extends Entity
 {
+<<<<<<< HEAD
 	/**
 	 * The default speed of a Sprite.
 	 */
@@ -23,6 +28,10 @@ public class Sprite extends Entity
 	private static final char[] order = {'U', 'L', 'D', 'R'};
 	private static final int[] changeX = {0, -1, 0, 1};
 	private static final int[] changeY = {-1, 0, 1, 0};
+=======
+	
+	public static final int DEFAULT_SPEED = 100;
+>>>>>>> 90a420745aa38de61da6b18bb7f492f39d9eeeb8
 	
 	/**
 	 * The player that the Sprite belongs to.
@@ -38,11 +47,12 @@ public class Sprite extends Entity
 	 * The direction the Sprite is currently moving in.
 	 */
 	private char direction;
+	private char facingDirection;
 	
 	/**
 	 * The tile the Sprite is currently moving into.
 	 */
-	private Tile nextTile, currentTile;
+	private Tile nextTile;
 	
 	/**
 	 * Constructs a Sprite.
@@ -71,7 +81,7 @@ public class Sprite extends Entity
 		getGrid().toggleOccupied(startTile);
 		this.speed = speed;
 		this.player = player;
-		this.currentTile = startTile;
+		this.facingDirection = 'U';
 	}
 	
 	/**
@@ -83,11 +93,11 @@ public class Sprite extends Entity
 	{
 		// collect jewels
 		Tile[] check = new Tile[5];
-		check[0] = currTile();
-		check[1] = getGrid().up(check[0]);
-		check[2] = getGrid().left(check[0]);
-		check[3] = getGrid().down(check[0]);
-		check[4] = getGrid().right(check[0]);
+		check[0] = getCurrentTile();
+		check[1] = getGrid().right(check[0]);
+		check[2] = getGrid().down(check[0]);
+		check[3] = getGrid().left(check[0]);
+		check[4] = getGrid().up(check[0]);
 		
 		for (int i = 0; i < check.length; i++)
 		{
@@ -117,32 +127,37 @@ public class Sprite extends Entity
 		int nextX = nextTile.getX();
 		int nextY = nextTile.getY();
 		
-		for (int k = 0; k < order.length; k++)
-		{
-			if (direction == order[k])
-			{
+		for (int k = 0; k < TileGrid.order.length; k++) {
+			if (direction == TileGrid.order[k]) {
 				// compute position
-				float x = getX() + getSeconds() * adjusted_speed * changeX[k];
-				float y = getY() + getSeconds() * adjusted_speed * changeY[k];
+				float x = getX() + getSeconds() * adjusted_speed * TileGrid.changeX[k];
+				float y = getY() + getSeconds() * adjusted_speed * TileGrid.changeY[k];
 				
 				// adjust for overshot
-				if (changeX[k] * (nextX - x) < 0)
+				if (TileGrid.changeX[k] * (nextX - x) < 0)
 					x = nextX;
-				if (changeY[k] * (nextY - y) < 0)
+				if (TileGrid.changeY[k] * (nextY - y) < 0)
 					y = nextY;
 				
 				setX(x);
 				setY(y);
 				
-				if (x == nextX && y == nextY)
-				{
-					getGrid().toggleOccupied(currentTile);
-					currentTile = nextTile;
+				if (x == nextX && y == nextY) {
+					getGrid().toggleOccupied(getCurrentTile());
+					setCurrentTile(nextTile);
 					nextTile = null;
 					checkTrap();
 				}
 			}
 		}
+	}
+	
+	public void blink(Tile tile) {
+		getGrid().toggleOccupied(getCurrentTile());
+		if (nextTile != null)
+			getGrid().toggleOccupied(nextTile);
+		setCurrentTile(tile);
+		nextTile = null;
 	}
 	
 	/**
@@ -154,10 +169,11 @@ public class Sprite extends Entity
 	 */
 	public void updatePath(char d)
 	{
+		facingDirection = d;
 		if (nextTile == null)
 		{
 			direction = d;
-			Tile current = currTile();
+			Tile current = getCurrentTile();
 			if (direction == 'U' && getGrid().canEnter(current.getIndX(), current.getIndY() - 1))
 				nextTile = getGrid().getTile(current.getIndX(), current.getIndY() - 1);
 			else if (direction == 'L' && getGrid().canEnter(current.getIndX() - 1, current.getIndY()))
@@ -177,13 +193,17 @@ public class Sprite extends Entity
 	 */
 	private void checkTrap()
 	{
-		Entity e = getGrid().getEntity(currTile());
+		Entity e = getGrid().getEntity(getCurrentTile());
 		if (e instanceof Trap && getX() == e.getX() && getY() == e.getY())
 		{
 			Trap trap = (Trap) e;
 			if (trap.getBufferPassed() && !trap.activated())
 				trap.activate(this);
 		}
+	}
+	
+	public char getFacingDirection() {
+		return facingDirection;
 	}
 	
 	/**
@@ -207,8 +227,7 @@ public class Sprite extends Entity
 		return tx < oX && tX > ox && ty < oY && tY > oY;
 	}
 	
-	public Player getPlayer()
-	{
+	public Player getPlayer() {
 		return player;
 	}
 }
