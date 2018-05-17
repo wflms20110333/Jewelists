@@ -1,21 +1,69 @@
 package data;
 
-public enum Status {
-	SPEED(2f), MAGNET, SLOW(.5f), STUN, DMG_BOOST(2f);
+/**
+ * The Status enum represents different status effects.
+ * 
+ * @author ysfn6
+ */
+public enum Status
+{
+	/**
+	 * Speeds up the movement of the sprite.
+	 */
+	SPEED(2f),
 	
-	// Multiplier used for many status effects
-	// with speed, it would be speed multiplier. With something like a stun, this should be set to -1
+	/**
+	 * Allows the sprite to collect any jewels in any surrounding cells.
+	 */
+	MAGNET,
+	
+	/**
+	 * Slows down the movement of the sprite.
+	 */
+	SLOW(.5f),
+	
+	/**
+	 * Inhibits any movement of the sprite.
+	 */
+	STUN,
+	
+	/**
+	 * Increases the damage caused by the sprite's attacks.
+	 */
+	DMG_BOOST(2f);
+	
+	/**
+	 * A multiplier used for many status effects. For example, it would be a
+	 * speed multiplier for speed, while for something like a stun, this should
+	 * be set to -1 (invalid).
+	 */
 	private final float multiplier;
 	
-	private Status() {
+	/**
+	 * Constructs a Status without a multiplier.
+	 */
+	private Status()
+	{
 		this(-1);
 	}
 	
-	private Status(float multiplier) {
+	/**
+	 * Constructs a Status with a given multiplier.
+	 * 
+	 * @param multiplier the given multiplier
+	 */
+	private Status(float multiplier)
+	{
 		this.multiplier = multiplier;
 	}
 	
-	public float getMultiplier() {
+	/**
+	 * Returns the multiplier of the status
+	 * 
+	 * @return the multiplier of the status
+	 */
+	public float getMultiplier()
+	{
 		return multiplier;
 	}
 }

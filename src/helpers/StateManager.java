@@ -6,7 +6,6 @@ import data.Editor;
 import data.Game;
 import data.MainMenu;
 import data.Settings;
-import data.TileGrid;
 
 /**
  * The StateManager class manages the state of the game blah blah
