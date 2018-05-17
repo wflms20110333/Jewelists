@@ -49,8 +49,7 @@ public class AbilityManager {
 			
 			if (applied)
 				cooldownTick = 0;
-		} else
-			System.out.println("ON COOLDOWN MATE");
+		}
 	}
 	
 	public Ability getAbility() {
@@ -105,10 +104,12 @@ public class AbilityManager {
 		int radius = (int) ability.getValue();
 		// apply slow in a radius
 		for (Player other : player.getGame().getPlayers()) {
+			if (other == player)
+				continue;
 			Tile theirTile = other.getSprite().getCurrentTile();
 			if (Math.abs(thisTile.getIndX() - theirTile.getIndX()) <= radius &&
 				Math.abs(thisTile.getIndY() - theirTile.getIndY()) <= radius)
-					other.addStatus(Status.SLOW, ability.duration);
+					other.addStatus(Status.SLOW, ability.getDuration());
 		}
 		
 		return true;
@@ -118,7 +119,7 @@ public class AbilityManager {
 		// buff
 		SPEED("Speed", true), DMG_BOOST("Damage boost", true), MAGNET("Magnet", true),
 		// activated instantly
-		BLINK("Blink", 3), HEAL("Heal", 2), SLOW("Slow", true);
+		BLINK("Blink", 3), HEAL("Heal", 2), SLOW("Slow", true, 3);
 		
 		private static final Ability[] abilities = values();
 		
