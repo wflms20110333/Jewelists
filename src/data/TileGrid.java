@@ -25,6 +25,14 @@ public class TileGrid
 	 */
 	public static final int COLS = WIDTH / SIZE;
 	public static final int ROWS = HEIGHT / SIZE - Game.SCOREBOARD_HEIGHT_TILES;
+	
+	/**
+	 * Used for determining direction and what to increment
+	 */
+	public static final char[] order = {'U', 'R', 'L', 'D'};
+	// Change in X relative to order Up, Right, Left, Down;
+	public static final int[] changeX = {0, 1, -1, 0};
+	public static final int[] changeY = {-1, 0, 0, 1};
 
 	/**
 	 * The tiles that form the TileGrid.

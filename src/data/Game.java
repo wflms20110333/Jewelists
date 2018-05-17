@@ -83,7 +83,7 @@ public class Game
 			if (!trap.exists())
 			{
 				traps.remove(i);
-				grid.removeEntity(trap.currTile());
+				grid.removeEntity(trap.getCurrentTile());
 			}
 		}
 	}

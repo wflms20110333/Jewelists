@@ -28,7 +28,6 @@ public abstract class Entity
 	private int width;
 	private int height;
 	
-	private List<Status> status;
 	
 	/**
 	 * The texture of the Entity.
@@ -39,6 +38,8 @@ public abstract class Entity
 	 * The grid in which the Entity exists.
 	 */
 	private TileGrid grid;
+	
+	private Tile currentTile;
 	
 	/**
 	 * Whether or not the Entity exists.
@@ -59,8 +60,8 @@ public abstract class Entity
 		this.y = startTile.getIndY() * TileGrid.SIZE;
 		this.width = TileGrid.SIZE;
 		this.height = TileGrid.SIZE;
+		this.currentTile = startTile;
 		this.grid = grid;
-		status = new ArrayList<Status>();
 	}
 	
 	/**
@@ -179,30 +180,22 @@ public abstract class Entity
 		return exists;
 	}
 	
+	public void setCurrentTile(Tile currentTile) {
+		this.currentTile = currentTile;
+	}
+	
 	/**
 	 * Returns the tile in which the entity is currently in.
 	 * 
 	 * @return the tile in which the entity is currently in
 	 */
-	public Tile currTile()
+	public Tile getCurrentTile()
 	{
-		return grid.getTile((int) (x / TileGrid.SIZE), (int) (y / TileGrid.SIZE));
+		return currentTile;
 	}
 	
 	/**
 	 * Updates the state of the entity.
 	 */
 	public abstract void update();
-	
-	public void addStatus(Status effect) {
-		status.add(effect);
-	}
-	
-	public void removeStatus(Status effect) {
-		status.remove(effect);
-	}
-	
-	public boolean hasStatus(Status effect) {
-		return status.contains(effect);
-	}
 }

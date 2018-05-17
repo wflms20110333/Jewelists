@@ -33,17 +33,12 @@ public class Monster extends Entity
 	/**
 	 * The tile the Monster is currently moving into.
 	 */
-	private Tile nextTile, currentTile;
+	private Tile nextTile;
 	
 	/**
 	 * A list of all the possible permutations of "ULDR", the four directions.
 	 */
 	private ArrayList<String> permutations;
-	
-	private static final char[] order = {'U', 'R', 'L', 'D'};
-	// Change in X relative to order Up, Right, Left, Down;
-	private static final int[] changeX = {0, 1, -1, 0};
-	private static final int[] changeY = {-1, 0, 0, 1};
 	
 	/**
 	 * Constructs a Monster.
@@ -57,7 +52,6 @@ public class Monster extends Entity
 	{
 		super(texture, startTile, grid);
 		getGrid().toggleOccupied(startTile);
-		this.currentTile = startTile;
 		this.speed = speed;
 		permutations = new ArrayList<>();
 		genPerms("", "ULDR");
@@ -104,24 +98,24 @@ public class Monster extends Entity
 			int nextX = nextTile.getIndX() * TileGrid.SIZE;
 			int nextY = nextTile.getIndY() * TileGrid.SIZE;
 			
-			for (int k = 0; k < order.length; k++) {
-				if (direction == order[k]) {
+			for (int k = 0; k < TileGrid.order.length; k++) {
+				if (direction == TileGrid.order[k]) {
 					// compute position
-					float x = getX() + getSeconds() * speed * changeX[k];
-					float y = getY() + getSeconds() * speed * changeY[k];
+					float x = getX() + getSeconds() * speed * TileGrid.changeX[k];
+					float y = getY() + getSeconds() * speed * TileGrid.changeY[k];
 					
 					// adjust for overshot
-					if (changeX[k] * (nextX - x) < 0)
+					if (TileGrid.changeX[k] * (nextX - x) < 0)
 						x = nextX;
-					if (changeY[k] * (nextY - y) < 0)
+					if (TileGrid.changeY[k] * (nextY - y) < 0)
 						y = nextY;
 					
 					setX(x);
 					setY(y);
 					
 					if (x == nextX && y == nextY) {
-						getGrid().toggleOccupied(currentTile);
-						currentTile = nextTile;
+						getGrid().toggleOccupied(getCurrentTile());
+						setCurrentTile(nextTile);
 						nextTile = null;
 					} else
 						setNextTile(direction);
@@ -152,20 +146,11 @@ public class Monster extends Entity
 		{
 			int i = (int) (getX() / TileGrid.SIZE);
 			int j = (int) (getY() / TileGrid.SIZE);
-			if (c == 'U')
-				j--;
-			else if (c == 'L')
-				i--;
-			else if (c == 'D')
-				j++;
-			else if (c == 'R')
-				i++;
-			if (getGrid().canEnter(i, j))
-			{
-				nextTile = getGrid().getTile(i, j);
-				getGrid().toggleOccupied(nextTile);
-				direction = c;
-				return;
+			for (int k = 0; k < TileGrid.order.length; k++) {
+				if (TileGrid.order[k] == c && getGrid().canEnter(i + TileGrid.changeX[k], j + TileGrid.changeY[k])) {
+					setNextTile(c);
+					return;
+				}
 			}
 		}
 	}
@@ -182,16 +167,14 @@ public class Monster extends Entity
 	{
 		if (nextTile != null)
 			return;
-		int i = currentTile.getIndX();
-		int j = currentTile.getIndY();
-		if (dir == 'U')
-			j--;
-		else if (dir == 'L')
-			i--;
-		else if (dir == 'D')
-			j++;
-		else if (dir == 'R')
-			i++;
+		int i = getCurrentTile().getIndX();
+		int j = getCurrentTile().getIndY();
+		for (int k = 0; k < TileGrid.order.length; k++) {
+			if (TileGrid.order[k] == dir) {
+				i += TileGrid.changeX[k];
+				j += TileGrid.changeY[k];
+			}
+		}
 		if (getGrid().canEnter(i, j))
 		{
 			nextTile = getGrid().getTile(i, j);
