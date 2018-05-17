@@ -27,6 +27,11 @@ public class TileGrid
 	public static final int ROWS = HEIGHT / SIZE - Game.SCOREBOARD_HEIGHT_TILES;
 
 	/**
+	 * The number of cells in the TileGrid.
+	 */
+	//private static final int NUM_CELLS = COLS * ROWS;
+
+	/**
 	 * The tiles that form the TileGrid.
 	 */
 	private Tile[][] map;
@@ -36,8 +41,12 @@ public class TileGrid
 	 * cell is unoccupied.
 	 */
 	private Entity[][] entities;
-	
-	private boolean[][] occupied;
+
+	/**
+	 * The number of cells that are currently filled, either by a wall or an
+	 * occupying static entity.
+	 */
+	//private int fillCount = 0;
 
 	/**
 	 * Constructs a TileGrid formed by cave tiles.
@@ -60,7 +69,6 @@ public class TileGrid
 			}
 		}
 		entities = new Entity[COLS][ROWS];
-		occupied = new boolean[COLS][ROWS];
 	}
 
 	/**
@@ -124,10 +132,14 @@ public class TileGrid
 	 */
 	public void setTile(int xCoord, int yCoord, TileType type)
 	{
-		if (!validIndex(xCoord, yCoord))
-			return;
 		if (map[xCoord][yCoord].getType() == type)
 			return;
+		/*
+		if (map[xCoord][yCoord].getType() == TileType.Cave)
+			fillCount++;
+		else if (type == TileType.Cave)
+			fillCount--;
+		*/
 		map[xCoord][yCoord].setType(type);
 	}
 	
@@ -139,10 +151,14 @@ public class TileGrid
 	 */
 	public void setTile(Tile tile, TileType type)
 	{
-		if (!validIndex(tile.getIndX(), tile.getIndY()))
-			return;
 		if (map[tile.getIndX()][tile.getIndY()].getType() == type)
 			return;
+		/*
+		if (map[tile.getIndX()][tile.getIndY()].getType() == TileType.Cave)
+			fillCount++;
+		else if (type == TileType.Cave)
+			fillCount--;
+		*/
 		map[tile.getIndX()][tile.getIndY()].setType(type);
 	}
 
@@ -168,6 +184,7 @@ public class TileGrid
 	public void setEntity(int xCoord, int yCoord, Entity entity)
 	{
 		entities[xCoord][yCoord] = entity;
+		//fillCount++;
 	}
 	
 	/**
@@ -179,6 +196,7 @@ public class TileGrid
 	public void setEntity(Tile tile, Entity entity)
 	{
 		entities[tile.getIndX()][tile.getIndY()] = entity;
+		//fillCount++;
 	}
 
 	/**
@@ -190,6 +208,7 @@ public class TileGrid
 	public void removeEntity(int xCoord, int yCoord)
 	{
 		entities[xCoord][yCoord] = null;
+		//fillCount--;
 	}
 	
 	/**
@@ -200,6 +219,7 @@ public class TileGrid
 	public void removeEntity(Tile tile)
 	{
 		entities[tile.getIndX()][tile.getIndY()] = null;
+		//fillCount--;
 	}
 
 	/**
@@ -230,22 +250,6 @@ public class TileGrid
 	}
 	
 	/**
-	 * If a given cell is occupied, it is set to unoccupied, and vice versa.
-	 * 
-	 * @param tile the tile that forms the given cell
-	 */
-	public void toggleOccupied(Tile tile)
-	{
-		occupied[tile.getIndX()][tile.getIndY()] = !occupied[tile.getIndX()][tile.getIndY()];
-		/*
-		if (map[tile.getIndX()][tile.getIndY()].getType() == TileType.Cave)
-			map[tile.getIndX()][tile.getIndY()].setType(TileType.Dirt);
-		else
-			map[tile.getIndX()][tile.getIndY()].setType(TileType.Cave);
-		*/
-	}
-	
-	/**
 	 * Returns the tile representing a random unoccupied cell in the tile grid,
 	 * null if no such cell exists.
 	 * 
@@ -254,6 +258,8 @@ public class TileGrid
 	 */
 	public Tile randEmptyTile()
 	{
+		//if (fillCount == NUM_CELLS)
+			//return null;
 		while (true)
 		{
 			int x = (int) (Math.random() * COLS);
@@ -261,27 +267,23 @@ public class TileGrid
 			if (!validIndex(x, y))
 				continue;
 			Tile tile = getTile(x, y);
-			if (tile.getType() == TileType.Cave && getEntity(x, y) == null && !occupied[x][y])
+			if (tile.getType() == TileType.Cave && getEntity(x, y) == null)
 				return tile;
 		}
 	}
 	
 	/**
-	 * Returns whether the cell represented by the given indexes is open for
-	 * entry by a moving entity. A cell is open for entry if it is within the
-	 * bounds of the tile grid, or the tile type cave or dirt, and not
-	 * currently occupied by another moving entity.
+	 * Returns whether the cell represented by the given indexes is within the
+	 * bounds of the tile grid and of the tile type cave.
 	 * 
 	 * @param xCoord the x index of the cell
 	 * @param yCoord the y index of the cell
-	 * @return whether the cell represented by the given indexes is open for
-	 * 		   entry by a moving entity
+	 * @return whether the cell represented by the given indexes is within the
+	 * 		   bounds of the tile grid and of the tile type cave
 	 */
 	public boolean canEnter(int xCoord, int yCoord)
 	{
 		if (!validIndex(xCoord, yCoord))
-			return false;
-		if (occupied[xCoord][yCoord])
 			return false;
 		return map[xCoord][yCoord].getType() == TileType.Cave || map[xCoord][yCoord].getType() == TileType.Dirt;
 	}
@@ -349,7 +351,7 @@ public class TileGrid
 	 * 
 	 * @param xCoord the x index of the given position
 	 * @param yCoord the y index of the given position
-	 * @return whether a given position is valid
+	 * @return
 	 */
 	public boolean validIndex(int xCoord, int yCoord)
 	{

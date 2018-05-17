@@ -1,8 +1,12 @@
 package data;
 
-import static helpers.Clock.delta;
+import static helpers.Clock.getSeconds;
+
+import java.time.Year;
 
 import org.newdawn.slick.opengl.Texture;
+
+import helpers.Clock;
 
 /**
  * The Sprite class blah blah
@@ -12,24 +16,18 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Sprite extends Entity
 {
-	/**
-	 * The default speed of a Sprite.
-	 */
-	public static final int DEFAULT_SPEED = 10;
 	
-	/**
-	 * The player that the Sprite belongs to.
-	 */
+	public static final int DEFAULT_SPEED = 100;
+	
+	private static final char[] order = {'U', 'R', 'L', 'D'};
+	// Change in X relative to order Up, Right, Left, Down;
+	private static final int[] changeX = {0, 1, -1, 0};
+	private static final int[] changeY = {-1, 0, 0, 1};
+	
 	private Player player;
 	
-	/**
-	 * The speed of the Sprite.
-	 */
 	private float speed;
 	
-	/**
-	 * The direction the Sprite is currently moving.
-	 */
 	private char direction;
 	
 	/**
@@ -37,21 +35,10 @@ public class Sprite extends Entity
 	 */
 	private Tile nextTile;
 	
-	/**
-	 * Whether or not the Sprite is trapped.
-	 */
-	private boolean trapped;
 	
-	/**
-	 * Constructs a Sprite.
-	 * 
-	 * @param texture the texture of the sprite
-	 * @param startTile the starting tile of the sprite
-	 * @param grid the grid in which the sprite exists
-	 * @param player the player to which the sprite belongs
-	 */
-	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player)
-	{
+	
+	
+	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player) {
 		this(texture, startTile, grid, DEFAULT_SPEED, player);
 	}
 	
@@ -66,10 +53,8 @@ public class Sprite extends Entity
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, float speed, Player player)
 	{
 		super(texture, startTile, grid);
-		getGrid().toggleOccupied(startTile);
 		this.speed = speed;
 		this.player = player;
-		trapped = false;
 	}
 	
 	/**
@@ -79,20 +64,21 @@ public class Sprite extends Entity
 	@Override
 	public void update()
 	{
-		if (trapped)
-			return;
-		
 		// collect jewels
-		Tile[] check = new Tile[3];
+		Tile[] check = new Tile[5];
 		check[0] = currTile();
 		check[1] = getGrid().right(check[0]);
 		check[2] = getGrid().down(check[0]);
+		check[3] = getGrid().left(check[0]);
+		check[4] = getGrid().up(check[0]);
+		
 		for (int i = 0; i < check.length; i++)
 		{
 			Tile t = check[i];
 			if (t == null)
 				continue;
-			if (i != 0 && !in(t))
+			// hey magnet allows u to collect multiple
+			if (i != 0 && !in(t) && !player.statusActive(Status.MAGNET))
 				continue;
 			Entity e = getGrid().getEntity(t);
 			if (e == null)
@@ -104,59 +90,36 @@ public class Sprite extends Entity
 		// move
 		if (nextTile == null)
 			return;
+		
+		float adjusted_speed = speed;
+		if (player.statusActive(Status.SLOW))
+			adjusted_speed *= Status.SLOW.getMultiplier();
+		if (player.statusActive(Status.SPEED))
+			adjusted_speed *= Status.SPEED.getMultiplier();
+		
 		int nextX = nextTile.getX();
 		int nextY = nextTile.getY();
-		if (direction == 'U')
-		{
-			float y = getY() - delta() * speed;
-			if (nextY > y)
-			{
-				getGrid().toggleOccupied(getGrid().down(currTile()));
-				setY(nextY);
-				nextTile = null;
-				checkTrap();
-			}
-			else
-				setY(y);
-		}
-		else if (direction == 'L')
-		{
-			float x = getX() - delta() * speed;
-			if (nextX > x)
-			{
-				getGrid().toggleOccupied(getGrid().right(currTile()));
-				setX(nextX);
-				nextTile = null;
-				checkTrap();
-			}
-			else
+		
+		for (int k = 0; k < order.length; k++) {
+			if (direction == order[k]) {
+				// compute position
+				float x = getX() + getSeconds() * adjusted_speed * changeX[k];
+				float y = getY() + getSeconds() * adjusted_speed * changeY[k];
+				
+				// adjust for overshot
+				if (changeX[k] * (nextX - x) < 0)
+					x = nextX;
+				if (changeY[k] * (nextY - y) < 0)
+					y = nextY;
+				
 				setX(x);
-		}
-		else if (direction == 'D')
-		{
-			float y = getY() + delta() * speed;
-			if (nextY < y)
-			{
-				getGrid().toggleOccupied(currTile());
-				setY(nextY);
-				nextTile = null;
-				checkTrap();
-			}
-			else
 				setY(y);
-		}
-		else if (direction == 'R')
-		{
-			float x = getX() + delta() * speed;
-			if (nextX < x)
-			{
-				getGrid().toggleOccupied(currTile());
-				setX(nextX);
-				nextTile = null;
-				checkTrap();
+				
+				if (x == nextX && y == nextY) {
+					nextTile = null;
+					checkTrap();
+				}
 			}
-			else
-				setX(x);
 		}
 	}
 	
@@ -174,25 +137,16 @@ public class Sprite extends Entity
 			direction = d;
 			Tile current = currTile();
 			if (direction == 'U' && getGrid().canEnter(current.getIndX(), current.getIndY() - 1))
-			{
 				nextTile = getGrid().getTile(current.getIndX(), current.getIndY() - 1);
-				getGrid().toggleOccupied(nextTile);
-			}
+			
 			else if (direction == 'L' && getGrid().canEnter(current.getIndX() - 1, current.getIndY()))
-			{
 				nextTile = getGrid().getTile(current.getIndX() - 1, current.getIndY());
-				getGrid().toggleOccupied(nextTile);
-			}
+			
 			else if (direction == 'D' && getGrid().canEnter(current.getIndX(), current.getIndY() + 1))
-			{
 				nextTile = getGrid().getTile(current.getIndX(), current.getIndY() + 1);
-				getGrid().toggleOccupied(nextTile);
-			}
+			
 			else if (direction == 'R' && getGrid().canEnter(current.getIndX() + 1, current.getIndY()))
-			{
 				nextTile = getGrid().getTile(current.getIndX() + 1, current.getIndY());
-				getGrid().toggleOccupied(nextTile);
-			}
 		}
 	}
 	
@@ -206,10 +160,8 @@ public class Sprite extends Entity
 		if (e instanceof Trap && getX() == e.getX() && getY() == e.getY())
 		{
 			Trap trap = (Trap) e;
-			if (!trap.getBufferPassed() || trap.activated())
-				return;
-			trapped = true;
-			trap.setTrappedSprite(this);
+			if (trap.getBufferPassed() && !trap.activated())
+				trap.activate(this);
 		}
 	}
 	
@@ -234,11 +186,7 @@ public class Sprite extends Entity
 		return tx < oX && tX > ox && ty < oY && tY > oY;
 	}
 	
-	/**
-	 * If the sprite is currently trapped, it becomes free, and vice versa.
-	 */
-	public void toggleTrap()
-	{
-		trapped =  !trapped;
+	public Player getPlayer() {
+		return player;
 	}
 }

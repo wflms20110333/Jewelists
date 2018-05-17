@@ -1,7 +1,5 @@
 package data;
 
-import org.newdawn.slick.opengl.Texture;
-
 /**
  * The MonsterSpawner class blah blah
  * 
@@ -10,32 +8,36 @@ import org.newdawn.slick.opengl.Texture;
 
 public class MonsterSpawner extends Spawner
 {
+	public static final float MONSTER_DEFAULT_SPEED = 100;
+	
 	/**
 	 * The maximum number of monsters allowed on the grid.
 	 */
 	private static final int MAX = 10;
 	
 	/**
-	 * The texture of the monsters spawned.
+	 * The template entity for spawning.
 	 */
-	private Texture texture;
-	
-	/**
-	 * The speed of the monsters spawned.
-	 */
-	private float speed;
+	private Entity entityType;
 	
 	/**
 	 * Constructs a MonsterSpawner.
 	 * 
-	 * @param spawnTime the time interval between spawns
+	 * @param spawnTime the number of seconds between spawns
 	 * @param entityType the template entity for spawning
 	 */
-	public MonsterSpawner(float spawnTime, TileGrid grid, Texture texture, float speed)
+	public MonsterSpawner(float spawnTime, Entity entityType)
 	{
-		super(spawnTime, grid);
-		this.texture = texture;
-		this.speed = speed;
+		super(spawnTime, entityType.getGrid());
+		this.entityType = entityType;
+	}
+	
+	/**
+	 * @return the template entity for spawning
+	 */
+	public Entity getEntityType()
+	{
+		return entityType;
 	}
 	
 	/**
@@ -48,6 +50,6 @@ public class MonsterSpawner extends Spawner
 			return;
 		Tile tile = getGrid().randEmptyTile();
 		if (tile != null)
-			add(new Monster(texture, tile, getGrid(), speed));
+			add(new Monster(getEntityType().getTexture(), tile, getGrid(), MONSTER_DEFAULT_SPEED));
 	}
 }

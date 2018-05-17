@@ -1,5 +1,6 @@
 package UI;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 
 import org.lwjgl.input.Mouse;

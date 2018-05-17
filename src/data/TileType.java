@@ -3,7 +3,7 @@ package data;
 public enum TileType
 {
 	Cave("cave"),
-	Wall("wall"),
+	Wall("wall2"),
 	Dirt("dirt"),
 	Water("water");
 	

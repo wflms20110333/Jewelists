@@ -4,6 +4,9 @@ import static helpers.Artist.*;
 import static helpers.Clock.*;
 
 import org.newdawn.slick.opengl.Texture;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker.StateContributionInfo;
+
+import helpers.Clock;
 
 /**
  * The Trap class blah blah
@@ -22,25 +25,17 @@ public class Trap extends Entity
 	 */
 	private static final long DURATION = 3;
 	
+	private boolean activated;
+	
 	/**
 	 * The texture of Traps.
 	 */
 	private static Texture tex = quickLoad("trap");
 	
 	/**
-	 * Whether the buffer period has passed.
+	 * The time since the trap was planted
 	 */
-	private boolean bufferPassed;
-	
-	/**
-	 * The sprite trapped in the Trap.
-	 */
-	private Sprite trappedSprite;
-	
-	/**
-	 * The start second of the current period being checked.
-	 */
-	private long startSecond;
+	private double timeSinceStart;
 	
 	/**
 	 * Constructs a Trap.
@@ -51,8 +46,7 @@ public class Trap extends Entity
 	public Trap(Tile startTile, TileGrid grid)
 	{
 		super(tex, startTile, grid);
-		bufferPassed = false;
-		startSecond = getSecond();
+		timeSinceStart = 0;
 	}
 	
 	/**
@@ -63,31 +57,22 @@ public class Trap extends Entity
 	@Override
 	public void update()
 	{
-		if (!bufferPassed)
-		{
+		timeSinceStart += Clock.getSeconds();
+		if (timeSinceStart < BUFFER)
 			draw();
-			if (getSecond() - startSecond == BUFFER)
-				bufferPassed = true;
-		}
-		if (trappedSprite == null)
+		if (!activated)
 			return;
 		draw();
-		if (getSecond() - startSecond == DURATION)
-		{
-			trappedSprite.toggleTrap();
-			trappedSprite = null;
+		if (timeSinceStart >= DURATION)
 			remove();
-		}
 	}
 	
 	/**
-	 * Returns whether the trap has been activated.
-	 * 
 	 * @return whether the trap has been activated
 	 */
 	public boolean activated()
 	{
-		return trappedSprite != null;
+		return activated;
 	}
 	
 	/**
@@ -95,10 +80,11 @@ public class Trap extends Entity
 	 * 
 	 * @param s the sprite
 	 */
-	public void setTrappedSprite(Sprite s)
+	public void activate(Sprite s)
 	{
-		trappedSprite = s;
-		startSecond = getSecond();
+		s.getPlayer().addStatus(Status.STUN, DURATION);
+		timeSinceStart = 0;
+		activated = true;
 	}
 	
 	/**
@@ -108,6 +94,6 @@ public class Trap extends Entity
 	 */
 	public boolean getBufferPassed()
 	{
-		return bufferPassed;
+		return timeSinceStart >= BUFFER;
 	}
 }

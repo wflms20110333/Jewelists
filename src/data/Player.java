@@ -1,5 +1,8 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.opengl.Texture;
 
@@ -22,19 +25,10 @@ public class Player
 	private static final int WALL_COST = 2;
 	private static final int DESTROY_WALL_COST = 5;
 	
-	/**
-	 * The cost to build a trap.
-	 */
 	private static final int TRAP_COST = 4;
 	
-	/**
-	 * The game that the Player interacts with.
-	 */
 	private Game game;
 	
-	/**
-	 * The grid of the game that the Player interacts with.
-	 */
 	private TileGrid grid;
 	
 	/**
@@ -42,30 +36,23 @@ public class Player
 	 */
 	private int[] keys = new int[9];
 	
-	/**
-	 * The maximum health of the Player.
-	 */
 	private int maxhealth;
-	
-	/**
-	 * The health of the Player.
-	 */
 	private int health;
-	
-	/**
-	 * The sprite of the Player.
-	 */
 	private Sprite sprite;
-	
-	/**
-	 * The total number of jewels the Player possesses.
-	 */
 	private int jewels;
+	private long score;
+	
+	private StatusManager statuses;
+	
+	
+	//private Queue<Deposit> deposits;
+	
+	//private Deposit currentDeposit;
 	
 	/**
-	 * The score of the Player.
+	 * The tile type of the opposing Player's deposits.
 	 */
-	private long score;
+	//private TileType otherPlayerDeposit;
 	
 	/**
 	 * Constructs a Player.
@@ -75,7 +62,7 @@ public class Player
 	 * @param keys the keyboard commands of the player
 	 * @param texture the texture of the sprite of the player
 	 */
-	public Player(Game game, TileGrid grid, int[] keys, Texture texture)
+	public Player(Game game, TileGrid grid, int[] keys, Texture texture) //, TileType thisDeposit, TileType otherDeposit)
 	{
 		this.game = game;
 		this.grid = grid;
@@ -86,11 +73,10 @@ public class Player
 		health = maxhealth = DEFAULT_HEALTH;
 		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
+		statuses = new StatusManager();
 	}
 	
 	/**
-	 * Returns the sprite of the player.
-	 * 
 	 * @return the sprite of the player
 	 */
 	public Sprite getSprite()
@@ -99,8 +85,6 @@ public class Player
 	}
 	
 	/**
-	 * Returns the health percentage of the player.
-	 * 
 	 * @return the health percentage of the player
 	 */
 	public float getPercent()
@@ -109,8 +93,6 @@ public class Player
 	}
 	
 	/**
-	 * Returns the health of the player.
-	 * 
 	 * @return the health of the player
 	 */
 	public int getHealth()
@@ -119,8 +101,6 @@ public class Player
 	}
 	
 	/**
-	 * Sets the health of the player.
-	 * 
 	 * @param health the new health of the player
 	 */
 	public void sethealth(int health)
@@ -129,8 +109,6 @@ public class Player
 	}
 	
 	/**
-	 * Returns the maximum health of the player.
-	 * 
 	 * @return the maximum health of the player
 	 */
 	public int getMaxhealth()
@@ -139,8 +117,6 @@ public class Player
 	}
 	
 	/**
-	 * Sets the maximum health of the player.
-	 * 
 	 * @param maxhealth the new maximum health of the player
 	 */
 	public void setMaxhealth(int maxhealth)
@@ -148,29 +124,37 @@ public class Player
 		this.maxhealth = maxhealth;
 	}
 	
+	
+	public void addStatus(Status effect, long seconds) {
+		statuses.addStatus(effect, seconds);
+	}
+	
+	public boolean statusActive(Status effect) {
+		return statuses.statusActive(effect);
+	}
+	
 	/**
-	 * Returns the score of the player.
-	 * 
 	 * @return the score of the player
 	 */
 	public long getScore()
 	{
 		return score;
 	}
+	
+	public void setScore(long score) {
+		this.score = score;
+	}
 
 	public void update()
 	{
-		/*
-		 * if (Mouse.isButtonDown(0)) { //setTile(); }
-		 */
-		// while (Keyboard.next()) {
 		Keyboard.next();
 		
 		char[] updates = new char[] {'U', 'L', 'D', 'R'};
 		
-		for (int i = 0; i < updates.length; i++)
-			if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
-				sprite.updatePath(updates[i]);
+		if (!statusActive(Status.STUN))
+			for (int i = 0; i < updates.length; i++)
+				if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
+					sprite.updatePath(updates[i]);
 		
 		// shift
 		if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
@@ -227,6 +211,7 @@ public class Player
 			
 		}
 		
+		statuses.update();
 		sprite.update();
 		sprite.draw();
 	}
@@ -276,5 +261,29 @@ public class Player
 			jewels += j.getValue();
 			j.remove();
 		}
+	}
+	
+	/**
+	 * Sets a keyboard command.
+	 * 
+	 * @param index the index of the command in keys
+	 * @param key the new keyboard command
+	 */
+	/*
+	public void setKey(int index, int key)
+	{
+		keys[index] = key;
+	}
+	*/
+	
+	/**
+	 * Sets the grid of the game that the player interacts with.
+	 * 
+	 * @param tg the new grid
+	 */
+	public void setGrid(TileGrid tg)
+	{
+		grid = tg;
+		sprite.setGrid(tg);
 	}
 }
