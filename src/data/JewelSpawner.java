@@ -19,7 +19,7 @@ public class JewelSpawner extends Spawner
 	 * 
 	 * @param spawnTime the time interval between spawns
 	 * @param grid the tile grid in which spawns take place
-	 * @param entityType the template entity for spawning
+	 * @param entityType the template entities for spawning
 	 */
 	public JewelSpawner(float spawnTime, TileGrid grid, ArrayList<Entity> entityTypes)
 	{
