@@ -12,17 +12,31 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Sprite extends Entity
 {
+	/**
+	 * The default speed of a Sprite.
+	 */
 	public static final int DEFAULT_SPEED = 100;
 	
+	/**
+	 * Information for movement in each of the four cardinal directions.
+	 */
 	private static final char[] order = {'U', 'L', 'D', 'R'};
-	// Change in X relative to order Up, Left, Down, Right;
 	private static final int[] changeX = {0, -1, 0, 1};
 	private static final int[] changeY = {-1, 0, 1, 0};
 	
+	/**
+	 * The player that the Sprite belongs to.
+	 */
 	private Player player;
 	
+	/**
+	 * The speed of the Sprite.
+	 */
 	private float speed;
 	
+	/**
+	 * The direction the Sprite is currently moving in.
+	 */
 	private char direction;
 	
 	/**
@@ -30,8 +44,16 @@ public class Sprite extends Entity
 	 */
 	private Tile nextTile, currentTile;
 	
-	
-	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player) {
+	/**
+	 * Constructs a Sprite.
+	 * 
+	 * @param texture the texture of the sprite
+	 * @param startTile the starting tile of the sprite
+	 * @param grid the grid in which the sprite exists
+	 * @param player the player that the sprite belongs to
+	 */
+	public Sprite(Texture texture, Tile startTile, TileGrid grid, Player player)
+	{
 		this(texture, startTile, grid, DEFAULT_SPEED, player);
 	}
 	

@@ -125,7 +125,8 @@ public class Monster extends Entity
 						getGrid().toggleOccupied(currentTile);
 						currentTile = nextTile;
 						nextTile = null;
-						setNextTile(direction);
+						if (Math.random() < 0.5)
+							setNextTile(direction);
 					}
 				}
 			}
