@@ -4,7 +4,6 @@ import org.newdawn.slick.opengl.Texture;
 
 import static helpers.Clock.*;
 
-import java.awt.Label;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +11,6 @@ import java.util.ArrayList;
  * 
  * @author Elizabeth Zou
  */
-
 public class Monster extends Entity
 {
 	/**
@@ -77,11 +75,9 @@ public class Monster extends Entity
 	}
 	
 	/**
-	 * Updates the status of the monster. A monster continues in a straight
-	 * line until reaching an end, either at the border of the grid it exists
-	 * in or due to a wall blocking its path. If this occurs, the monster will
-	 * head towards a random direction, given that a path in this new direction
-	 * is available.
+	 * Updates the status of the monster. At any given moment, a monster
+	 * continues in a straight line or heads toward a random direction, given
+	 * that a path in this new direction is available.
 	 */
 	@Override
 	public void update()
@@ -98,8 +94,10 @@ public class Monster extends Entity
 			int nextX = nextTile.getIndX() * TileGrid.SIZE;
 			int nextY = nextTile.getIndY() * TileGrid.SIZE;
 			
-			for (int k = 0; k < TileGrid.order.length; k++) {
-				if (direction == TileGrid.order[k]) {
+			for (int k = 0; k < TileGrid.order.length; k++)
+			{
+				if (direction == TileGrid.order[k])
+				{
 					// compute position
 					float x = getX() + getSeconds() * speed * TileGrid.changeX[k];
 					float y = getY() + getSeconds() * speed * TileGrid.changeY[k];
@@ -148,8 +146,10 @@ public class Monster extends Entity
 		{
 			int i = (int) (getX() / TileGrid.SIZE);
 			int j = (int) (getY() / TileGrid.SIZE);
-			for (int k = 0; k < TileGrid.order.length; k++) {
-				if (TileGrid.order[k] == c && getGrid().canEnter(i + TileGrid.changeX[k], j + TileGrid.changeY[k])) {
+			for (int k = 0; k < TileGrid.order.length; k++)
+			{
+				if (TileGrid.order[k] == c && getGrid().canEnter(i + TileGrid.changeX[k], j + TileGrid.changeY[k]))
+				{
 					setNextTile(c);
 					return;
 				}
@@ -171,8 +171,10 @@ public class Monster extends Entity
 			return;
 		int i = getCurrentTile().getIndX();
 		int j = getCurrentTile().getIndY();
-		for (int k = 0; k < TileGrid.order.length; k++) {
-			if (TileGrid.order[k] == dir) {
+		for (int k = 0; k < TileGrid.order.length; k++)
+		{
+			if (TileGrid.order[k] == dir)
+			{
 				i += TileGrid.changeX[k];
 				j += TileGrid.changeY[k];
 			}

@@ -218,7 +218,8 @@ public class Player
 			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
 	}
 	
-	public Game getGame() {
+	public Game getGame()
+	{
 		return game;
 	}
 	

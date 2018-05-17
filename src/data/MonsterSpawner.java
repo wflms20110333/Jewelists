@@ -7,7 +7,6 @@ import org.newdawn.slick.opengl.Texture;
  * 
  * @author Elizabeth Zou
  */
-
 public class MonsterSpawner extends Spawner
 {
 	/**
