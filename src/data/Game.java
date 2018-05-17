@@ -10,6 +10,7 @@ import UI.Scoreboard;
 import UI.UI;
 import helpers.StateManager;
 
+import org.lwjgl.input.Keyboard;
 /**
  * The Game class represents the actual gameplay of the game.
  * 
