@@ -11,7 +11,6 @@ import static helpers.Clock.*;
  * 
  * @author Elizabeth Zou
  */
-
 public abstract class Spawner
 {
 	/**
@@ -85,7 +84,13 @@ public abstract class Spawner
 		entityList.add(e);
 	}
 	
-	public void remove(Entity e) {
+	/**
+	 * Removes a given entity.
+	 * 
+	 * @param e the given entity
+	 */
+	public void remove(Entity e)
+	{
 		entityList.remove(e);
 	}
 	

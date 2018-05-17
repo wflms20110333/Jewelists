@@ -21,6 +21,11 @@ import helpers.StateManager.GameState;
 public class Settings
 {
 	/**
+	 * The wait time before button clicking is allowed.
+	 */
+	private static final int COUNT_LIMIT = 10;
+	
+	/**
 	 * The background of the Settings.
 	 */
 	private Texture background;
@@ -94,7 +99,7 @@ public class Settings
 	{
 		drawQuadTex(background, 0, 0, WIDTH * 2, HEIGHT * 2);
 		menuUI.draw();
-		if (count < 10)
+		if (count < COUNT_LIMIT)
 			count++;
 		else
 			updateButtons();
@@ -119,8 +124,10 @@ public class Settings
 					player1Screen = false;
 				
 				// MUST HOLD MOUSE DOWN WHILE CHOOSING NEW KEY!!
-				for (int i = 0; i < 9; i++) {
-					if (player1UI.isButtonClicked("" + i)) {
+				for (int i = 0; i < 9; i++)
+				{
+					if (player1UI.isButtonClicked("" + i))
+					{
 						Keyboard.next();
 						StateManager.setKeys(0, i, Keyboard.getEventKey());
 					}
@@ -132,8 +139,10 @@ public class Settings
 					player1Screen = true;
 				
 				// MUST HOLD MOUSE DOWN WHILE CHOOSING NEW KEY!!
-				for (int i = 0; i < 9; i++) {
-					if (player2UI.isButtonClicked("" + i)) {
+				for (int i = 0; i < 9; i++)
+				{
+					if (player2UI.isButtonClicked("" + i))
+					{
 						Keyboard.next();
 						StateManager.setKeys(1, i, Keyboard.getEventKey());
 					}
