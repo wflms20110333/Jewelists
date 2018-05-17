@@ -4,7 +4,6 @@ import org.newdawn.slick.opengl.Texture;
 
 import static helpers.Clock.*;
 
-import java.awt.Label;
 import java.util.ArrayList;
 
 /**
@@ -40,10 +39,10 @@ public class Monster extends Entity
 	 */
 	private ArrayList<String> permutations;
 	
-	private static final char[] order = {'U', 'R', 'L', 'D'};
+	private static final char[] order = {'U', 'L', 'D', 'R'};
 	// Change in X relative to order Up, Right, Left, Down;
-	private static final int[] changeX = {0, 1, -1, 0};
-	private static final int[] changeY = {-1, 0, 0, 1};
+	private static final int[] changeX = {0, -1, 0, 1};
+	private static final int[] changeY = {-1, 0, 1, 0};
 	
 	/**
 	 * Constructs a Monster.
@@ -104,8 +103,10 @@ public class Monster extends Entity
 			int nextX = nextTile.getIndX() * TileGrid.SIZE;
 			int nextY = nextTile.getIndY() * TileGrid.SIZE;
 			
-			for (int k = 0; k < order.length; k++) {
-				if (direction == order[k]) {
+			for (int k = 0; k < order.length; k++)
+			{
+				if (direction == order[k])
+				{
 					// compute position
 					float x = getX() + getSeconds() * speed * changeX[k];
 					float y = getY() + getSeconds() * speed * changeY[k];
@@ -119,12 +120,13 @@ public class Monster extends Entity
 					setX(x);
 					setY(y);
 					
-					if (x == nextX && y == nextY) {
+					if (x == nextX && y == nextY)
+					{
 						getGrid().toggleOccupied(currentTile);
 						currentTile = nextTile;
 						nextTile = null;
-					} else
 						setNextTile(direction);
+					}
 				}
 			}
 		}

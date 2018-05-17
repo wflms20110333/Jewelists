@@ -1,10 +1,8 @@
 package data;
 
 import static helpers.Artist.*;
-import static helpers.Clock.*;
 
 import org.newdawn.slick.opengl.Texture;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker.StateContributionInfo;
 
 import helpers.Clock;
 

@@ -2,11 +2,7 @@ package data;
 
 import static helpers.Clock.getSeconds;
 
-import java.time.Year;
-
 import org.newdawn.slick.opengl.Texture;
-
-import helpers.Clock;
 
 /**
  * The Sprite class blah blah
@@ -67,10 +63,10 @@ public class Sprite extends Entity
 		// collect jewels
 		Tile[] check = new Tile[5];
 		check[0] = currTile();
-		check[1] = getGrid().right(check[0]);
-		check[2] = getGrid().down(check[0]);
-		check[3] = getGrid().left(check[0]);
-		check[4] = getGrid().up(check[0]);
+		check[1] = getGrid().up(check[0]);
+		check[2] = getGrid().left(check[0]);
+		check[3] = getGrid().down(check[0]);
+		check[4] = getGrid().right(check[0]);
 		
 		for (int i = 0; i < check.length; i++)
 		{
@@ -100,8 +96,10 @@ public class Sprite extends Entity
 		int nextX = nextTile.getX();
 		int nextY = nextTile.getY();
 		
-		for (int k = 0; k < order.length; k++) {
-			if (direction == order[k]) {
+		for (int k = 0; k < order.length; k++)
+		{
+			if (direction == order[k])
+			{
 				// compute position
 				float x = getX() + getSeconds() * adjusted_speed * changeX[k];
 				float y = getY() + getSeconds() * adjusted_speed * changeY[k];
@@ -115,7 +113,8 @@ public class Sprite extends Entity
 				setX(x);
 				setY(y);
 				
-				if (x == nextX && y == nextY) {
+				if (x == nextX && y == nextY)
+				{
 					getGrid().toggleOccupied(currentTile);
 					currentTile = nextTile;
 					nextTile = null;
@@ -187,7 +186,8 @@ public class Sprite extends Entity
 		return tx < oX && tX > ox && ty < oY && tY > oY;
 	}
 	
-	public Player getPlayer() {
+	public Player getPlayer()
+	{
 		return player;
 	}
 }

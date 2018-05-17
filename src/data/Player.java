@@ -1,8 +1,5 @@
 package data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.opengl.Texture;
 
@@ -43,16 +40,6 @@ public class Player
 	private long score;
 	
 	private StatusManager statuses;
-	
-	
-	//private Queue<Deposit> deposits;
-	
-	//private Deposit currentDeposit;
-	
-	/**
-	 * The tile type of the opposing Player's deposits.
-	 */
-	//private TileType otherPlayerDeposit;
 	
 	/**
 	 * Constructs a Player.

@@ -237,6 +237,12 @@ public class TileGrid
 	public void toggleOccupied(Tile tile)
 	{
 		occupied[tile.getIndX()][tile.getIndY()] = !occupied[tile.getIndX()][tile.getIndY()];
+		/*
+		if (map[tile.getIndX()][tile.getIndY()].getType() == TileType.Cave)
+			map[tile.getIndX()][tile.getIndY()].setType(TileType.Dirt);
+		else
+			map[tile.getIndX()][tile.getIndY()].setType(TileType.Cave);
+		*/
 	}
 	
 	/**
