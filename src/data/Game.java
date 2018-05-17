@@ -11,6 +11,7 @@ import UI.UI;
 import helpers.StateManager;
 
 import org.lwjgl.input.Keyboard;
+
 /**
  * The Game class represents the actual gameplay of the game.
  * 
@@ -49,8 +50,6 @@ public class Game
 				Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J };
 		int[] keys2 = { Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT,
 				Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y };
-		Monster e = new Monster(quickLoad("monster"), grid.getTile(10, 10), grid, 5);
-		monsterSpawner = new MonsterSpawner(10, e);
 		
 		players = new Player[] {
 			new Player(this, grid, keys[0], quickLoad("emoji")), //, TileType.Deposit1, TileType.Deposit2),
