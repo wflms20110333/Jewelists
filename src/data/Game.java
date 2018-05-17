@@ -54,7 +54,7 @@ public class Game
 		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new Scoreboard(null, new Rectangle((WIDTH - SCOREBOARD_WIDTH) / 2, 
-			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 5)
+			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 50)
 		);
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();

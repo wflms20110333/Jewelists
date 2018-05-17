@@ -93,7 +93,7 @@ public class Player
 		Tile tile = grid.randEmptyTile();
 		score = 1;
 		health = maxhealth = DEFAULT_HEALTH;
-		sprite = new Sprite(texture, tile, grid, 10, this);
+		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
 		/*
 		deposits = new LinkedList<Deposit>();
