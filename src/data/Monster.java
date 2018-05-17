@@ -180,8 +180,10 @@ public class Monster extends Entity
 	 */
 	private void setNextTile(char dir)
 	{
-		int i = nextTile.getIndX();
-		int j = nextTile.getIndY();
+		if (nextTile != null)
+			return;
+		int i = currentTile.getIndX();
+		int j = currentTile.getIndY();
 		if (dir == 'U')
 			j--;
 		else if (dir == 'L')
