@@ -82,11 +82,10 @@ public class AbilityManager {
 		
 		for (int k = 0; k < TileGrid.order.length; k++) {
 			if (direction == TileGrid.order[k]) {
-				Tile nextTile = sprite.getGrid().getTile(
-					thisTile.getIndX() + TileGrid.changeX[k] * (int) ability.getValue(),
-					thisTile.getIndY() + TileGrid.changeY[k] * (int) ability.getValue()
-				);
-				if (grid.canEnter(nextTile.getIndX(), nextTile.getIndY())) {
+				int nextX = thisTile.getIndX() + TileGrid.changeX[k] * (int) ability.getValue();
+				int nextY = thisTile.getIndY() + TileGrid.changeY[k] * (int) ability.getValue();
+				if (grid.canEnter(nextX, nextY)) {
+					Tile nextTile = sprite.getGrid().getTile(nextX, nextY);
 					player.getSprite().blink(nextTile);
 					return true;
 				}

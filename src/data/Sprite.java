@@ -80,20 +80,27 @@ public class Sprite extends Entity
 	public void update()
 	{
 		// collect jewels
-		Tile[] check = new Tile[5];
-		check[0] = getCurrentTile();
-		check[1] = getGrid().right(check[0]);
-		check[2] = getGrid().down(check[0]);
-		check[3] = getGrid().left(check[0]);
-		check[4] = getGrid().up(check[0]);
+		Tile[] check = new Tile[9];
+		int index = 0;
+		for (int dx = -1; dx <= 1; dx++) {
+			for (int dy = -1; dy <= 1; dy++) {
+				if (getGrid().validIndex(getCurrentTile().getIndX() + dx, 
+						getCurrentTile().getIndY() + dy)) {
+					
+					check[index++] = getGrid().getTile(
+						getCurrentTile().getIndX() + dx,
+						getCurrentTile().getIndY() + dy
+					);
+				}
+			}
+		}
 		
-		for (int i = 0; i < check.length; i++)
+		for (Tile t : check)
 		{
-			Tile t = check[i];
 			if (t == null)
 				continue;
 			// hey magnet allows u to collect multiple
-			if (i != 0 && !in(t) && !player.statusActive(Status.MAGNET))
+			if (t != getCurrentTile() && !in(t) && !player.statusActive(Status.MAGNET))
 				continue;
 			Entity e = getGrid().getEntity(t);
 			if (e == null)
