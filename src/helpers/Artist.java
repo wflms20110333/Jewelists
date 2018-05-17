@@ -25,6 +25,7 @@ import org.newdawn.slick.TrueTypeFont;
  * The Artist class is a helper class that assists with the game's graphics.
  * 
  * @author Elizabeth Zou
+ * @author An Nguyen
  */
 
 public class Artist
@@ -71,11 +72,13 @@ public class Artist
 		setFont("font_orange_juice", 40);
 	}
 	
-	public static TrueTypeFont getFont() {
+	public static TrueTypeFont getFont()
+	{
 		return font;
 	}
 	
-	public static void setFont(String name, int sz) {
+	public static void setFont(String name, int sz)
+	{
 		try
 		{
 			InputStream input = ResourceLoader.getResourceAsStream("Assets/" + name + ".ttf");
@@ -119,7 +122,6 @@ public class Artist
 		glColor3f(255,255,255);
 		glEnable(GL_TEXTURE_2D);
 	}
-	
 	
 	/**
 	 * Draws a rectangular area with a texture onto the game display.
@@ -168,7 +170,8 @@ public class Artist
 		return tex;
 	}
 	
-	public static void drawString(int x, int y, String s, Color color) {
+	public static void drawString(int x, int y, String s, Color color)
+	{
 		font.drawString(x, y, s, color);
 	}
 	

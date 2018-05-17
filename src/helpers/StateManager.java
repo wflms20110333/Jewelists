@@ -189,14 +189,4 @@ public class StateManager
 	{
 		keys[playerNumber][index] = key;
 	}
-	
-	/**
-	 * Sets the grid of the game.
-	 * 
-	 * @param tg the new grid of the game
-	 */
-	public static void setGrid(TileGrid tg)
-	{
-		game.setGrid(tg);
-	}
 }

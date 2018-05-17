@@ -4,9 +4,14 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import UI.UI;
+import UI.UIItem;
 
 import static helpers.Artist.*;
 import static helpers.StateManager.*;
+
+import java.awt.Rectangle;
+
+import org.newdawn.slick.Color;
 
 /**
  * The Editor class allows users to customize the map layout of their games.
@@ -15,7 +20,16 @@ import static helpers.StateManager.*;
  */
 public class Editor
 {
+	/*
+	private static final int ALERT_BOX_WIDTH = 600;
+	private static final int ALERT_BOX_HEIGHT = 400;
+	private static final int ALERT_BOX_X = WIDTH / 2 - ALERT_BOX_WIDTH / 2;
+	private static final int ALERT_BOX_Y = HEIGHT / 2 - ALERT_BOX_HEIGHT / 2;
+	*/
+	
 	private UI menuUI;
+	
+	//private UI alertBox;
 	
 	/**
 	 * The tile grid that the user is editing.
@@ -40,10 +54,13 @@ public class Editor
 		menuUI = new UI();
 		menuUI.addButton("Play", "button_play", 0, 0);
 		
+		//alertBox = new UI();
+		//alertBox.addItem(new UIItem(quickLoad("white"), new Rectangle(ALERT_BOX_X, ALERT_BOX_Y, ALERT_BOX_WIDTH, ALERT_BOX_HEIGHT)));
+		
 		this.grid = new TileGrid();
 		this.types = new TileType[2];
-		this.types[0] = TileType.Cave;
-		this.types[1] = TileType.Water;
+		this.types[0] = TileType.Water;
+		this.types[1] = TileType.Cave;
 		this.index = 0;
 	}
 	
@@ -56,6 +73,11 @@ public class Editor
 	{
 		grid.draw();
 		menuUI.draw();
+		//alertBox.draw();
+		//drawString(ALERT_BOX_X, ALERT_BOX_Y, "hello", Color.black);
+		
+		updateButtons();
+		
 		if (Mouse.isButtonDown(0))
 		{
 			setTile();
@@ -74,8 +96,6 @@ public class Editor
 			}
 			*/
 		}
-		
-		updateButtons();
 	}
 	
 	public void updateButtons()

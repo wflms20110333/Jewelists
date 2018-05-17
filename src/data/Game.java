@@ -93,25 +93,6 @@ public class Game
 		return players;
 	}
 	
-	/*
-	public void setPlayerKeys(int player, int index, int key)
-	{
-		if (players.length < player)
-			System.err.println();
-		else
-			players[player - 1].setKey(index, key);
-	}
-	*/
-	
-	public void setGrid(TileGrid tg)
-	{
-		grid = tg;
-		for (Player player : players)
-			player.setGrid(tg);
-		jewelSpawner.setGrid(tg);
-		monsterSpawner.setGrid(tg);
-	}
-	
 	public void end()
 	{
 		StateManager.setState(StateManager.GameState.MAINMENU);

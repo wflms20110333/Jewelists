@@ -68,7 +68,7 @@ public class MainMenu
 	 */
 	public void update()
 	{
-		drawQuadTex(background, 0, 0, WIDTH * 2, HEIGHT * 2);
+		drawQuadTex(background, 0, 0, WIDTH, HEIGHT);
 		drawQuadTex(title, WIDTH / 2 - title.getImageWidth() / 2, (int) (HEIGHT * SCALE_TITLE), title.getImageWidth(), title.getImageHeight());
 		menuUI.draw();
 		if (count < COUNT_LIMIT)

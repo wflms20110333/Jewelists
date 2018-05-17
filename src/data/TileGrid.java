@@ -132,6 +132,8 @@ public class TileGrid
 	 */
 	public void setTile(int xCoord, int yCoord, TileType type)
 	{
+		if (!validIndex(xCoord, yCoord))
+			return;
 		if (map[xCoord][yCoord].getType() == type)
 			return;
 		/*

@@ -67,15 +67,6 @@ public class Player
 	 */
 	private long score;
 	
-	//private Queue<Deposit> deposits;
-	
-	//private Deposit currentDeposit;
-	
-	/**
-	 * The tile type of the opposing Player's deposits.
-	 */
-	//private TileType otherPlayerDeposit;
-	
 	/**
 	 * Constructs a Player.
 	 * 
@@ -84,7 +75,7 @@ public class Player
 	 * @param keys the keyboard commands of the player
 	 * @param texture the texture of the sprite of the player
 	 */
-	public Player(Game game, TileGrid grid, int[] keys, Texture texture) //, TileType thisDeposit, TileType otherDeposit)
+	public Player(Game game, TileGrid grid, int[] keys, Texture texture)
 	{
 		this.game = game;
 		this.grid = grid;
@@ -95,14 +86,6 @@ public class Player
 		health = maxhealth = DEFAULT_HEALTH;
 		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
-		/*
-		deposits = new LinkedList<Deposit>();
-		currentDeposit = new Deposit(quickLoad(thisDeposit.textureName), tile, grid);
-		deposits.add(currentDeposit);
-		grid.setTile(tile.getIndX(), tile.getIndY(), thisDeposit);
-		grid.setEntity(tile.getIndX(), tile.getIndY(), currentDeposit);
-		otherPlayerDeposit = otherDeposit;
-		*/
 	}
 	
 	/**
@@ -244,12 +227,6 @@ public class Player
 			
 		}
 		
-		/*
-		for (Deposit d : deposits) {
-			//d.update();
-			d.draw();
-		}
-		*/
 		sprite.update();
 		sprite.draw();
 	}
@@ -259,11 +236,6 @@ public class Player
 		// graphics of attacking??
 		if (tile.getType() == TileType.Wall && spendJewels(DESTROY_WALL_COST))
 			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
-		/*
-		if (tile.getType() == otherPlayerDeposit) {
-			Deposit o = (Deposit) grid.getEntity(tile);
-		}
-		*/
 	}
 	
 	/**
@@ -279,27 +251,6 @@ public class Player
 		if (jewels < count)
 			return false;
 		jewels -= count;
-		/*
-		while (count > 0)
-		{
-			Deposit d = deposits.peek();
-			if (d.getNumJewels() <= count)
-			{
-				count -= d.getNumJewels();
-				if (deposits.size() > 1)
-				{
-					deposits.poll();
-					grid.setTile(d.currTile(), TileType.Cave);
-					grid.removeEntity(d.currTile());
-				}
-			}
-			else
-			{
-				d.remove(count);
-				count = 0;
-			}
-		}
-		*/
 		return true;
 	}
 	
@@ -322,35 +273,8 @@ public class Player
 	{
 		if (j.exists())
 		{
-			//currentDeposit.add(j.getValue());
 			jewels += j.getValue();
 			j.remove();
 		}
-	}
-	
-	/**
-	 * Sets a keyboard command.
-	 * 
-	 * @param index the index of the command in keys
-	 * @param key the new keyboard command
-	 */
-	/*
-	public void setKey(int index, int key)
-	{
-		keys[index] = key;
-	}
-	*/
-	
-	/**
-	 * Sets the grid of the game that the player interacts with.
-	 * 
-	 * @param tg the new grid
-	 */
-	public void setGrid(TileGrid tg)
-	{
-		grid = tg;
-		sprite.setGrid(tg);
-		//for (Deposit d : deposits)
-			//d.setGrid(tg);
 	}
 }
