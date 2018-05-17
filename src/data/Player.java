@@ -28,6 +28,8 @@ public class Player
 	
 	private TileGrid grid;
 	
+	private AbilityManager abilityManager;
+	
 	/**
 	 * The keyboard commands of the Player.
 	 */
@@ -61,6 +63,7 @@ public class Player
 		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
 		statuses = new StatusManager();
+		abilityManager = new AbilityManager(this);
 	}
 	
 	/**
@@ -193,13 +196,14 @@ public class Player
 		}
 		if (Keyboard.isKeyDown(keys[7]) && Keyboard.getEventKeyState())
 		{
-			// bomb
+			
 		}
 		if (Keyboard.isKeyDown(keys[8]) && Keyboard.getEventKeyState())
 		{
 			
 		}
 		
+		abilityManager.update();
 		statuses.update();
 		sprite.update();
 		sprite.draw();
