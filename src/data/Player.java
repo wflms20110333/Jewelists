@@ -88,6 +88,8 @@ public class Player
 	
 	private Color color;
 	
+	private Texture projectileTexture;
+	
 	private float timeUntilAttack;
 	
 	private boolean dead;
@@ -100,11 +102,12 @@ public class Player
 	 * @param keys the keyboard commands of the player
 	 * @param texture the texture of the sprite of the player
 	 */
-	public Player(Game game, TileGrid grid, int[] keys, Texture texture, Color color)
+	public Player(Game game, TileGrid grid, int[] keys, Texture texture, Color color, Texture projectileTexture)
 	{
 		this.game = game;
 		this.grid = grid;
 		this.color = color;
+		this.projectileTexture = projectileTexture;
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
 		Tile tile = grid.randEmptyTile();
