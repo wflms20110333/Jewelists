@@ -277,7 +277,7 @@ public class Player
 			{
 				Tile tile = sprite.getCurrentTile();
 				if (tile.getType() == TileType.Cave && spendJewels(WALL_COST))
-					grid.setTile(tile, TileType.Wall);
+					grid.setTile(tile, TileType.Wall1);
 			}
 			if (Keyboard.isKeyDown(keys[6]) && Keyboard.getEventKeyState())
 			{

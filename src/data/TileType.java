@@ -16,7 +16,11 @@ public enum TileType
 	/**
 	 * Wall tiles.
 	 */
-	Wall("wall"),
+	Wall1("wall"),
+	
+	Wall2("wall"),
+	
+	Wall3("wall"),
 	
 	/**
 	 * Dirt tiles.

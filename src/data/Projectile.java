@@ -55,11 +55,27 @@ public class Projectile extends Entity {
 		int nextY = nextTile.getY();
 		
 		if (outOfBounds())
-		{
 			remove();
-		}
-		else
+		else {
 			damage(getGrid().getMovingEntity(getCurrentTile()));
+			
+			Tile current = getGrid().getTile(getCurrentTile().getIndX(), getCurrentTile().getIndY());
+			// Evolution of wall
+			if (current.getType() == TileType.Wall1) {
+				getGrid().setTile(current, TileType.Wall2);
+				remove();
+				return;
+			} else if (current.getType() == TileType.Wall2) {
+				getGrid().setTile(current, TileType.Wall3);
+				remove();
+				return;
+			}
+			else if (current.getType() == TileType.Wall3) {
+				getGrid().setTile(current, TileType.Cave);
+				remove();
+				return;
+			}
+		}
 		
 		if (getGrid().validIndex(nextTile.getIndX(), nextTile.getIndY()))
 			damage(getGrid().getMovingEntity(nextTile));
