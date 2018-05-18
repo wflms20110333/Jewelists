@@ -21,8 +21,6 @@ import helpers.Clock;
 public class Scoreboard extends UIItem
 {
 
-	public static final Color[] colors = new Color[]
-	{ Color.red, Color.blue, Color.green, Color.yellow };
 	Game game;
 	double time;
 
@@ -46,11 +44,10 @@ public class Scoreboard extends UIItem
 
 		int x = rect.x;
 
-		int color_index = 0;
 		for (Player player : game.getPlayers())
 		{
 			int portion = (int) ((double) player.getScore() / sum * rect.width);
-			drawQuad(x, rect.y + rect.height / 2, portion, rect.height / 2, colors[color_index++]);
+			drawQuad(x, rect.y + rect.height / 2, portion, rect.height / 2, player.getColor());
 			x += portion;
 		}
 	}
