@@ -239,4 +239,14 @@ public class Sprite extends Entity
 	{
 		return getCurrentTile().getType() == TileType.Dirt;
 	}
+	
+	public Tile getNextTile()
+	{
+		return nextTile;
+	}
+	
+	public void setNextTile(Tile tile)
+	{
+		nextTile = tile;
+	}
 }

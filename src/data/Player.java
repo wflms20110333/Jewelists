@@ -34,6 +34,8 @@ public class Player
 	
 	private static final float COOLDOWN_PER_ATTACK = .4f;
 	
+	private static final int RESPAWN_TIME = 5;
+	
 	/**
 	 * The game that the Player interacts with.
 	 */
@@ -91,6 +93,9 @@ public class Player
 	private double lastSecond;
 	private double timeSinceStart;
 	
+	private boolean dead;
+	private double timeSinceDead;
+	
 	/**
 	 * Constructs a Player.
 	 * 
@@ -115,6 +120,8 @@ public class Player
 		abilityManager = new AbilityManager(this);
 		lastSecond = 0;
 		timeSinceStart = 0;
+		dead = false;
+		timeSinceDead = 0;
 	}
 	
 	/**
@@ -137,7 +144,8 @@ public class Player
 		return health / maxHealth;
 	}
 	
-	public Color getColor() {
+	public Color getColor()
+	{
 		return color;
 	}
 	
@@ -229,7 +237,32 @@ public class Player
 	 */
 	public void update()
 	{
-		timeSinceStart += Clock.getSeconds();
+		float deltaTime = Clock.getSeconds();
+		timeSinceStart += deltaTime;
+		
+		if (dead)
+		{
+			timeSinceDead += deltaTime;
+			if (timeSinceDead < RESPAWN_TIME)
+				return;
+			dead = false;
+			health = maxHealth;
+			sprite.setCurrentTile(grid.randEmptyTile());
+			grid.toggleOccupied(sprite.getCurrentTile(), sprite);
+		}
+		if (!dead && health <= 0)
+		{
+			dead = true;
+			timeSinceDead = 0;
+			grid.toggleOccupied(sprite.getCurrentTile(), null);
+			if (sprite.getNextTile() != null)
+			{
+				grid.toggleOccupied(sprite.getNextTile(), null);
+				sprite.setNextTile(null);
+			}
+			return;
+		}
+		
 		if (Math.floor(timeSinceStart) > lastSecond)
 		{
 			lastSecond = Math.floor(timeSinceStart);
@@ -294,8 +327,10 @@ public class Player
 	{
 		if (timeUntilAttack > 0)
 			return;
-		for (int i = 0; i < TileGrid.order.length; i++) {
-			if (getSprite().getFacingDirection() == TileGrid.order[i]) {
+		for (int i = 0; i < TileGrid.order.length; i++)
+		{
+			if (getSprite().getFacingDirection() == TileGrid.order[i])
+			{
 				Tile currentTile = getSprite().getCurrentTile();
 				Tile nextTile = new Tile(
 					currentTile.getIndX() + TileGrid.changeX[i], 
