@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import data.AbilityManager.Ability;
 import helpers.Clock;
 
 /**
@@ -38,6 +39,8 @@ public class Player
 	private static final float COOLDOWN_PER_ATTACK = .4f;
 	
 	private static final int RESPAWN_TIME = 5;
+	
+	private static final float RELOAD_SPEED = .7f;
 	
 	/**
 	 * The game that the Player interacts with.
@@ -98,6 +101,8 @@ public class Player
 	private boolean dead;
 	
 	private boolean[] keyActive;
+	
+	private float bullets;
 	
 	/**
 	 * Constructs a Player.
@@ -226,18 +231,12 @@ public class Player
 		return score;
 	}
 	
-	public void addJewel(int number) {
-		this.jewels += number;
+	public void addScore(float score) {
+		this.score += score;
 	}
 	
-	/**
-	 * Sets the score of the player.
-	 * 
-	 * @param score the new score of the player
-	 */
-	public void setScore(long score)
-	{
-		this.score = score;
+	public void addJewel(int number) {
+		this.jewels += number;
 	}
 	
 	/**
@@ -264,6 +263,8 @@ public class Player
 			sprite.toggleVisibility();
 		}
 		
+		bullets += RELOAD_SPEED * Clock.getSeconds();
+		
 		if (statusActive(Status.POISON))
 			heal(-Status.POISON.getMultiplier() * getSeconds());
 		
@@ -275,9 +276,6 @@ public class Player
 		
 		if (!statusActive(Status.STUN) && !dead) {
 			char[] updates = new char[] {'U', 'L', 'D', 'R'};
-			
-			if (sprite.onCenterArea())
-				score += Clock.getSeconds();
 			
 			if (keyActive[4])
 				attack();
@@ -319,7 +317,7 @@ public class Player
 	
 	private void attack()
 	{
-		if (timeUntilAttack > 0)
+		if (timeUntilAttack > 0 || bullets < 1)
 			return;
 		for (int i = 0; i < TileGrid.order.length; i++)
 		{
