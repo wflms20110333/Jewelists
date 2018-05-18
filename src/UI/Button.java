@@ -11,9 +11,10 @@ import org.newdawn.slick.opengl.Texture;
 import helpers.Artist;
 
 /**
- * Represents clickable buttons for the user interface
+ * Represents clickable buttons for the user interface.
  * 
- * @author Elizabeth Zou, An Nguyen
+ * @author Elizabeth Zou
+ * @author An Nguyen
  */
 public class Button extends UIItem
 {
