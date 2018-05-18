@@ -52,6 +52,12 @@ public class AbilityManager {
 		}
 	}
 	
+	public float getCooldownLeft() {
+		if (cooldownTick == -1)
+			return 0;
+		return ability.getCooldown() - cooldownTick;
+	}
+	
 	public Ability getAbility() {
 		return ability;
 	}
@@ -117,7 +123,7 @@ public class AbilityManager {
 	
 	public static enum Ability {
 		// buff
-		SPEED("speed", true), DMG_BOOST("dmg_boost", true), MAGNET("magnet", true),
+		SPEED("speed", true), DMG_BOOST("dmg_boost", true), MAGNET("magnet", true, 3),
 		// activated instantly
 		BLINK("blink", 3), HEAL("heal", 2), SLOW("slow", true, 3);
 		

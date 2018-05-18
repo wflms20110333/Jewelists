@@ -99,7 +99,7 @@ public class Player
 		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
 		statuses = new StatusManager();
-		abilityManager = new AbilityManager(this);
+		abilityManager = new AbilityManager(this, Ability.MAGNET);
 	}
 	
 	/**
@@ -280,6 +280,10 @@ public class Player
 		statuses.update();
 		sprite.update();
 		sprite.draw();
+	}
+	
+	public float getCooldownLeft() {
+		return abilityManager.getCooldownLeft();
 	}
 	
 	/**

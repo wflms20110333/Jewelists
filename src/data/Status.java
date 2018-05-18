@@ -15,7 +15,7 @@ public enum Status
 	/**
 	 * Allows the sprite to collect any jewels in any surrounding cells.
 	 */
-	MAGNET,
+	MAGNET(3),
 	
 	/**
 	 * Slows down the movement of the sprite.
