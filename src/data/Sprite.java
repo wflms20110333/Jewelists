@@ -2,8 +2,6 @@ package data;
 
 import static helpers.Clock.getSeconds;
 
-import java.awt.font.NumericShaper.Range;
-
 import org.newdawn.slick.opengl.Texture;
 
 /**

@@ -21,11 +21,6 @@ import helpers.StateManager.GameState;
 public class Settings
 {
 	/**
-	 * The wait time before button clicking is allowed.
-	 */
-	private static final int COUNT_LIMIT = 10;
-	
-	/**
 	 * The background of the Settings.
 	 */
 	private Texture background;
@@ -99,7 +94,7 @@ public class Settings
 	{
 		drawQuadTex(background, 0, 0, WIDTH * 2, HEIGHT * 2);
 		menuUI.draw();
-		if (count < COUNT_LIMIT)
+		if (count < StateManager.COUNT_LIMIT)
 			count++;
 		else
 			updateButtons();

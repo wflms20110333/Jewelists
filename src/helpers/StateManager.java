@@ -69,6 +69,11 @@ public class StateManager
 	 */
 	public static Settings settings;
 	
+	/**
+	 * The wait time before button clicking is allowed.
+	 */
+	public static final int COUNT_LIMIT = 10;
+	
 	public static int[][] keys = {
 			{ Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT, Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K, Keyboard.KEY_J },
 			{ Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT, Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T, Keyboard.KEY_Y }
@@ -115,15 +120,10 @@ public class StateManager
 			settings.resetCount();
 		if (newState == GameState.MAINMENU && mainMenu != null)
 			mainMenu.resetCount();
+		if (newState == GameState.EDITOR)
+			editor = new Editor();
 		gameState = newState;
 	}
-	
-	/*
-	public static void setGame(Game newGame)
-	{
-		game = newGame;
-	}
-	*/
 	
 	/**
 	 * Sets a new keyboard command.
