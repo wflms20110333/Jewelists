@@ -4,17 +4,36 @@ import static helpers.Clock.getSeconds;
 
 import org.newdawn.slick.opengl.Texture;
 
-public class Projectile extends Entity {
-	
-	public static final float speed = 400;
+/**
+ * The Projectile class represents projectiles that players can shoot in any of
+ * the four cardinal directions. Projectiles deal damage upon hit.
+ * 
+ * @author An Nguyen
+ */
+public class Projectile extends Entity
+{
+	/**
+	 * Properties of Projectiles.
+	 */
+	public static final float SPEED = 400;
 	public static final float BASE_DMG = 3;
-	
 	public static final float STUN_DURATION = 2;
 	
+	/**
+	 * The tile the Projectile is currently moving into.
+	 */
 	Tile nextTile;
+	
+	/**
+	 * The direction the Projectile is currently moving in.
+	 */
 	int direction;
-	float multiplier; // damage multiplier
-	boolean removed;
+	
+	/**
+	 * The damage multiplier of the Projectile.
+	 */
+	float multiplier;
+	
 	Player owner;
 	
 	public Projectile(Texture texture, Tile startTile, TileGrid grid, Player owner)
@@ -81,8 +100,8 @@ public class Projectile extends Entity {
 			damage(getGrid().getMovingEntity(nextTile));
 		
 		// compute position
-		float x = getX() + getSeconds() * speed * TileGrid.changeX[direction];
-		float y = getY() + getSeconds() * speed * TileGrid.changeY[direction];
+		float x = getX() + getSeconds() * SPEED * TileGrid.changeX[direction];
+		float y = getY() + getSeconds() * SPEED * TileGrid.changeY[direction];
 		
 				
 		if (TileGrid.changeX[direction] * (nextX - x) < 0)
@@ -122,16 +141,5 @@ public class Projectile extends Entity {
 				owner.addJewel(Monster.REWARD_VALUE);
 			remove();
 		}
-	}
-	
-	public boolean getRemoved()
-	{
-		return removed;
-	}
-	
-	@Override
-	public void remove()
-	{
-		removed = true;
 	}
 }

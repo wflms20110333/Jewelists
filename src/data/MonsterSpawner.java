@@ -3,7 +3,7 @@ package data;
 import org.newdawn.slick.opengl.Texture;
 
 /**
- * The MonsterSpawner class blah blah
+ * The MonsterSpawner class spawns monsters into the game.
  * 
  * @author Elizabeth Zou
  */
@@ -29,6 +29,8 @@ public class MonsterSpawner extends Spawner
 	 * 
 	 * @param spawnTime the time interval between spawns
 	 * @param entityType the template entity for spawning
+	 * @param texture the texture of the monsters spawned
+	 * @param speed the speed of the monsters spawned
 	 */
 	public MonsterSpawner(float spawnTime, TileGrid grid, Texture texture, float speed)
 	{

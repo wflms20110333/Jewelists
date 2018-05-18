@@ -18,6 +18,7 @@ import helpers.StateManager;
  * The Game class represents the actual gameplay of the game.
  * 
  * @author Elizabeth Zou
+ * @author An Nguyen
  */
 public class Game
 {
@@ -140,7 +141,7 @@ public class Game
 		}
 		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
 			Projectile projectile = iterator.next();
-			if (projectile.getRemoved())
+			if (!projectile.exists())
 				iterator.remove();
 			else
 				projectile.update();
