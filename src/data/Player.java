@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import data.AbilityManager.Ability;
 import helpers.Clock;
 
 /**

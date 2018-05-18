@@ -1,6 +1,9 @@
 package data;
 
 import static helpers.Clock.*;
+import static helpers.Artist.*;
+
+import org.newdawn.slick.opengl.Texture;
 
 /**
  * The Ability Manager class manages the abilities a player can possess or use.
@@ -258,7 +261,7 @@ public class AbilityManager
 			this.cooldown = BUFF_COOLDOWN;
 			this.value = value;
 			this.name = name;
-			this.texture = Artist.quickLoad(name);
+			this.texture = quickLoad(name);
 		}
 		
 		public float getDuration()
