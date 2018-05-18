@@ -277,7 +277,6 @@ public class Player
 		if (!statusActive(Status.STUN) && !dead) {
 			char[] updates = new char[] {'U', 'L', 'D', 'R'};
 			
-			
 			if (sprite.onCenterArea())
 				score += Clock.getSeconds();
 			
