@@ -15,6 +15,7 @@ import static helpers.StateManager.*;
  * 
  * @author Elizabeth Zou
  * @author Collin McMahon
+ * Dependencies: lwjgl(to manage keyboard inputs)
  */
 public class Editor
 {

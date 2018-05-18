@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * 
  * @author Elizabeth Zou
  * @author An Nguyen
+ * Dependencies: slick(to manage textures)
  */
 public class Monster extends Entity
 {

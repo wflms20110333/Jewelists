@@ -10,6 +10,7 @@ import org.newdawn.slick.opengl.Texture;
  * 
  * @author Elizabeth Zou
  * @author An Nguyen
+ * Dependencies: slick(to manage textures)
  */
 public abstract class Entity
 {

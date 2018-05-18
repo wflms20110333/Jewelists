@@ -10,6 +10,7 @@ import helpers.Clock;
  * Represents a trap that players can step on
  * 
  * @author Elizabeth Zou
+ * Dependencies: slick(to manage textures)
  */
 public class Trap extends Entity
 {

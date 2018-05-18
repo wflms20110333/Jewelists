@@ -7,6 +7,8 @@ import org.lwjgl.Sys;
  * time during the game.
  * 
  * @author Elizabeth Zou, An Nguyen
+ * Dependencies: lwjgl (used to manage system time in ticks, so that 
+ * 				we can set a consistent frame rate)
  */
 
 public class Clock
@@ -28,6 +30,9 @@ public class Clock
 	private static double multiplier = 1;
 	
 	
+	/**
+	 * Create a new clock
+	 */
 	public Clock() {
 		lastFrame = getTime();
 	}

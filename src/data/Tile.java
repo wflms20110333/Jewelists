@@ -5,9 +5,10 @@ import org.newdawn.slick.opengl.Texture;
 import static helpers.Artist.*;
 
 /**
- * The Tile class blah blah
+ * Represents tiles on the grid
  * 
  * @author Elizabeth Zou
+ * Dependencies: slick(to manage textures)
  */
 public class Tile
 {

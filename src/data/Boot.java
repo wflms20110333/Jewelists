@@ -14,6 +14,7 @@ import helpers.StateManager;
  * 
  * @author Elizabeth Zou
  * @author An Nguyen
+ * Dependencies: lwjgl(to manage keyboard input and screen display)
  */
 public class Boot
 {

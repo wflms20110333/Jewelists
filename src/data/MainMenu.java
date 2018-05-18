@@ -16,6 +16,7 @@ import helpers.StateManager.GameState;
  * The MainMenu class represents the main menu screen of the game.
  * 
  * @author Elizabeth Zou
+ * Dependencies: slick(to manage textures)
  */
 public class MainMenu
 {

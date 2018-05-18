@@ -11,6 +11,7 @@ import data.Settings;
  * The StateManager class manages the state of the game blah blah
  * 
  * @author Elizabeth Zou
+ * Dependencies: lwjgl (to manage keyboard inputs)
  */
 public class StateManager
 {

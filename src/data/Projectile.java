@@ -10,6 +10,7 @@ import org.newdawn.slick.opengl.Texture;
  * 
  * @author An Nguyen
  * @author Collin McMahon
+ * Dependencies: slick(to manage textures)
  */
 public class Projectile extends Entity
 {

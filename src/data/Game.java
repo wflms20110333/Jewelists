@@ -19,6 +19,7 @@ import helpers.StateManager;
  * 
  * @author Elizabeth Zou
  * @author An Nguyen
+ * Dependencies: slick(to manage colors)
  */
 public class Game
 {
