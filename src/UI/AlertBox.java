@@ -9,6 +9,11 @@ import java.awt.Rectangle;
 
 import org.newdawn.slick.opengl.Texture;
 
+/**
+ * Represents the alert box that appears after a game
+ * 
+ * @author Elizabeth Zou
+ */
 public class AlertBox
 {
 	
