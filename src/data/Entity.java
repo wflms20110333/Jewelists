@@ -9,6 +9,7 @@ import org.newdawn.slick.opengl.Texture;
  * with. Entities exist within a TileGrid and can change locations.
  * 
  * @author Elizabeth Zou
+ * @author An Nguyen
  */
 public abstract class Entity
 {
@@ -23,7 +24,6 @@ public abstract class Entity
 	 */
 	private int width;
 	private int height;
-	
 	
 	/**
 	 * The texture of the Entity.
