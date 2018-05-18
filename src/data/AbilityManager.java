@@ -2,16 +2,10 @@ package data;
 
 import static helpers.Clock.*;
 
-import org.newdawn.slick.opengl.Texture;
-
-import helpers.Artist;
-
 /**
  * The Ability Manager class manages the abilities a player can possess or use.
  * 
- * @author Elizabeth Zou
  * @author An Nguyen
- * @author Colling McMahon
  */
 public class AbilityManager
 {
@@ -142,7 +136,7 @@ public class AbilityManager
 	}
 	
 	/**
-	 * Gives the player the ability to collect jewels in adjacent cells.
+	 * Gives the player the ability to collect the jewels in adjacent cells.
 	 * 
 	 * @return true
 	 */
@@ -215,87 +209,5 @@ public class AbilityManager
 		}
 		
 		return true;
-	}
-	
-	public static enum Ability
-	{
-		// buff
-		SPEED("ability_speed", true),
-		DMG_BOOST("ability_dmg_boost", true),
-		MAGNET("ability_magnet", true, 3),
-		// activated instantly
-		BLINK("ability_blink", 3),
-		HEAL("ability_heal", 2),
-		SLOW("ability_slow", true, 3);
-		
-		private static final Ability[] abilities = values();
-		
-		public static final long BUFF_DURATION = 10;
-		public static final long BUFF_COOLDOWN = 10;
-		
-		private final float duration;
-		private final float cooldown;
-		private final int value;
-		private final String name;
-		
-		private final Texture texture;
-		
-		private Ability(String name)
-		{
-			this(name, false);
-		}
-		
-		private Ability(String name, boolean buff)
-		{
-			this(name, buff, -1);
-		}
-		
-		private Ability(String name, int value)
-		{
-			this(name, false, value);
-		}
-		
-		private Ability(String name, boolean buff, int value)
-		{
-			if (buff)
-				this.duration = BUFF_DURATION;
-			else
-				this.duration = -1;
-			this.cooldown = BUFF_COOLDOWN;
-			this.value = value;
-			this.name = name;
-			this.texture = Artist.quickLoad(name);
-		}
-		
-		public float getDuration()
-		{
-			return duration;
-		}
-		
-		public float getCooldown()
-		{
-			return cooldown;
-		}
-		
-		public long getValue()
-		{
-			return value;
-		}
-		
-		public Texture getTexture()
-		{
-			return texture;
-		}
-		
-		public static Ability random()
-		{
-			return abilities[(int) (Math.random() * abilities.length)];
-		}
-		
-		@Override
-		public String toString()
-		{
-			return name;
-		}
 	}
 }
