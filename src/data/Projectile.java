@@ -4,12 +4,13 @@ import static helpers.Clock.getSeconds;
 
 import java.util.List;
 
+import javax.security.auth.x500.X500Principal;
+
 import org.newdawn.slick.opengl.Texture;
 
 public class Projectile extends Entity {
 	
-	public static final float speed = 200;
-	public static List<Projectile> projectileList;
+	public static final float speed = 400;
 	
 	Tile nextTile;
 	int direction;
@@ -27,15 +28,24 @@ public class Projectile extends Entity {
 		}
 	}
 	
+	public boolean outOfBounds() {
+		return !getGrid().validIndex(getCurrentTile().getIndX(), getCurrentTile().getIndY());
+	}
+	
 	@Override
 	public void update() {
+		if (nextTile == null)
+			nextTile = new Tile(getCurrentTile().getIndX() + TileGrid.changeX[direction], 
+					getCurrentTile().getIndY() + TileGrid.changeY[direction], 0, 0, TileType.Cave);
 		int nextX = nextTile.getX();
 		int nextY = nextTile.getY();
 		
-		if (!getGrid().validIndex(getCurrentTile().getIndX(), getCurrentTile().getIndY())) {
-			remove();
+		System.out.println(getX() + " " + getY());
+		System.out.println(getCurrentTile().getIndX() + " " + getCurrentTile().getIndY());
+		
+		if (outOfBounds())
 			return;
-		} else {
+		else {
 			Entity moving = getGrid().getMovingEntity(getCurrentTile());
 			if (moving != null && moving instanceof Sprite) {
 				Player player = ((Sprite) moving).getPlayer();
@@ -69,12 +79,10 @@ public class Projectile extends Entity {
 		if (x == nextX && y == nextY)
 		{
 			setCurrentTile(nextTile);
-			nextTile = new Tile((int) (x + TileGrid.SIZE), (int) (y + TileGrid.SIZE), 0, 0, TileType.Cave);
+			nextTile = new Tile(getCurrentTile().getIndX() + TileGrid.changeX[direction], 
+					getCurrentTile().getIndY() + TileGrid.changeY[direction], 0, 0, TileType.Cave);
 		}
-	}
-	
-	@Override
-	public void remove() {
-		projectileList.remove(this);
+		
+		draw();
 	}
 }
