@@ -3,6 +3,9 @@ package data;
 import static helpers.Artist.*;
 import static helpers.Clock.getSeconds;
 
+import java.security.spec.ECPrivateKeySpec;
+import java.util.Arrays;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -95,6 +98,8 @@ public class Player
 	
 	private boolean dead;
 	
+	private boolean[] keyActive;
+	
 	/**
 	 * Constructs a Player.
 	 * 
@@ -109,6 +114,7 @@ public class Player
 		this.grid = grid;
 		this.color = color;
 		this.keys = new int[keys.length];
+		this.keyActive = new boolean[keys.length];
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
 		this.projectileColor = projectileColor;
@@ -253,6 +259,7 @@ public class Player
 		}
 		if (!dead && health <= 0)
 		{
+			Arrays.fill(keyActive, false);
 			dead = true;
 			sprite.kill();
 			sprite.toggleVisibility();
@@ -263,23 +270,30 @@ public class Player
 		
 		Keyboard.next();
 		
+		for (int i = 0; i < keys.length && !dead; i++)
+			if (Keyboard.getEventKey() == keys[i])
+				keyActive[i] = Keyboard.getEventKeyState();
+		
 		if (!statusActive(Status.STUN) && !dead) {
 			char[] updates = new char[] {'U', 'L', 'D', 'R'};
+			
+			
 			if (sprite.onCenterArea())
 				score += Clock.getSeconds();
-			// priority - attack, movement, setting walls, setting traps
-			if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
+			
+			if (keyActive[4])
 				attack();
 			for (int i = 0; i < updates.length; i++)
-				if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
+				if (keyActive[i])
 					sprite.updatePath(updates[i]);
-			if (Keyboard.isKeyDown(keys[5]) && Keyboard.getEventKeyState())
+			
+			if (keyActive[5])
 			{
 				Tile tile = sprite.getCurrentTile();
 				if (tile.getType() == TileType.Cave && spendJewels(WALL_COST))
 					grid.setTile(tile, TileType.Wall1);
 			}
-			if (Keyboard.isKeyDown(keys[6]) && Keyboard.getEventKeyState())
+			if (keyActive[6])
 			{
 				// trap
 				Tile tile = sprite.getCurrentTile();
@@ -290,7 +304,7 @@ public class Player
 					game.addTrap(trap);
 				}
 			}
-			if (Keyboard.isKeyDown(keys[7]) && Keyboard.getEventKeyState())
+			if (keyActive[7])
 				abilityManager.activate();
 		}
 		
