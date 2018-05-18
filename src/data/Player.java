@@ -77,7 +77,7 @@ public class Player
 	/**
 	 * The current score of the Player.
 	 */
-	private long score;
+	private float score;
 	
 	/**
 	 * The status manager that manages the statuses of effects.
@@ -208,7 +208,7 @@ public class Player
 	 * 
 	 * @return the score of the player
 	 */
-	public long getScore()
+	public float getScore()
 	{
 		return score;
 	}

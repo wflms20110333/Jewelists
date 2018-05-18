@@ -38,15 +38,14 @@ public class Scoreboard extends UIItem
 		drawQuad(rect, Color.black);
 		drawString(rect.x, rect.y, "Time: " + (int) time, Color.white);
 
-		long sum = 0;
+		float sum = 0;
 		for (Player player : game.getPlayers())
 			sum += player.getScore();
-
+		
 		int x = rect.x;
-
 		for (Player player : game.getPlayers())
 		{
-			int portion = (int) ((double) player.getScore() / sum * rect.width);
+			float portion = player.getScore() * rect.width / sum;
 			drawQuad(x, rect.y + rect.height / 2, portion, rect.height / 2, player.getColor());
 			x += portion;
 		}
