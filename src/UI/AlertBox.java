@@ -17,34 +17,50 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class AlertBox
 {
-	// Dimensions of the alert box
+	/**
+	 * The dimensions of the AlertBox.
+	 */
 	public static final int ALERT_BOX_WIDTH = 600;
 	public static final int ALERT_BOX_HEIGHT = 400;
 	private static final int ALERT_BOX_X = WIDTH / 2 - ALERT_BOX_WIDTH / 2;
 	private static final int ALERT_BOX_Y = HEIGHT / 2 - ALERT_BOX_HEIGHT / 2;
 	
-	// Padding values
+	/**
+	 * The padding values of the AlertBox.
+	 */
 	private static final int ALERT_BOX_TEXT_PADDING = 30;
 	private static final int ALERT_BOX_TEXT_BETWEEN_PADDING = 10;
 	private static final int ALERT_BOX_TEXT_TAB_PADDING = 20;
 	
-	// Size of image
+	/**
+	 * The default size of images in the AlertBox.
+	 */
 	private static final int ALERT_BOX_IMAGE_SIZE = 100;
 	
-	// Dimensions of the button
+	/**
+	 * The dimensions of the button of the AlertBox.
+	 */
 	private static final int ALERT_BOX_BUTTON_X = ALERT_BOX_X + ALERT_BOX_WIDTH - 30 - 128;
 	private static final int ALERT_BOX_BUTTON_Y = ALERT_BOX_Y + ALERT_BOX_HEIGHT - 20 - 54;
 	
-	// Padding on text
+	/**
+	 * The padding values for the text of the AlertBox.
+	 */
 	private static final int TEXT_X = ALERT_BOX_X + ALERT_BOX_TEXT_PADDING;
 	private static final int TEXT_X_TABBED = TEXT_X + ALERT_BOX_TEXT_TAB_PADDING;
 	
+	/**
+	 * The user interface of the AlertBox.
+	 */
 	private UI alertBox;
 	
+	/**
+	 * The y coordinate for adding UIItems to the AlertBox.
+	 */
 	private int y;
 	
 	/**
-	 * Create a new alert box
+	 * Constructs an AlertBox.
 	 */
 	public AlertBox()
 	{
@@ -55,8 +71,10 @@ public class AlertBox
 	}
 	
 	/**
-	 * Add string into the Alert box
-	 * @param segments the array of strings. Each position is a line
+	 * Adds a string to the alert box.
+	 * 
+	 * @param segments the segments composing the string; each will be
+	 * 		  displayed on its own line
 	 */
 	public void addString(String[] segments)
 	{
@@ -70,9 +88,10 @@ public class AlertBox
 	}
 	
 	/**
-	 * Add an image onto the box
-	 * @param textureName the texture of the image
-	 * @param x the x-coordinate of the image
+	 * Adds an image to the alert box.
+	 * 
+	 * @param textureName the name of the texture of the image
+	 * @param x the x coordinate (in pixels) of the image
 	 */
 	public void addImage(String textureName, int x)
 	{
@@ -81,12 +100,12 @@ public class AlertBox
 	}
 	
 	/**
-	 * Add an image onto the box
+	 * Adds an image to the alert box.
 	 * 
 	 * @param texture the texture of the image
-	 * @param x the x coordinate of the image
-	 * @param width the width of the image
-	 * @param height the height of the image
+	 * @param x the x coordinate (in pixels) of the image
+	 * @param width the width (in pixels) of the image
+	 * @param height the height (in pixels) of the image
 	 */
 	public void addImage(Texture texture, int x, int width, int height)
 	{
@@ -94,9 +113,10 @@ public class AlertBox
 	}
 	
 	/**
-	 * Add a button onto the box
+	 * Add a button to the alert box.
+	 * 
 	 * @param name the name of the button
-	 * @param textureName the name of the texture on the button
+	 * @param textureName the name of the texture of the button
 	 */
 	public void addButton(String name, String textureName)
 	{
@@ -104,7 +124,7 @@ public class AlertBox
 	}
 	
 	/**
-	 * Draw the alert box
+	 * Draws the alert box,
 	 */
 	public void draw()
 	{
@@ -112,9 +132,10 @@ public class AlertBox
 	}
 	
 	/**
-	 * Determine if a button on the box is clicked
-	 * @param buttonName the name of the button
-	 * @return whether the button on the box is clicked
+	 * Determines if a given button on the alert box is clicked.
+	 * 
+	 * @param buttonName the name of the given button
+	 * @return whether the given button is clicked
 	 */
 	public boolean isButtonClicked(String buttonName)
 	{
