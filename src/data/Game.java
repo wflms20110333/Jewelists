@@ -35,6 +35,9 @@ public class Game
 	public static final int SCOREBOARD_WIDTH = WIDTH;
 	public static final int SCOREBOARD_HEIGHT = TileGrid.SIZE * SCOREBOARD_HEIGHT_TILES;
 	
+	/**
+	 * The duration of the game.
+	 */
 	public static final int GAME_LENGTH = 300;
 	
 	/**
@@ -64,6 +67,9 @@ public class Game
 	 */
 	ArrayList<Trap> traps;
 	
+	/**
+	 * The projectiles currently in the Game.
+	 */
 	ArrayList<Projectile> projectiles;
 	
 	/**
@@ -152,11 +158,23 @@ public class Game
 		return players;
 	}
 	
-	public void addProjectile(Projectile projectile) {
+	/**
+	 * Adds a given projectile to the game.
+	 * 
+	 * @param projectile the given projectile
+	 */
+	public void addProjectile(Projectile projectile)
+	{
 		projectiles.add(projectile);
 	}
 	
-	public ArrayList<Projectile> getProjectiles() {
+	/**
+	 * Returns a list of the projectiles currently in the game.
+	 * 
+	 * @return a list of the projectiles currently in the game.
+	 */
+	public ArrayList<Projectile> getProjectiles()
+	{
 		return projectiles;
 	}
 	

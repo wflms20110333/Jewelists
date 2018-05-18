@@ -10,7 +10,7 @@ import helpers.Clock;
 import helpers.StateManager;
 
 /**
- * The Boot class blah
+ * The Boot class is startup sequence that sets up the game when it is run.
  * 
  * @author Elizabeth Zou
  * @author An Nguyen
