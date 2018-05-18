@@ -37,8 +37,10 @@ public class Artist
 	public static final int WIDTH = (int) (screenSize.getWidth() / TileGrid.SIZE) * TileGrid.SIZE;
 	public static final int HEIGHT = (int) (screenSize.getHeight() / TileGrid.SIZE - 2) * TileGrid.SIZE;
 	
+	/**
+	 * 
+	 */
 	public static final Color DEFAULT_COLOR = Color.black;
-	public static final Color MASTER_COLOR = Color.white;
 	
 	public static final int FONT_SIZE = 40;
 	
