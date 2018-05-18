@@ -55,7 +55,7 @@ public class Player
 	/**
 	 * The keyboard commands of the Player.
 	 */
-	private int[] keys = new int[8];
+	private int[] keys;
 	
 	/**
 	 * The maximum health of the Player.
@@ -108,9 +108,10 @@ public class Player
 		this.game = game;
 		this.grid = grid;
 		this.color = color;
-		this.projectileColor = projectileColor;
+		this.keys = new int[keys.length];
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
+		this.projectileColor = projectileColor;
 		Tile tile = grid.randEmptyTile();
 		score = 1;
 		health = maxHealth = DEFAULT_HEALTH;

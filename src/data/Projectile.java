@@ -2,7 +2,6 @@ package data;
 
 import static helpers.Clock.getSeconds;
 
-import org.lwjgl.test.openal.MovingSoundTest;
 import org.newdawn.slick.opengl.Texture;
 
 public class Projectile extends Entity {
