@@ -32,6 +32,9 @@ public enum Status
 	 */
 	DMG_BOOST(2f),
 	
+	/**
+	 * Gradually decrease a person's health
+	 */
 	POISON(.7f);
 	
 	/**

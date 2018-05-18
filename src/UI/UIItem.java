@@ -6,17 +6,28 @@ import java.awt.Rectangle;
 
 import org.newdawn.slick.opengl.Texture;
 
+/**
+ * Parent object of all user-interface textures displayed on screen
+ * 
+ * @author An Nguyen
+ */
 public class UIItem
 {
 	private Texture texture;
 	private Rectangle rect;
 
+	/**
+	 * Create a new user-interface component
+	 * @param texture the texture of the component
+	 * @param rect the rectangle bounding the component
+	 */
 	public UIItem(Texture texture, Rectangle rect)
 	{
 		this.texture = texture;
 		this.rect = rect;
 	}
 
+	
 	public Texture getTexture()
 	{
 		return texture;
@@ -44,6 +55,6 @@ public class UIItem
 
 	public void update()
 	{
-		// does nothing as of now, should be overriden
+		draw();
 	}
 }
