@@ -1,7 +1,9 @@
 package data;
 
 import static helpers.Clock.getSeconds;
+import static helpers.Artist.*;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -35,6 +37,13 @@ public class Sprite extends Entity
 	 * The tile the Sprite is currently moving into.
 	 */
 	private Tile nextTile;
+	
+	private static final Color BAR_COLOR = new Color(0.8f, 0.8f, 0.8f, 0.8f);
+	private static final char[] DIRS = {'U', 'L', 'D', 'R'};
+	private static final int[] BAR_DX = {4, 0, 4, TileGrid.SIZE - 4};
+	private static final int[] BAR_DY = {0, 4, TileGrid.SIZE - 4, 4};
+	private static final int[] BAR_WIDTH = {24, 4, 24, 4};
+	private static final int[] BAR_HEIGHT = {4, 24, 4, 24};
 	
 	/**
 	 * Constructs a Sprite.
@@ -248,5 +257,19 @@ public class Sprite extends Entity
 	public void setNextTile(Tile tile)
 	{
 		nextTile = tile;
+	}
+	
+	@Override
+	public void draw()
+	{
+		super.draw();
+		for (int i = 0; i < DIRS.length; i++)
+		{
+			if (direction == DIRS[i])
+			{
+				drawQuad(getX() + BAR_DX[i], getY() + BAR_DY[i], BAR_WIDTH[i], BAR_HEIGHT[i], BAR_COLOR);
+				return;
+			}
+		}
 	}
 }
