@@ -40,7 +40,9 @@ public class Player
 	
 	private static final int RESPAWN_TIME = 5;
 	
-	private static final float RELOAD_SPEED = .7f;
+	private static final float RELOAD_SPEED = .5f;
+	
+	private static final int MAX_BULLET = 8;
 	
 	/**
 	 * The game that the Player interacts with.
@@ -263,7 +265,7 @@ public class Player
 			sprite.toggleVisibility();
 		}
 		
-		bullets += RELOAD_SPEED * Clock.getSeconds();
+		reload();
 		
 		if (statusActive(Status.POISON))
 			heal(-Status.POISON.getMultiplier() * getSeconds());
@@ -280,8 +282,10 @@ public class Player
 			if (keyActive[4])
 				attack();
 			for (int i = 0; i < updates.length; i++)
-				if (keyActive[i])
+				if (keyActive[i]) {
 					sprite.updatePath(updates[i]);
+					break;
+				}
 			
 			if (keyActive[5])
 			{
@@ -340,7 +344,14 @@ public class Player
 			}
 		}
 		
+		bullets--;
 		timeUntilAttack = COOLDOWN_PER_ATTACK;
+	}
+	
+	private void reload() {
+		bullets += RELOAD_SPEED * Clock.getSeconds();
+		if (bullets > MAX_BULLET)
+			bullets = MAX_BULLET;
 	}
 	
 	/**
