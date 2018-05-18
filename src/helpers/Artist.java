@@ -108,7 +108,14 @@ public class Artist
 	}
 	
 	public static void drawQuad(Rectangle rect, Color color) {
-		glColor3f(color.getRed(), color.getGreen(), color.getBlue());
+		
+		glColor4f(
+			color.getRed() / 255f, 
+			color.getGreen() / 255f, 
+			color.getBlue() / 255f, 
+			color.getAlpha() / 255f
+		);
+		
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 		glVertex2f(rect.x, rect.y); // Top left corner
@@ -116,7 +123,7 @@ public class Artist
 		glVertex2f(rect.x + rect.width, rect.y + rect.height); // Bottom right corner
 		glVertex2f(rect.x, rect.y + rect.height); // Bottom left corner
 		glEnd();
-		glColor3f(255,255,255);
+		glColor4f(255,255,255,255);
 		glEnable(GL_TEXTURE_2D);
 	}
 	

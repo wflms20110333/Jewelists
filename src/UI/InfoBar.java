@@ -56,6 +56,8 @@ public class InfoBar extends UIItem
 		
 		drawQuad(rect, Color.black);
 		
+		Color transparentRed = new Color(Color.red.a, Color.red.g, Color.red.b, 0.3f);
+		
 		Texture texture = player.getSprite().getTexture();
 		drawQuadTex(texture, rect.x + PADDING, rect.y + PADDING, TileGrid.SIZE, TileGrid.SIZE);
 		drawString(rect.x + PADDING * 2 + TileGrid.SIZE, rect.y + PADDING, 
@@ -64,9 +66,13 @@ public class InfoBar extends UIItem
 		float abilitySize = (float) ((SCALE - 1) * rect.getHeight() / SCALE);
 		drawQuadTex(player.getAbility().getTexture(), (float) (rect.getX() + rect.getWidth() - abilitySize), 
 				(float) rect.getY(), abilitySize, abilitySize);
-
+		
+		float cooldownPercent = player.getCooldownLeft() / player.getAbility().getCooldown();
+		drawQuad((float) (rect.getX() + rect.getWidth() - abilitySize), 
+				(float) rect.getY(), abilitySize, abilitySize * cooldownPercent, new Color(transparentRed));
+		
 		// health bar
-		drawQuad(rect.x, rect.y + (SCALE - 1) * rect.height / SCALE, rect.width, rect.height / SCALE, Color.gray);
+		drawQuad(rect.x, rect.y + (SCALE - 1) * rect.height / SCALE, rect.width, rect.height / SCALE, transparentRed);
 		drawQuad(rect.x, rect.y + (SCALE - 1) * rect.height / SCALE, rect.width * player.getPercent(), rect.height / SCALE, Color.red);
 	}
 
