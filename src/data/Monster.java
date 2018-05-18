@@ -7,18 +7,26 @@ import static helpers.Clock.*;
 import java.util.ArrayList;
 
 /**
- * The Monster class blah blah
+ * The Monster class represents monsters that damage players' healths when they
+ * come too close. Monsters also give a reward when a player kills them.
  * 
  * @author Elizabeth Zou
+ * @author An Nguyen
  */
 public class Monster extends Entity
 {
-	
+	/**
+	 * Constants for a Monster's default properties.
+	 */
 	private static final float DEFAULT_HEALTH = 10;
 	private static final int MONSTER_ATTACK_RANGE = 1;
 	private static final int MONSTER_ATTACK_DURATION = 3;
-	
 	public static final int REWARD_VALUE = 20;
+	
+	/**
+	 * A list of all the possible permutations of "ULDR", the four directions.
+	 */
+	private ArrayList<String> permutations;
 	
 	/**
 	 * The speed of the Monster.
@@ -41,13 +49,18 @@ public class Monster extends Entity
 	private Tile nextTile;
 	
 	/**
-	 * A list of all the possible permutations of "ULDR", the four directions.
+	 * The StatusManager that manages the Monster's statuses.
 	 */
-	private ArrayList<String> permutations;
-	
 	private StatusManager statuses;
 	
+	/**
+	 * The health of the Monster.
+	 */
 	private float health;
+	
+	/**
+	 * The maximum health of the Monster.
+	 */
 	private float maxHealth;
 	
 	/**
@@ -69,7 +82,6 @@ public class Monster extends Entity
 		genPerms("", "ULDR");
 		randSetNextTile();
 	}
-		
 	
 	/**
 	 * Private helper method that generates all the possible permutations of
@@ -105,7 +117,8 @@ public class Monster extends Entity
 			if (statusActive(Status.POISON))
 				heal(-Status.POISON.getMultiplier() * getSeconds());
 			
-			for (Tile tile : getGrid().getTilesInRange(getCurrentTile(), MONSTER_ATTACK_RANGE)) {
+			for (Tile tile : getGrid().getTilesInRange(getCurrentTile(), MONSTER_ATTACK_RANGE))
+			{
 				Entity entity = getGrid().getMovingEntity(tile);
 				if (entity != null && entity instanceof Sprite)
 					((Sprite) entity).getPlayer().addStatus(Status.POISON, MONSTER_ATTACK_DURATION);
@@ -211,11 +224,21 @@ public class Monster extends Entity
 		return statuses.statusActive(effect);
 	}
 	
+	/**
+	 * Returns the health of the monster.
+	 * 
+	 * @return the health of the monster
+	 */
 	public float getHealth()
 	{
 		return health;
 	}
 	
+	/**
+	 * Changes the monster's health by a given value.
+	 * 
+	 * @param heal the given value
+	 */
 	public void heal(float heal)
 	{
 		this.health += heal;
@@ -225,7 +248,11 @@ public class Monster extends Entity
 			kill();
 	}
 	
-	public void kill() {
+	/**
+	 * Kills the monster.
+	 */
+	public void kill()
+	{
 		getGrid().setOccupied(getCurrentTile(), null);
 		if (nextTile != null)
 			getGrid().setOccupied(nextTile, null);
@@ -233,6 +260,11 @@ public class Monster extends Entity
 		remove();
 	}
 	
+	/**
+	 * Returns the maximum health of the monster.
+	 * 
+	 * @return the maximum health of the monster
+	 */
  	public float getMaxHealth()
 	{
 		return maxHealth;
