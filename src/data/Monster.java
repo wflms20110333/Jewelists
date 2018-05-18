@@ -106,10 +106,8 @@ public class Monster extends Entity
 			
 			for (Tile tile : getGrid().getTilesInRange(getCurrentTile(), MONSTER_ATTACK_RANGE)) {
 				Entity entity = getGrid().getMovingEntity(tile);
-				if (entity != null && entity instanceof Sprite) {
-					System.out.println("POISON");
+				if (entity != null && entity instanceof Sprite)
 					((Sprite) entity).getPlayer().addStatus(Status.POISON, MONSTER_ATTACK_DURATION);
-				}
 			}
 			
 			if (nextTile == null)
