@@ -55,7 +55,7 @@ public class Player
 	/**
 	 * The keyboard commands of the Player.
 	 */
-	private int[] keys = new int[9];
+	private int[] keys = new int[8];
 	
 	/**
 	 * The maximum health of the Player.
