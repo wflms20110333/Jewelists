@@ -125,9 +125,9 @@ public class AbilityManager {
 	
 	public static enum Ability {
 		// buff
-		SPEED("speed", true), DMG_BOOST("dmg_boost", true), MAGNET("magnet", true, 3),
+		SPEED("ability_speed", true), DMG_BOOST("ability_dmg_boost", true), MAGNET("ability_magnet", true, 3),
 		// activated instantly
-		BLINK("blink", 3), HEAL("heal", 2), SLOW("slow", true, 3);
+		BLINK("ability_blink", 3), HEAL("ability_heal", 2), SLOW("ability_slow", true, 3);
 		
 		private static final Ability[] abilities = values();
 		
