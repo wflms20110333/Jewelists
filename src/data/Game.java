@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.newdawn.slick.Color;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker.StateContributionInfo;
 
 import UI.InfoBar;
 import UI.Scoreboard;
@@ -34,6 +35,8 @@ public class Game
 	public static final int SCOREBOARD_HEIGHT_TILES = 2;
 	public static final int SCOREBOARD_WIDTH = WIDTH;
 	public static final int SCOREBOARD_HEIGHT = TileGrid.SIZE * SCOREBOARD_HEIGHT_TILES;
+	
+	public static final int GAME_LENGTH = 300;
 	
 	/**
 	 * The tile grid that represents the Game.
@@ -94,7 +97,7 @@ public class Game
 		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new Scoreboard(null, new Rectangle((WIDTH - SCOREBOARD_WIDTH) / 2, 
-			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 300)
+			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, GAME_LENGTH)
 		);
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();
