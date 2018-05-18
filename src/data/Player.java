@@ -282,8 +282,10 @@ public class Player
 			if (keyActive[4])
 				attack();
 			for (int i = 0; i < updates.length; i++)
-				if (keyActive[i])
+				if (keyActive[i]) {
 					sprite.updatePath(updates[i]);
+					break;
+				}
 			
 			if (keyActive[5])
 			{
