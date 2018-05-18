@@ -30,6 +30,11 @@ public class UI
 	{
 		uiList.add(new Button(name, quickLoad(textureName), x, y, width, height));
 	}
+	
+	public void addButton(String name, String textureName, int x, int y, String text)
+	{
+		uiList.add(new Button(name, quickLoad(textureName), x, y, text));
+	}
 
 	public void addItem(UIItem item)
 	{
@@ -46,7 +51,7 @@ public class UI
 		return getButton(buttonName).isClicked();
 	}
 
-	private Button getButton(String buttonName)
+	public Button getButton(String buttonName)
 	{
 		for (UIItem b : uiList)
 			if (b instanceof Button && ((Button) b).getName().equals(buttonName))

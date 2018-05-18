@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 
 public class AlertBox
 {
-	private static final int ALERT_BOX_WIDTH = 550;
+	private static final int ALERT_BOX_WIDTH = 600;
 	private static final int ALERT_BOX_HEIGHT = 400;
 	private static final int ALERT_BOX_X = WIDTH / 2 - ALERT_BOX_WIDTH / 2;
 	private static final int ALERT_BOX_Y = HEIGHT / 2 - ALERT_BOX_HEIGHT / 2;

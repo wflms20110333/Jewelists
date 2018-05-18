@@ -97,14 +97,12 @@ public class Game
 			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 100)
 		);
 		
-		
-		
 		ArrayList<Entity> jewelList = new ArrayList<>();
-		jewelList.add(new Jewel(quickLoad("jewel_green"), grid.getTile(6, 7), grid, 1));
-		jewelList.add(new Jewel(quickLoad("jewel_red"), grid.getTile(6, 7), grid, 2));
-		jewelList.add(new Jewel(quickLoad("jewel_blue"), grid.getTile(6, 7), grid, 3));
-		jewelList.add(new Jewel(quickLoad("jewel_purple"), grid.getTile(6, 7), grid, 4));
-		jewelList.add(new Jewel(quickLoad("jewel_orange"), grid.getTile(6, 7), grid, 5));
+		jewelList.add(new Jewel(quickLoad("jewel_red"), grid.getTile(6, 7), grid, 1));
+		jewelList.add(new Jewel(quickLoad("jewel_orange"), grid.getTile(6, 7), grid, 2));
+		jewelList.add(new Jewel(quickLoad("jewel_green"), grid.getTile(6, 7), grid, 3));
+		jewelList.add(new Jewel(quickLoad("jewel_blue"), grid.getTile(6, 7), grid, 4));
+		jewelList.add(new Jewel(quickLoad("jewel_purple"), grid.getTile(6, 7), grid, 5));
 		
 		jewelSpawner = new JewelSpawner(3, grid, jewelList);
 		traps = new ArrayList<>();
