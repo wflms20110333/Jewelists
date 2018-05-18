@@ -36,6 +36,8 @@ public class Sprite extends Entity
 	 */
 	private Tile nextTile;
 	
+	private boolean visible; 
+	
 	/**
 	 * Constructs a Sprite.
 	 * 
@@ -60,10 +62,11 @@ public class Sprite extends Entity
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, float speed, Player player)
 	{
 		super(texture, startTile, grid);
-		getGrid().toggleOccupied(startTile, this);
+		getGrid().setOccupied(startTile, this);
 		this.speed = speed;
 		this.player = player;
 		this.direction = 'U';
+		this.visible = true;
 	}
 	
 	/**
@@ -74,7 +77,6 @@ public class Sprite extends Entity
 	public void update()
 	{
 		// collect jewels
-		
 		int range = 0;
 		if (player.statusActive(Status.MAGNET))
 			range = (int) Status.MAGNET.getMultiplier();
@@ -96,8 +98,11 @@ public class Sprite extends Entity
 		}
 		
 		// move
-		if (nextTile == null)
+		if (nextTile == null) {
+			if (visible)
+				draw();
 			return;
+		}
 		
 		float adjusted_speed = speed;
 		if (player.statusActive(Status.SLOW))
@@ -127,13 +132,27 @@ public class Sprite extends Entity
 				
 				if (x == nextX && y == nextY)
 				{
-					getGrid().toggleOccupied(getCurrentTile(), null);
+					getGrid().setOccupied(getCurrentTile(), null);
 					setCurrentTile(nextTile);
 					nextTile = null;
 					checkTrap();
 				}
 			}
 		}
+		
+		if (visible)
+			draw();
+	}
+	
+	public void toggleVisibility() {
+		this.visible = !visible;
+	}
+	
+	public void kill() {
+		getGrid().setOccupied(getCurrentTile(), null);
+		if (nextTile != null)
+			getGrid().setOccupied(nextTile, null);
+		nextTile = null;
 	}
 	
 	/**
@@ -143,11 +162,11 @@ public class Sprite extends Entity
 	 */
 	public void blink(Tile tile)
 	{
-		getGrid().toggleOccupied(getCurrentTile(), null);
+		getGrid().setOccupied(getCurrentTile(), null);
 		if (nextTile != null)
-			getGrid().toggleOccupied(nextTile, null);
+			getGrid().setOccupied(nextTile, null);
 		setCurrentTile(tile);
-		getGrid().toggleOccupied(tile, this);
+		getGrid().setOccupied(tile, this);
 		setX(getCurrentTile().getX());
 		setY(getCurrentTile().getY());
 		nextTile = null;
@@ -175,7 +194,7 @@ public class Sprite extends Entity
 			else if (direction == 'R' && getGrid().canEnter(current.getIndX() + 1, current.getIndY()))
 				nextTile = getGrid().getTile(current.getIndX() + 1, current.getIndY());
 			if (nextTile != null)
-				getGrid().toggleOccupied(nextTile, this);
+				getGrid().setOccupied(nextTile, this);
 		}
 	}
 	

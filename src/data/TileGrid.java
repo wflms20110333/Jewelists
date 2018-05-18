@@ -210,7 +210,7 @@ public class TileGrid
 	 * @param tile the tile that forms the given cell
 	 * @param e the given moving entity
 	 */
-	public void toggleOccupied(Tile tile, Entity e)
+	public void setOccupied(Tile tile, Entity e)
 	{
 		occupied[tile.getIndX()][tile.getIndY()] = e;
 	}
