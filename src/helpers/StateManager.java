@@ -47,36 +47,42 @@ public class StateManager
 	 * The current game state of the game, set to the main menu at launch of
 	 * the application.
 	 */
-	public static GameState gameState = GameState.MAINMENU;
+	private static GameState gameState = GameState.MAINMENU;
 	
 	/**
 	 * The main menu of the game.
 	 */
-	public static MainMenu mainMenu;
+	private static MainMenu mainMenu;
 	
 	/**
 	 * The actual game play of the game.
 	 */
-	public static Game game;
+	private static Game game;
 	
 	/**
 	 * The map editor of the game.
 	 */
-	public static Editor editor;
+	private static Editor editor;
 	
 	/**
 	 * The keyboard settings of the game.
 	 */
-	public static Settings settings;
+	private static Settings settings;
 	
 	/**
 	 * The wait time before button clicking is allowed.
 	 */
 	public static final int COUNT_LIMIT = 10;
 	
+	/**
+	 * The number of key commands each player has.
+	 */
 	public static final int NUM_KEYS = 8;
 	
-	public static int[][] keys = {
+	/**
+	 * The key commands of the players.
+	 */
+	private static int[][] keys = {
 			{ Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT, Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T },
 			{ Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT, Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K }
 	};
@@ -127,6 +133,13 @@ public class StateManager
 		gameState = newState;
 	}
 	
+	/**
+	 * Returns a given player's key command.
+	 * 
+	 * @param playerNumber the number of the given player
+	 * @param index the index of the key to be retrieved
+	 * @return the given player's key command
+	 */
 	public static int getKey(int playerNumber, int index)
 	{
 		return keys[playerNumber][index];

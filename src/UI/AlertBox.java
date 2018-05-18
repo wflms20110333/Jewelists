@@ -16,7 +16,6 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class AlertBox
 {
-	
 	// Dimensions of the alert box
 	public static final int ALERT_BOX_WIDTH = 600;
 	public static final int ALERT_BOX_HEIGHT = 400;

@@ -12,18 +12,18 @@ public class AbilityManager
 	/**
 	 * The player whose abilities are managed.
 	 */
-	Player player;
+	private Player player;
 	
 	/**
 	 * The player's current ability.
 	 */
-	Ability ability;
+	private Ability ability;
 	
 	/**
 	 * The number of seconds that the player has been cooling down (before
 	 * getting assigned a new random ability).
 	 */
-	float cooldownTick;
+	private float cooldownTick;
 	
 	/**
 	 * Construct an AbilityManager, starting with a random ability.

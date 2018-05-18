@@ -81,7 +81,8 @@ public class Artist
 	/**
 	 * @return the font used to draw text
 	 */
-	public static TrueTypeFont getFont() {
+	public static TrueTypeFont getFont()
+	{
 		return font;
 	}
 	
@@ -90,7 +91,8 @@ public class Artist
 	 * @param name the filename of the font
 	 * @param sz the size of the font
 	 */
-	public static void setFont(String name, int sz) {
+	public static void setFont(String name, int sz)
+	{
 		try
 		{
 			InputStream input = ResourceLoader.getResourceAsStream("Assets/" + name + ".ttf");
@@ -137,8 +139,8 @@ public class Artist
 	 * @param rect the bounding rectangle of the quad
 	 * @param color the color of the quad
 	 */
-	public static void drawQuad(Rectangle rect, Color color) {
-		
+	public static void drawQuad(Rectangle rect, Color color)
+	{
 		glColor4f(
 			color.getRed() / 255f, 
 			color.getGreen() / 255f, 
@@ -213,7 +215,8 @@ public class Artist
 	 * @param s the string to be drawn
 	 * @param color the color of the string
 	 */
-	public static void drawString(int x, int y, String s, Color color) {
+	public static void drawString(int x, int y, String s, Color color)
+	{
 		font.drawString(x, y, s, color);
 		glColor4f(255,255,255,255);
 	}

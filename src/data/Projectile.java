@@ -23,22 +23,22 @@ public class Projectile extends Entity
 	/**
 	 * The tile the Projectile is currently moving into.
 	 */
-	Tile nextTile;
+	private Tile nextTile;
 	
 	/**
 	 * The direction the Projectile is currently moving in.
 	 */
-	int direction;
+	private int direction;
 	
 	/**
 	 * The damage multiplier of the Projectile.
 	 */
-	float multiplier;
+	private float multiplier;
 	
 	/**
 	 * The owner of the Projectile.
 	 */
-	Player owner;
+	private Player owner;
 	
 	/**
 	 * Constructs a Projectile.

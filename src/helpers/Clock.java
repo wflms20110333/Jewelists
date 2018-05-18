@@ -27,8 +27,11 @@ public class Clock
 	 */
 	private static double multiplier = 1;
 	
-	
-	public Clock() {
+	/**
+	 * Constructs a Clock.
+	 */
+	public Clock()
+	{
 		lastFrame = getTime();
 	}
 

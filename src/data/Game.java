@@ -51,29 +51,29 @@ public class Game
 	/**
 	 * The spawners of the Game.
 	 */
-	Spawner monsterSpawner;
-	Spawner jewelSpawner;
+	private Spawner monsterSpawner;
+	private Spawner jewelSpawner;
 	
 	/**
 	 * The players of the Game.
 	 */
-	Player[] players;
+	private Player[] players;
 	
 	/**
 	 * The user interface of the Game, which displays the info bars and
 	 * scoreboard.
 	 */
-	UI ui;
+	private UI ui;
 	
 	/**
 	 * The traps currently set up in the Game.
 	 */
-	ArrayList<Trap> traps;
+	private ArrayList<Trap> traps;
 	
 	/**
 	 * The projectiles currently in the Game.
 	 */
-	ArrayList<Projectile> projectiles;
+	private ArrayList<Projectile> projectiles;
 	
 	/**
 	 * Constructs a Game.
