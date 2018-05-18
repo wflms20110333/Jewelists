@@ -9,7 +9,6 @@ import static helpers.Artist.*;
  * 
  * @author Elizabeth Zou
  */
-
 public class Tile
 {
 	/**

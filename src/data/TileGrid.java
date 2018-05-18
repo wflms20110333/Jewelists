@@ -27,12 +27,11 @@ public class TileGrid
 	public static final int ROWS = HEIGHT / SIZE - Game.SCOREBOARD_HEIGHT_TILES;
 	
 	/**
-	 * Used for determining direction and what to increment
+	 * Used for determining direction and position increments.
 	 */
-	public static final char[] order = {'U', 'R', 'L', 'D'};
-	// Change in X relative to order Up, Right, Left, Down;
-	public static final int[] changeX = {0, 1, -1, 0};
-	public static final int[] changeY = {-1, 0, 0, 1};
+	public static final char[] order = {'U', 'L', 'D', 'R'};
+	public static final int[] changeX = {0, -1, 0, 1};
+	public static final int[] changeY = {-1, 0, 1, 0};
 
 	/**
 	 * The tiles that form the TileGrid.
@@ -45,10 +44,14 @@ public class TileGrid
 	 */
 	private Entity[][] entities;
 	
+	/**
+	 * Whether each cell is currently occupied by a moving entity.
+	 */
 	private boolean[][] occupied;
 
 	/**
-	 * Constructs a TileGrid formed by cave tiles.
+	 * Constructs a TileGrid formed by cave tiles, with an area in the center
+	 * formed by dirt tiles.
 	 */
 	public TileGrid()
 	{
@@ -70,48 +73,7 @@ public class TileGrid
 		entities = new Entity[COLS][ROWS];
 		occupied = new boolean[COLS][ROWS];
 	}
-
-	/**
-	 * Constructs a TileGrid using a 2D integer array that represents the tile
-	 * types of the cells.
-	 * 
-	 * @param newMap the 2D integer array that represents the tile types of the
-	 *               cells, 0 representing a cave tile, 1 representing a wall tile,
-	 *               2 representing player 1's deposit, and 3 representing player
-	 *               2's deposit.
-	 */
-	/*
-	public TileGrid(int[][] newMap)
-	{
-		map = new Tile[COLS][ROWS];
-		for (int i = 0; i < map.length; i++)
-		{
-			for (int j = 0; j < map[i].length; j++)
-			{
-				switch (newMap[j][i])
-				{
-				case 0:
-					map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Cave);
-					break;
-				case 1:
-					map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Wall);
-					//fillCount++;
-					break;
-				case 2:
-					map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Deposit1);
-					//fillCount++;
-					break;
-				case 3:
-					map[i][j] = new Tile(i, j, SIZE, SIZE, TileType.Deposit2);
-					//fillCount++;
-					break;
-				}
-			}
-		}
-		entities = new Entity[COLS][ROWS];
-	}
-	*/
-
+	
 	/**
 	 * Draws the tile grid.
 	 */

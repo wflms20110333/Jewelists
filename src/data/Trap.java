@@ -23,6 +23,9 @@ public class Trap extends Entity
 	 */
 	private static final long DURATION = 3;
 	
+	/**
+	 * Whether the Trap has been activated.
+	 */
 	private boolean activated;
 	
 	/**
@@ -31,7 +34,7 @@ public class Trap extends Entity
 	private static Texture tex = quickLoad("trap");
 	
 	/**
-	 * The time since the trap was planted
+	 * The time since the Trap was planted.
 	 */
 	private double timeSinceStart;
 	
@@ -66,6 +69,8 @@ public class Trap extends Entity
 	}
 	
 	/**
+	 * Returns whether the trap has been activated.
+	 * 
 	 * @return whether the trap has been activated
 	 */
 	public boolean activated()

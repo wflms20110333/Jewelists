@@ -12,7 +12,6 @@ import data.Settings;
  * 
  * @author Elizabeth Zou
  */
-
 public class StateManager
 {
 	/**
