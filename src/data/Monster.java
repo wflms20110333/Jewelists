@@ -49,7 +49,7 @@ public class Monster extends Entity
 	public Monster(Texture texture, Tile startTile, TileGrid grid, float speed)
 	{
 		super(texture, startTile, grid);
-		getGrid().toggleOccupied(startTile);
+		getGrid().toggleOccupied(startTile, this);
 		this.speed = speed;
 		permutations = new ArrayList<>();
 		genPerms("", "ULDR");
@@ -113,7 +113,7 @@ public class Monster extends Entity
 					
 					if (x == nextX && y == nextY)
 					{
-						getGrid().toggleOccupied(getCurrentTile());
+						getGrid().toggleOccupied(getCurrentTile(), null);
 						setCurrentTile(nextTile);
 						nextTile = null;
 						if (Math.random() < 0.5)
@@ -182,7 +182,7 @@ public class Monster extends Entity
 		if (getGrid().canEnter(i, j))
 		{
 			nextTile = getGrid().getTile(i, j);
-			getGrid().toggleOccupied(nextTile);
+			getGrid().toggleOccupied(nextTile, this);
 			direction = dir;
 		}
 		else

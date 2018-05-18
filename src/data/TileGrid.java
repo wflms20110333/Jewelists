@@ -47,7 +47,7 @@ public class TileGrid
 	/**
 	 * Whether each cell is currently occupied by a moving entity.
 	 */
-	private boolean[][] occupied;
+	private Entity[][] occupied;
 
 	/**
 	 * Constructs a TileGrid formed by cave tiles, with an area in the center
@@ -71,7 +71,7 @@ public class TileGrid
 			}
 		}
 		entities = new Entity[COLS][ROWS];
-		occupied = new boolean[COLS][ROWS];
+		occupied = new Entity[COLS][ROWS];
 	}
 	
 	/**
@@ -128,8 +128,9 @@ public class TileGrid
 		return map[xCoord][yCoord];
 	}
 	
-	public Entity getMovingEntity(Tile tile) {
-		return null;
+	public Entity getMovingEntity(Tile tile)
+	{
+		return occupied[tile.getIndX()][tile.getIndY()];
 	}
 
 	/**
@@ -208,15 +209,9 @@ public class TileGrid
 	 * 
 	 * @param tile the tile that forms the given cell
 	 */
-	public void toggleOccupied(Tile tile)
+	public void toggleOccupied(Tile tile, Entity e)
 	{
-		occupied[tile.getIndX()][tile.getIndY()] = !occupied[tile.getIndX()][tile.getIndY()];
-		/*
-		if (map[tile.getIndX()][tile.getIndY()].getType() == TileType.Cave)
-			map[tile.getIndX()][tile.getIndY()].setType(TileType.Dirt);
-		else
-			map[tile.getIndX()][tile.getIndY()].setType(TileType.Cave);
-		*/
+		occupied[tile.getIndX()][tile.getIndY()] = e;
 	}
 	
 	/**
@@ -235,7 +230,7 @@ public class TileGrid
 			if (!validIndex(x, y))
 				continue;
 			Tile tile = getTile(x, y);
-			if (tile.getType() == TileType.Cave && getEntity(x, y) == null && !occupied[x][y])
+			if (tile.getType() == TileType.Cave && getEntity(x, y) == null && occupied[x][y] == null)
 				return tile;
 		}
 	}
@@ -255,7 +250,7 @@ public class TileGrid
 	{
 		if (!validIndex(xCoord, yCoord))
 			return false;
-		if (occupied[xCoord][yCoord])
+		if (occupied[xCoord][yCoord] != null)
 			return false;
 		return map[xCoord][yCoord].getType() == TileType.Cave || map[xCoord][yCoord].getType() == TileType.Dirt;
 	}

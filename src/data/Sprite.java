@@ -65,7 +65,7 @@ public class Sprite extends Entity
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, float speed, Player player)
 	{
 		super(texture, startTile, grid);
-		getGrid().toggleOccupied(startTile);
+		getGrid().toggleOccupied(startTile, this);
 		this.speed = speed;
 		this.player = player;
 		this.facingDirection = 'U';
@@ -132,7 +132,7 @@ public class Sprite extends Entity
 				
 				if (x == nextX && y == nextY)
 				{
-					getGrid().toggleOccupied(getCurrentTile());
+					getGrid().toggleOccupied(getCurrentTile(), this);
 					setCurrentTile(nextTile);
 					nextTile = null;
 					checkTrap();
@@ -148,10 +148,11 @@ public class Sprite extends Entity
 	 */
 	public void blink(Tile tile)
 	{
-		getGrid().toggleOccupied(getCurrentTile());
+		getGrid().toggleOccupied(getCurrentTile(), null);
 		if (nextTile != null)
-			getGrid().toggleOccupied(nextTile);
+			getGrid().toggleOccupied(nextTile, null);
 		setCurrentTile(tile);
+		getGrid().toggleOccupied(tile, this);
 		setX(getCurrentTile().getX());
 		setY(getCurrentTile().getY());
 		nextTile = null;
@@ -180,7 +181,7 @@ public class Sprite extends Entity
 			else if (direction == 'R' && getGrid().canEnter(current.getIndX() + 1, current.getIndY()))
 				nextTile = getGrid().getTile(current.getIndX() + 1, current.getIndY());
 			if (nextTile != null)
-				getGrid().toggleOccupied(nextTile);
+				getGrid().toggleOccupied(nextTile, this);
 		}
 	}
 	
