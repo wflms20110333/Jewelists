@@ -117,11 +117,26 @@ public class Artist
 		drawQuad(new Rectangle((int) x, (int) y, (int) width, (int) height), DEFAULT_COLOR);
 	}
 	
+	/**
+	 * Draws a white rectangular area onto the game display.
+	 * 
+	 * @param x the x coordinate of the top left corner of rectangular area
+	 * @param y the y coordinate of the top left corner of the rectangular area
+	 * @param width the width of the rectangular area
+	 * @param height the height of the rectangular area
+	 * @param color the color of the quad
+	 */
 	public static void drawQuad(float x, float y, float width, float height, Color color)
 	{
 		drawQuad(new Rectangle((int) x, (int) y, (int) width, (int) height), color);
 	}
 	
+	/**
+	 * Draws a white rectangular area onto the game display.
+	 * 
+	 * @param rect the bounding rectangle of the quad
+	 * @param color the color of the quad
+	 */
 	public static void drawQuad(Rectangle rect, Color color) {
 		
 		glColor4f(
