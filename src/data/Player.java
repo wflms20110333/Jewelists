@@ -149,7 +149,7 @@ public class Player
 	/**
 	 * @param heal the amount to heal by
 	 */
-	public void heal(int heal)
+	public void heal(float heal)
 	{
 		this.health += heal;
 		if (health > maxHealth)

@@ -11,21 +11,30 @@ import org.newdawn.slick.opengl.Texture;
 public class Projectile extends Entity {
 	
 	public static final float speed = 400;
+	public static final float BASE_DMG = 3;
 	
 	Tile nextTile;
 	int direction;
+	float multiplier; // damage multiplier
+	boolean removed;
+	
 	
 	public Projectile(Texture texture, Tile startTile, TileGrid grid) {
 		this(texture, startTile, grid, 'U');
 	}
 	
 	public Projectile(Texture texture, Tile startTile, TileGrid grid, char direction) {
+		this(texture, startTile, grid, direction, 1);
+	}
+	
+	public Projectile(Texture texture, Tile startTile, TileGrid grid, char direction, float multiplier) {
 		super(texture, startTile, grid);
 		this.direction = 0;
 		for (int k = 0; k < TileGrid.order.length; k++) {
 			if (direction == TileGrid.order[k])
 				this.direction = k;
 		}
+		this.multiplier = multiplier;
 	}
 	
 	public boolean outOfBounds() {
@@ -40,16 +49,13 @@ public class Projectile extends Entity {
 		int nextX = nextTile.getX();
 		int nextY = nextTile.getY();
 		
-		System.out.println(getX() + " " + getY());
-		System.out.println(getCurrentTile().getIndX() + " " + getCurrentTile().getIndY());
-		
-		if (outOfBounds())
-			return;
-		else {
+		if (outOfBounds()) {
+			remove();
+		} else {
 			Entity moving = getGrid().getMovingEntity(getCurrentTile());
 			if (moving != null && moving instanceof Sprite) {
 				Player player = ((Sprite) moving).getPlayer();
-				player.heal(-3);
+				player.heal(-BASE_DMG * multiplier);
 				remove();
 			}
 		}
@@ -58,7 +64,7 @@ public class Projectile extends Entity {
 			Entity moving = getGrid().getMovingEntity(nextTile);
 			if (moving != null && moving instanceof Sprite) {
 				Player player = ((Sprite) moving).getPlayer();
-				player.heal(-3);
+				player.heal(-BASE_DMG * multiplier);
 				remove();
 			}
 		}
@@ -84,5 +90,14 @@ public class Projectile extends Entity {
 		}
 		
 		draw();
+	}
+	
+	public boolean getRemoved() {
+		return removed;
+	}
+	
+	@Override
+	public void remove() {
+		removed = true;
 	}
 }
