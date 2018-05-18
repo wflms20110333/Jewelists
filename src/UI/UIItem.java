@@ -27,22 +27,35 @@ public class UIItem
 		this.rect = rect;
 	}
 
-	
+	/**
+	 * @return the texture of the component
+	 */
 	public Texture getTexture()
 	{
 		return texture;
 	}
 
+	/**
+	 * Set the texture of the UI Component
+	 * @param texture the texture of the component
+	 */
 	public void setTexture(Texture texture)
 	{
 		this.texture = texture;
 	}
 
+	/**
+	 * @return the bounding rectangle of the component
+	 */
 	public Rectangle getRect()
 	{
 		return rect;
 	}
 
+	/**
+	 * Set the bounding rectangle of the component
+	 * @param rect the new bounding rectangle
+	 */
 	public void setRect(Rectangle rect)
 	{
 		this.rect = rect;
@@ -53,6 +66,9 @@ public class UIItem
 		drawQuadTex(texture, rect.x, rect.y, rect.width, rect.height);
 	}
 
+	/**
+	 * Update the UIItem. This currently does nothing and should be 
+	 */
 	public void update()
 	{
 		draw();

@@ -21,7 +21,7 @@ public class Monster extends Entity
 	private static final float DEFAULT_HEALTH = 10;
 	private static final int MONSTER_ATTACK_RANGE = 1;
 	private static final int MONSTER_ATTACK_DURATION = 3;
-	public static final int REWARD_VALUE = 20;
+	public static final int REWARD_VALUE = 10;
 	
 	/**
 	 * A list of all the possible permutations of "ULDR", the four directions.

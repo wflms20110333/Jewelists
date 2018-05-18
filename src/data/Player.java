@@ -29,7 +29,7 @@ public class Player
 	/**
 	 * The costs to build and destroy a wall.
 	 */
-	private static final int WALL_COST = 2;
+	private static final int WALL_COST = 4;
 	
 	/**
 	 * The cost to build a trap.

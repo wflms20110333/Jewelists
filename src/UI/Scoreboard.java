@@ -12,22 +12,35 @@ import data.Player;
 import helpers.Clock;
 
 /**
- * 
- * OR YOU CAN JUST CHANCE IT YOU KNOW. AS LONG AS YOU MAKE A GOOD GAME - Ishman,
- * 2018
+ * Keeps the scoreboard for the game, as well as the timer for the game
  *
+ * @author An Nguyen, Collin McMahon
  */
-
 public class Scoreboard extends UIItem
 {
-	Game game;
-	double time;
-	
-	AlertBox alertBox;
-	
+	/**
+	 * The size of the alert box
+	 */
 	public static final int ALERT_BOX_SPRITE_SIZE = 200;
+	
+	/**
+	 * The x-coordinate of the alert box
+	 */
 	public static final int ALERT_BOX_SPRITE_X = (AlertBox.ALERT_BOX_WIDTH - ALERT_BOX_SPRITE_SIZE) / 2;
+	
+	private Game game;
+	private double time;
+	
+	private AlertBox alertBox;
 
+	/**
+	 * Create a new scoreboard
+	 * 
+	 * @param texture the texture behind the scoreboard, should be set null
+	 * @param rect the rectangle bounding the board
+	 * @param game the game the board is keeping score for
+	 * @param time the time until the game ends
+	 */
 	public Scoreboard(Texture texture, Rectangle rect, Game game, long time)
 	{
 		super(texture, rect);
@@ -35,6 +48,9 @@ public class Scoreboard extends UIItem
 		this.time = time;
 	}
 
+	/**
+	 * Draw the scoreboard
+	 */
 	@Override
 	public void draw()
 	{
@@ -55,6 +71,9 @@ public class Scoreboard extends UIItem
 		}
 	}
 
+	/**
+	 * Update the scoreboard, then draw it
+	 */
 	@Override
 	public void update()
 	{

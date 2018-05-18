@@ -41,7 +41,7 @@ public class Game
 	 * The duration of the game.
 	 */
 	public static final int GAME_LENGTH = 300;
-	public static final int MONSTER_SPEED = 170;
+	public static final int MONSTER_SPEED = 500;
 	
 	/**
 	 * The tile grid that represents the Game.
