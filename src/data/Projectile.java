@@ -102,6 +102,8 @@ public class Projectile extends Entity {
 			monster.heal(-BASE_DMG * multiplier);
 			if (multiplier > 1)
 				monster.addStatus(Status.STUN, STUN_DURATION);
+			if (!monster.exists())
+				owner.addJewel(Monster.REWARD_VALUE);
 			remove();
 		}
 	}

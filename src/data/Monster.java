@@ -19,6 +19,8 @@ public class Monster extends Entity
 	private static final int MONSTER_ATTACK_RANGE = 1;
 	private static final int MONSTER_ATTACK_DURATION = 3;
 	
+	public static final int REWARD_VALUE = 20;
+	
 	/**
 	 * The speed of the Monster.
 	 */

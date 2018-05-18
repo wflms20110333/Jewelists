@@ -221,6 +221,10 @@ public class Player
 		return score;
 	}
 	
+	public void addJewel(int number) {
+		this.jewels += number;
+	}
+	
 	/**
 	 * Sets the score of the player.
 	 * 
