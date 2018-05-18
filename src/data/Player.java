@@ -90,11 +90,7 @@ public class Player
 	
 	private float timeUntilAttack;
 	
-	private double lastSecond;
-	private double timeSinceStart;
-	
 	private boolean dead;
-	private double timeSinceDead;
 	
 	/**
 	 * Constructs a Player.
@@ -118,10 +114,7 @@ public class Player
 		jewels = 0;
 		statuses = new StatusManager();
 		abilityManager = new AbilityManager(this);
-		lastSecond = 0;
-		timeSinceStart = 0;
 		dead = false;
-		timeSinceDead = 0;
 	}
 	
 	/**
@@ -237,76 +230,61 @@ public class Player
 	 */
 	public void update()
 	{
-		
-		timeSinceStart += Clock.getSeconds();
-		
 		if (dead)
 		{
-			timeSinceDead += Clock.getSeconds();
-			if (timeSinceDead < RESPAWN_TIME)
-				return;
-			dead = false;
-			health = maxHealth;
-			grid.toggleOccupied(sprite.getCurrentTile(), sprite);
-			sprite.setCurrentTile(grid.randEmptyTile());
+			heal(maxHealth * Clock.getSeconds() / RESPAWN_TIME);
+			if (health == maxHealth) {
+				dead = false;
+				sprite.toggleVisibility();
+				sprite.setCurrentTile(grid.randEmptyTile());
+				grid.setOccupied(sprite.getCurrentTile(), sprite);
+			}
 		}
 		if (!dead && health <= 0)
 		{
 			dead = true;
-			timeSinceDead = 0;
-			grid.toggleOccupied(sprite.getCurrentTile(), null);
-			if (sprite.getNextTile() != null)
-			{
-				grid.toggleOccupied(sprite.getNextTile(), null);
-				sprite.setNextTile(null);
-			}
+			sprite.kill();
+			sprite.toggleVisibility();
 			return;
 		}
 		
-		if (sprite.onCenterArea())
-			score += Clock.getSeconds();
-		
 		Keyboard.next();
 		
-		char[] updates = new char[] {'U', 'L', 'D', 'R'};
-		
-		if (!statusActive(Status.STUN)) {
+		if (!statusActive(Status.STUN) && !dead) {
+			char[] updates = new char[] {'U', 'L', 'D', 'R'};
+			if (sprite.onCenterArea())
+				score += Clock.getSeconds();
 			// priority - attack, movement, setting walls, setting traps
 			if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
 				attack();
 			for (int i = 0; i < updates.length; i++)
 				if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
 					sprite.updatePath(updates[i]);
-		}
-		
-		// shift
-		
-		if (Keyboard.isKeyDown(keys[5]) && Keyboard.getEventKeyState())
-		{
-			Tile tile = sprite.getCurrentTile();
-			if (tile.getType() == TileType.Cave && spendJewels(WALL_COST))
-				grid.setTile(tile, TileType.Wall);
-		}
-		if (Keyboard.isKeyDown(keys[6]) && Keyboard.getEventKeyState())
-		{
-			// trap
-			Tile tile = sprite.getCurrentTile();
-			if (grid.getEntity(tile) == null && spendJewels(TRAP_COST))
+			if (Keyboard.isKeyDown(keys[5]) && Keyboard.getEventKeyState())
 			{
-				Trap trap = new Trap(tile, grid);
-				grid.setEntity(tile, trap);
-				game.addTrap(trap);
+				Tile tile = sprite.getCurrentTile();
+				if (tile.getType() == TileType.Cave && spendJewels(WALL_COST))
+					grid.setTile(tile, TileType.Wall);
 			}
+			if (Keyboard.isKeyDown(keys[6]) && Keyboard.getEventKeyState())
+			{
+				// trap
+				Tile tile = sprite.getCurrentTile();
+				if (grid.getEntity(tile) == null && spendJewels(TRAP_COST))
+				{
+					Trap trap = new Trap(tile, grid);
+					grid.setEntity(tile, trap);
+					game.addTrap(trap);
+				}
+			}
+			if (Keyboard.isKeyDown(keys[7]) && Keyboard.getEventKeyState())
+				abilityManager.activate();
 		}
-		if (Keyboard.isKeyDown(keys[7]) && Keyboard.getEventKeyState())
-			abilityManager.activate();
-		if (Keyboard.isKeyDown(keys[8]) && Keyboard.getEventKeyState());
 		
 		timeUntilAttack -= Clock.getSeconds();
 		abilityManager.update();
 		statuses.update();
 		sprite.update();
-		sprite.draw();
 	}
 	
 	public float getCooldownLeft()

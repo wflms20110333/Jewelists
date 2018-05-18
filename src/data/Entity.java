@@ -190,6 +190,8 @@ public abstract class Entity
 	public void setCurrentTile(Tile currentTile)
 	{
 		this.currentTile = currentTile;
+		setX(currentTile.getX());
+		setY(currentTile.getY());
 	}
 	
 	/**
