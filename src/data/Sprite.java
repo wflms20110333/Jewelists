@@ -32,11 +32,6 @@ public class Sprite extends Entity
 	private char direction;
 	
 	/**
-	 * The direction the Sprite is facing.
-	 */
-	private char facingDirection;
-	
-	/**
 	 * The tile the Sprite is currently moving into.
 	 */
 	private Tile nextTile;
@@ -68,7 +63,7 @@ public class Sprite extends Entity
 		getGrid().toggleOccupied(startTile, this);
 		this.speed = speed;
 		this.player = player;
-		this.facingDirection = 'U';
+		this.direction = 'U';
 	}
 	
 	/**
@@ -141,6 +136,15 @@ public class Sprite extends Entity
 		}
 	}
 	
+	public void cancelMovement() {
+		if (nextTile == null)
+			return;
+		getGrid().toggleOccupied(nextTile);
+		setX(getCurrentTile().getX());
+		setY(getCurrentTile().getY());
+		nextTile = null;
+	}
+	
 	/**
 	 * Blinks the sprite to the given tile.
 	 * 
@@ -167,7 +171,6 @@ public class Sprite extends Entity
 	 */
 	public void updatePath(char d)
 	{
-		facingDirection = d;
 		if (nextTile == null)
 		{
 			direction = d;
@@ -207,7 +210,7 @@ public class Sprite extends Entity
 	 */
 	public char getFacingDirection()
 	{
-		return facingDirection;
+		return direction;
 	}
 	
 	/**

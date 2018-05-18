@@ -4,6 +4,7 @@ import static helpers.Artist.*;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.newdawn.slick.Color;
 
@@ -96,6 +97,8 @@ public class Game
 			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 100)
 		);
 		
+		
+		
 		ArrayList<Entity> jewelList = new ArrayList<>();
 		jewelList.add(new Jewel(quickLoad("jewel_green"), grid.getTile(6, 7), grid, 1));
 		jewelList.add(new Jewel(quickLoad("jewel_red"), grid.getTile(6, 7), grid, 2));
@@ -118,8 +121,15 @@ public class Game
 		jewelSpawner.update();
 		for (Player player : players)
 			player.update();
-		for (Projectile projectile : projectiles)
-			projectile.update();
+		
+		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
+			Projectile projectile = iterator.next();
+			if (projectile.outOfBounds())
+				iterator.remove();
+			else
+				projectile.update();
+		}
+		
 		ui.update();
 		for (int i = traps.size() - 1; i >= 0; i--)
 		{
@@ -141,6 +151,14 @@ public class Game
 	public Player[] getPlayers()
 	{
 		return players;
+	}
+	
+	public void addProjectile(Projectile projectile) {
+		projectiles.add(projectile);
+	}
+	
+	public ArrayList<Projectile> getProjectiles() {
+		return projectiles;
 	}
 	
 	/**

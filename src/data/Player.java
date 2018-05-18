@@ -1,10 +1,13 @@
 package data;
 
+import static helpers.Artist.*;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import data.AbilityManager.Ability;
+import helpers.Clock;
 
 /**
  * The Player class blah blah
@@ -23,12 +26,13 @@ public class Player
 	 * The costs to build and destroy a wall.
 	 */
 	private static final int WALL_COST = 2;
-	private static final int DESTROY_WALL_COST = 5;
 	
 	/**
 	 * The cost to build a trap.
 	 */
 	private static final int TRAP_COST = 4;
+	
+	private static final float COOLDOWN_PER_ATTACK = .5f;
 	
 	/**
 	 * The game that the Player interacts with.
@@ -53,12 +57,12 @@ public class Player
 	/**
 	 * The maximum health of the Player.
 	 */
-	private int maxHealth;
+	private float maxHealth;
 	
 	/**
 	 * The current health of the Player.
 	 */
-	private int health;
+	private float health;
 	
 	/**
 	 * The sprite of the Player.
@@ -81,6 +85,8 @@ public class Player
 	private StatusManager statuses;
 	
 	private Color color;
+	
+	private float timeUntilAttack;
 	
 	/**
 	 * Constructs a Player.
@@ -123,7 +129,7 @@ public class Player
 	 */
 	public float getPercent()
 	{
-		return (float) health / maxHealth;
+		return health / maxHealth;
 	}
 	
 	public Color getColor() {
@@ -135,7 +141,7 @@ public class Player
 	 * 
 	 * @return the health of the player
 	 */
-	public int getHealth()
+	public float getHealth()
 	{
 		return health;
 	}
@@ -155,7 +161,7 @@ public class Player
 	 * 
 	 * @return the maximum health of the player
 	 */
-	public int getMaxHealth()
+	public float getMaxHealth()
 	{
 		return maxHealth;
 	}
@@ -230,32 +236,8 @@ public class Player
 		// shift
 		if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
 		{
-			if (Keyboard.isKeyDown(keys[0]) && Keyboard.getEventKeyState())
-			{
-				Tile tgt = grid.up(sprite.getCurrentTile());
-				if (tgt != null)
-					attack(tgt);
-			}
-			if (Keyboard.isKeyDown(keys[1]) && Keyboard.getEventKeyState())
-			{
-				Tile tgt = grid.left(sprite.getCurrentTile());
-				if (tgt != null)
-					attack(tgt);
-			}
-			if (Keyboard.isKeyDown(keys[2]) && Keyboard.getEventKeyState())
-			{
-				Tile tgt = grid.down(sprite.getCurrentTile());
-				if (tgt != null)
-					attack(tgt);
-			}
-			if (Keyboard.isKeyDown(keys[3]) && Keyboard.getEventKeyState())
-			{
-				Tile tgt = grid.right(sprite.getCurrentTile());
-				if (tgt != null)
-					attack(tgt);
-			}
+			attack();
 		}
-
 		if (Keyboard.isKeyDown(keys[5]) && Keyboard.getEventKeyState())
 		{
 			Tile tile = sprite.getCurrentTile();
@@ -282,6 +264,7 @@ public class Player
 			
 		}
 		
+		timeUntilAttack -= Clock.getSeconds();
 		abilityManager.update();
 		statuses.update();
 		sprite.update();
@@ -292,16 +275,25 @@ public class Player
 		return abilityManager.getCooldownLeft();
 	}
 	
-	/**
-	 * Attacks a given tile, if there is anything in the tile to be attacked.
-	 * 
-	 * @param tile the given tile
-	 */
-	private void attack(Tile tile)
-	{
-		// graphics of attacking??
-		if (tile.getType() == TileType.Wall && spendJewels(DESTROY_WALL_COST))
-			grid.setTile(tile.getIndX(), tile.getIndY(), TileType.Cave);
+	private void attack() {
+		if (timeUntilAttack > 0)
+			return;
+		getSprite().cancelMovement();
+		for (int i = 0; i < TileGrid.order.length; i++) {
+			if (getSprite().getFacingDirection() == TileGrid.order[i]) {
+				Tile currentTile = getSprite().getCurrentTile();
+				Tile nextTile = new Tile(
+					currentTile.getIndX() + TileGrid.changeX[i], 
+						currentTile.getIndY() + TileGrid.changeY[i], 
+					0, 0, TileType.Cave
+				);
+				getGame().addProjectile(new Projectile(quickLoad("dagger"), nextTile, grid, 
+						getSprite().getFacingDirection()));
+				break;
+			}
+		}
+		
+		timeUntilAttack = COOLDOWN_PER_ATTACK;
 	}
 	
 	/**
