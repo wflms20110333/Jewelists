@@ -205,9 +205,10 @@ public class TileGrid
 	}
 	
 	/**
-	 * If a given cell is occupied, it is set to unoccupied, and vice versa.
+	 * Sets the moving entity that occupies a given cell.
 	 * 
 	 * @param tile the tile that forms the given cell
+	 * @param e the given moving entity
 	 */
 	public void toggleOccupied(Tile tile, Entity e)
 	{
