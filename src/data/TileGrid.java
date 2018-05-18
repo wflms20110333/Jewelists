@@ -131,6 +131,12 @@ public class TileGrid
 		return map[xCoord][yCoord];
 	}
 	
+	/**
+	 * Returns the moving entity at a given cell in the tile grid.
+	 * 
+	 * @param tile the tile at the given cell
+	 * @return the moving entity at the given cell in the tile grid
+	 */
 	public Entity getMovingEntity(Tile tile)
 	{
 		return occupied[tile.getIndX()][tile.getIndY()];
@@ -315,7 +321,17 @@ public class TileGrid
 		return map[tile.getIndX() + 1][tile.getIndY()];
 	}
 	
-	public List<Tile> getTilesInRange(Tile center, int range) {
+	/**
+	 * Returns a list of the tiles that are within a given range from a given
+	 * center tile.
+	 * 
+	 * @param center the given center tile
+	 * @param range the given range
+	 * @return a list of the tiles that are within the given range from the
+	 * 		   given center tile.
+	 */
+	public List<Tile> getTilesInRange(Tile center, int range)
+	{
 		List<Tile> tiles = new ArrayList<Tile>();
 		for (int x = -range; x <= range; x++)
 			for (int y = -range; y <= range; y++)

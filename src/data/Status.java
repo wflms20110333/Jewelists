@@ -5,6 +5,7 @@ package data;
  * 
  * @author An Nguyen
  * Dependencies: slick(to manage textures)
+ * @author Collin McMahon
  */
 public enum Status
 {
