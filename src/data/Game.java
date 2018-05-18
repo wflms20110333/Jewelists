@@ -5,6 +5,8 @@ import static helpers.Artist.*;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
+
 import UI.InfoBar;
 import UI.Scoreboard;
 import UI.UI;
@@ -81,8 +83,8 @@ public class Game
 		monsterSpawner = new MonsterSpawner(10, grid, quickLoad("monster"), 100);
 		
 		players = new Player[] {
-			new Player(this, grid, keys[0], quickLoad("emoji")),
-			new Player(this, grid, keys[1], quickLoad("emoji2"))
+			new Player(this, grid, keys[0], quickLoad("emoji"), Color.red),
+			new Player(this, grid, keys[1], quickLoad("emoji2"), Color.green)
 		};
 		
 		ui = new UI();

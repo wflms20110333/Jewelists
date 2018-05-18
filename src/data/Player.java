@@ -1,6 +1,7 @@
 package data;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import data.AbilityManager.Ability;
@@ -79,6 +80,8 @@ public class Player
 	 */
 	private StatusManager statuses;
 	
+	private Color color;
+	
 	/**
 	 * Constructs a Player.
 	 * 
@@ -87,10 +90,11 @@ public class Player
 	 * @param keys the keyboard commands of the player
 	 * @param texture the texture of the sprite of the player
 	 */
-	public Player(Game game, TileGrid grid, int[] keys, Texture texture)
+	public Player(Game game, TileGrid grid, int[] keys, Texture texture, Color color)
 	{
 		this.game = game;
 		this.grid = grid;
+		this.color = color;
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
 		Tile tile = grid.randEmptyTile();
@@ -120,6 +124,10 @@ public class Player
 	public float getPercent()
 	{
 		return (float) health / maxHealth;
+	}
+	
+	public Color getColor() {
+		return color;
 	}
 	
 	/**
