@@ -3,7 +3,8 @@ package data;
 import org.newdawn.slick.opengl.Texture;
 
 /**
- * The Jewel class blah blah
+ * The Jewel class represents jewels that players can collect. Jewels are the
+ * currency of the game.
  * 
  * @author Elizabeth Zou
  */
@@ -30,14 +31,9 @@ public class Jewel extends Entity
 	
 	/**
 	 * Unimplemented method inherited from the Entity class.
-	 * 
-	 * @throws UnsupportedOperationException if this method is called
 	 */
 	@Override
-	public void update()
-	{
-//		throw new java.lang.UnsupportedOperationException();
-	}
+	public void update() {}
 	
 	/**
 	 * Returns the value of the jewel.

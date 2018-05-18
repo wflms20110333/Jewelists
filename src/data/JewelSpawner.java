@@ -3,7 +3,7 @@ package data;
 import java.util.ArrayList;
 
 /**
- * The JewelSpawner class blah blah
+ * The JewelSpawner class spawns jewels into the game.
  * 
  * @author Elizabeth Zou
  */

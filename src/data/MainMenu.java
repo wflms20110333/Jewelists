@@ -50,8 +50,14 @@ public class MainMenu
 	 */
 	private UI menuUI;
 	
+	/**
+	 * The alert box that pops up at the MainMenu.
+	 */
 	private AlertBox alertBox;
 	
+	/**
+	 * Whether the alert box is displayed.
+	 */
 	private boolean alert;
 	
 	/**
