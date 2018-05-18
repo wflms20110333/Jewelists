@@ -70,7 +70,7 @@ public class Artist
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		// load font
-		setFont("font_orange_juice", FONT_SIZE);
+		setFont("font_Chapter_76", FONT_SIZE);
 	}
 	
 	public static TrueTypeFont getFont() {
