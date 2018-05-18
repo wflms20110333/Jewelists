@@ -134,7 +134,6 @@ public class Game
 		for (Player player : players)
 			if (player.getSprite().onCenterArea())
 				numOnCenter++;
-		System.out.println(numOnCenter);
 		for (Player player : players) {
 			if (numOnCenter < 2 && player.getSprite().onCenterArea())
 				player.addScore(Clock.getSeconds());
