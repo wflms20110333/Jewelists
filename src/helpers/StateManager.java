@@ -149,7 +149,8 @@ public class StateManager
 	/**
 	 * @return the game that the state manager stores
 	 */
-	public static Game getGame() {
+	public static Game getGame()
+	{
 		return game;
 	}
 	
@@ -157,14 +158,16 @@ public class StateManager
 	 * Set the game the state manager will run
 	 * @param game the new game
 	 */
-	public static void setGame(Game game) {
+	public static void setGame(Game game)
+	{
 		StateManager.game = game;
 	}
 	
 	/**
 	 * @return the keys used for each player
 	 */
-	public static int[][] getKeys() {
+	public static int[][] getKeys()
+	{
 		return keys;
 	}
 	
