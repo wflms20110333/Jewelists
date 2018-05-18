@@ -77,7 +77,7 @@ public class MainMenu
 		menuUI.addButton("Settings", "button_settings", SETTINGS_PADDING, SETTINGS_PADDING);
 		
 		alertBox = new AlertBox();
-		alertBox.addString(new String[]{"Note: if you click a button,", "it will respond.", "Maybe just kinda slow."});
+		alertBox.addString(new String[]{"If you click a button,", "it will respond.", "Maybe just kinda slow."});
 		alertBox.addString(new String[]{"ENJOY!"});
 		alertBox.addButton("Okay", "button_okay");
 		alert = true;
