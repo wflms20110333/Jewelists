@@ -4,7 +4,6 @@ import org.newdawn.slick.opengl.Texture;
 
 import static helpers.Clock.*;
 
-import java.awt.datatransfer.FlavorTable;
 import java.util.ArrayList;
 
 /**

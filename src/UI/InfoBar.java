@@ -9,7 +9,6 @@ import org.newdawn.slick.Color;
 
 import data.Player;
 import data.TileGrid;
-import data.AbilityManager.Ability;
 
 /**
  * The InfoBar class blah blah

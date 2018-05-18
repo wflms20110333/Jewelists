@@ -1,9 +1,7 @@
 package UI;
 
-import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.drawString;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import org.lwjgl.input.Mouse;
