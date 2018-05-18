@@ -244,4 +244,9 @@ public class Sprite extends Entity
 	{
 		return player;
 	}
+	
+	public boolean onCenterArea()
+	{
+		return getCurrentTile().getType() == TileType.Dirt;
+	}
 }

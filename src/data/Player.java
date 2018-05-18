@@ -88,6 +88,9 @@ public class Player
 	
 	private float timeUntilAttack;
 	
+	private double lastSecond;
+	private double timeSinceStart;
+	
 	/**
 	 * Constructs a Player.
 	 * 
@@ -110,6 +113,8 @@ public class Player
 		jewels = 0;
 		statuses = new StatusManager();
 		abilityManager = new AbilityManager(this);
+		lastSecond = 0;
+		timeSinceStart = 0;
 	}
 	
 	/**
@@ -224,6 +229,14 @@ public class Player
 	 */
 	public void update()
 	{
+		timeSinceStart += Clock.getSeconds();
+		if (Math.floor(timeSinceStart) > lastSecond)
+		{
+			lastSecond = Math.floor(timeSinceStart);
+			if (sprite.onCenterArea())
+				score++;
+		}
+		
 		Keyboard.next();
 		
 		char[] updates = new char[] {'U', 'L', 'D', 'R'};
@@ -271,11 +284,13 @@ public class Player
 		sprite.draw();
 	}
 	
-	public float getCooldownLeft() {
+	public float getCooldownLeft()
+	{
 		return abilityManager.getCooldownLeft();
 	}
 	
-	private void attack() {
+	private void attack()
+	{
 		if (timeUntilAttack > 0)
 			return;
 		getSprite().cancelMovement();
