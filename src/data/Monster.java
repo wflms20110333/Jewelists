@@ -4,6 +4,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import static helpers.Clock.*;
 
+import java.awt.datatransfer.FlavorTable;
 import java.util.ArrayList;
 
 /**
@@ -13,6 +14,9 @@ import java.util.ArrayList;
  */
 public class Monster extends Entity
 {
+	
+	private static final float DEFAULT_HEALTH = 10;
+	
 	/**
 	 * The speed of the Monster.
 	 */
@@ -43,6 +47,9 @@ public class Monster extends Entity
 	 */
 	private StatusManager statuses;
 	
+	private float health;
+	private float maxHealth;
+	
 	/**
 	 * Constructs a Monster.
 	 * 
@@ -59,6 +66,8 @@ public class Monster extends Entity
 		permutations = new ArrayList<>();
 		genPerms("", "ULDR");
 		randSetNextTile();
+		health = maxHealth = DEFAULT_HEALTH;
+		statuses = new StatusManager();
 	}
 	
 	/**
@@ -99,13 +108,19 @@ public class Monster extends Entity
 			int nextX = nextTile.getIndX() * TileGrid.SIZE;
 			int nextY = nextTile.getIndY() * TileGrid.SIZE;
 			
+			float adjusted_speed = speed;
+			if (statusActive(Status.SLOW))
+				adjusted_speed *= Status.SLOW.getMultiplier();
+			if (statusActive(Status.SPEED))
+				adjusted_speed *= Status.SPEED.getMultiplier();
+			
 			for (int k = 0; k < TileGrid.order.length; k++)
 			{
 				if (direction == TileGrid.order[k])
 				{
 					// compute position
-					float x = getX() + getSeconds() * speed * TileGrid.changeX[k];
-					float y = getY() + getSeconds() * speed * TileGrid.changeY[k];
+					float x = getX() + getSeconds() * adjusted_speed * TileGrid.changeX[k];
+					float y = getY() + getSeconds() * adjusted_speed * TileGrid.changeY[k];
 					
 					// adjust for overshot
 					if (TileGrid.changeX[k] * (nextX - x) < 0)
