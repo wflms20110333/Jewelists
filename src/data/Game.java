@@ -61,6 +61,8 @@ public class Game
 	 */
 	ArrayList<Trap> traps;
 	
+	ArrayList<Projectile> projectiles;
+	
 	/**
 	 * Constructs a Game.
 	 * 
@@ -91,7 +93,7 @@ public class Game
 		ui.addItem(new InfoBar(players[0], null, 0, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new InfoBar(players[1], null, WIDTH - INFO_BAR_WIDTH, 0, INFO_BAR_WIDTH, INFO_BAR_HEIGHT));
 		ui.addItem(new Scoreboard(null, new Rectangle((WIDTH - SCOREBOARD_WIDTH) / 2, 
-			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 50)
+			HEIGHT - SCOREBOARD_HEIGHT, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT), this, 100)
 		);
 		
 		ArrayList<Entity> jewelList = new ArrayList<>();
@@ -103,6 +105,7 @@ public class Game
 		
 		jewelSpawner = new JewelSpawner(3, grid, jewelList);
 		traps = new ArrayList<>();
+		projectiles = new ArrayList<>();
 	}
 	
 	/**
@@ -115,6 +118,8 @@ public class Game
 		jewelSpawner.update();
 		for (Player player : players)
 			player.update();
+		for (Projectile projectile : projectiles)
+			projectile.update();
 		ui.update();
 		for (int i = traps.size() - 1; i >= 0; i--)
 		{

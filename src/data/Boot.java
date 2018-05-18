@@ -3,6 +3,7 @@ package data;
 import static helpers.Artist.beginSession;
 import static org.lwjgl.opengl.GL11.*;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import helpers.Clock;
@@ -22,6 +23,7 @@ public class Boot
 	public Boot()
 	{
 		beginSession();
+		Keyboard.enableRepeatEvents(true);
 		while (!Display.isCloseRequested())
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
