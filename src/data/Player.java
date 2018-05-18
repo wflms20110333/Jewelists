@@ -237,18 +237,18 @@ public class Player
 	 */
 	public void update()
 	{
-		float deltaTime = Clock.getSeconds();
-		timeSinceStart += deltaTime;
+		
+		timeSinceStart += Clock.getSeconds();
 		
 		if (dead)
 		{
-			timeSinceDead += deltaTime;
+			timeSinceDead += Clock.getSeconds();
 			if (timeSinceDead < RESPAWN_TIME)
 				return;
 			dead = false;
 			health = maxHealth;
-			sprite.setCurrentTile(grid.randEmptyTile());
 			grid.toggleOccupied(sprite.getCurrentTile(), sprite);
+			sprite.setCurrentTile(grid.randEmptyTile());
 		}
 		if (!dead && health <= 0)
 		{
@@ -263,12 +263,8 @@ public class Player
 			return;
 		}
 		
-		if (Math.floor(timeSinceStart) > lastSecond)
-		{
-			lastSecond = Math.floor(timeSinceStart);
-			if (sprite.onCenterArea())
-				score++;
-		}
+		if (sprite.onCenterArea())
+			score += Clock.getSeconds();
 		
 		Keyboard.next();
 		
@@ -303,13 +299,8 @@ public class Player
 			}
 		}
 		if (Keyboard.isKeyDown(keys[7]) && Keyboard.getEventKeyState())
-		{
 			abilityManager.activate();
-		}
-		if (Keyboard.isKeyDown(keys[8]) && Keyboard.getEventKeyState())
-		{
-			
-		}
+		if (Keyboard.isKeyDown(keys[8]) && Keyboard.getEventKeyState());
 		
 		timeUntilAttack -= Clock.getSeconds();
 		abilityManager.update();
