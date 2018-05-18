@@ -2,6 +2,7 @@ package data;
 
 import static helpers.Clock.getSeconds;
 
+import org.lwjgl.test.openal.MovingSoundTest;
 import org.newdawn.slick.opengl.Texture;
 
 public class Projectile extends Entity {
@@ -59,46 +60,10 @@ public class Projectile extends Entity {
 			remove();
 		}
 		else
-		{
-			Entity moving = getGrid().getMovingEntity(getCurrentTile());
-			if (moving != null && moving instanceof Sprite)
-			{
-				Player player = ((Sprite) moving).getPlayer();
-				if (player != owner)
-				{
-					player.heal(-BASE_DMG * multiplier);
-					remove();
-				}
-			}
-			if (moving != null && moving instanceof Monster) {
-				Monster monster = (Monster) moving;
-				monster.heal(-BASE_DMG * multiplier);
-				if (multiplier > 1)
-					monster.addStatus(Status.STUN, STUN_DURATION);
-				remove();
-			}
-		}
+			damage(getGrid().getMovingEntity(getCurrentTile()));
 		
 		if (getGrid().validIndex(nextTile.getIndX(), nextTile.getIndY()))
-		{
-			Entity moving = getGrid().getMovingEntity(nextTile);
-			if (moving != null && moving instanceof Sprite)
-			{
-				Player player = ((Sprite) moving).getPlayer();
-				if (player != owner)
-				{
-					player.heal(-BASE_DMG * multiplier);
-					remove();
-				}
-			}
-			if (moving != null && moving instanceof Monster) {
-				Monster monster = (Monster) moving;
-				monster.heal(-BASE_DMG * multiplier);
-				if (multiplier > 1)
-					monster.addStatus(Status.STUN, STUN_DURATION);
-				remove();
-			}
-		}
+			damage(getGrid().getMovingEntity(nextTile));
 		
 		// compute position
 		float x = getX() + getSeconds() * speed * TileGrid.changeX[direction];
@@ -121,6 +86,25 @@ public class Projectile extends Entity {
 		}
 		
 		draw();
+	}
+	
+	public void damage(Entity moving) {
+		if (moving != null && moving instanceof Sprite)
+		{
+			Player player = ((Sprite) moving).getPlayer();
+			if (player != owner)
+			{
+				player.heal(-BASE_DMG * multiplier);
+				remove();
+			}
+		}
+		if (moving != null && moving instanceof Monster) {
+			Monster monster = (Monster) moving;
+			monster.heal(-BASE_DMG * multiplier);
+			if (multiplier > 1)
+				monster.addStatus(Status.STUN, STUN_DURATION);
+			remove();
+		}
 	}
 	
 	public boolean getRemoved()

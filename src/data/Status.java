@@ -30,7 +30,9 @@ public enum Status
 	/**
 	 * Increases the damage caused by the sprite's attacks.
 	 */
-	DMG_BOOST(2f);
+	DMG_BOOST(2f),
+	
+	POISON(.3f);
 	
 	/**
 	 * A multiplier used for many status effects. For example, it would be a

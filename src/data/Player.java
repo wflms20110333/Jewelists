@@ -1,6 +1,7 @@
 package data;
 
 import static helpers.Artist.*;
+import static helpers.Clock.getSeconds;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
@@ -251,6 +252,9 @@ public class Player
 			sprite.kill();
 			sprite.toggleVisibility();
 		}
+		
+		if (statusActive(Status.POISON))
+			heal(-Status.POISON.getMultiplier() * getSeconds());
 		
 		Keyboard.next();
 		

@@ -16,6 +16,8 @@ public class Monster extends Entity
 {
 	
 	private static final float DEFAULT_HEALTH = 10;
+	private static final int MONSTER_ATTACK_RANGE = 10;
+	private static final int MONSTER_ATTACK_DURATION = 10;
 	
 	/**
 	 * The speed of the Monster.
@@ -99,6 +101,15 @@ public class Monster extends Entity
 			first = false;
 		else
 		{
+			if (statusActive(Status.POISON))
+				heal(-Status.POISON.getMultiplier() * getSeconds());
+			
+			for (Tile tile : getGrid().getTilesInRange(getCurrentTile(), MONSTER_ATTACK_RANGE)) {
+				Entity entity = getGrid().getEntity(tile);
+				if (entity != null && entity instanceof Sprite)
+					((Sprite) entity).getPlayer().addStatus(Status.POISON, MONSTER_ATTACK_DURATION);
+			}
+			
 			if (nextTile == null)
 				randSetNextTile();
 			if (nextTile == null)

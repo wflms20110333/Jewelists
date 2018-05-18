@@ -89,15 +89,8 @@ public class Sprite extends Entity
 		int range = 0;
 		if (player.statusActive(Status.MAGNET))
 			range = (int) Status.MAGNET.getMultiplier();
-		Tile[] check = new Tile[(2 * range + 1) * (2 * range + 1)];
 		
-		int index = 0;
-		for (int dx = -range; dx <= range; dx++)
-			for (int dy = -range; dy <= range; dy++)
-				if (getGrid().validIndex(getCurrentTile().getIndX() + dx, getCurrentTile().getIndY() + dy))
-					check[index++] = getGrid().getTile(getCurrentTile().getIndX() + dx, getCurrentTile().getIndY() + dy);
-		
-		for (Tile t : check)
+		for (Tile t : getGrid().getTilesInRange(getCurrentTile(), range))
 		{
 			if (t == null)
 				continue;

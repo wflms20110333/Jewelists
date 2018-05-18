@@ -2,6 +2,9 @@ package data;
 
 import static helpers.Artist.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The TileGrid class represents the layout of the map, represented by square
  * cells formed by tiles.
@@ -310,6 +313,15 @@ public class TileGrid
 		if (!validIndex(tile.getIndX() + 1, tile.getIndY()))
 			return null;
 		return map[tile.getIndX() + 1][tile.getIndY()];
+	}
+	
+	public List<Tile> getTilesInRange(Tile center, int range) {
+		List<Tile> tiles = new ArrayList<Tile>();
+		for (int x = -range; x <= range; x++)
+			for (int y = -range; y <= range; y++)
+				if (validIndex(center.getIndX() + x, center.getIndY() + y))
+					tiles.add(map[center.getIndX() + x][center.getIndY() + y]);
+		return tiles;
 	}
 	
 	/**
