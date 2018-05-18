@@ -68,8 +68,8 @@ public class Settings
 	private static final int L = WIDTH / 4;
 	private static final int R = WIDTH * 3 / 4;
 	private static final int H = (int) (HEIGHT * 0.5);
-	private static final int[] X = {L, L - 100, L, L + 100, R - 300, R - 200, R - 100, R, R + 100};
-	private static final int[] Y = {H - 100, H, H, H, H, H, H, H, H};
+	private static final int[] X = {L, L - 100, L, L + 100, R - 250, R - 150, R - 50, R + 50};
+	private static final int[] Y = {H - 100, H, H, H, H, H, H, H};
 	
 	/**
 	 * Constructs a Settings.
@@ -82,10 +82,10 @@ public class Settings
 		menuUI.addButton("Player1", "button_player1", WIDTH / 4 - 64, (int) (HEIGHT * 0.1));
 		menuUI.addButton("Player2", "button_player2", WIDTH * 3 / 4 - 192, (int) (HEIGHT * 0.1));
 		player1UI = new UI();
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < StateManager.NUM_KEYS; i++)
 			player1UI.addButton("" + i, "button_key", X[i], Y[i], getKeyText(StateManager.getKey(0, i)));
 		player2UI = new UI();
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < StateManager.NUM_KEYS; i++)
 			player2UI.addButton("" + i, "button_key", X[i], Y[i], getKeyText(StateManager.getKey(1, i)));
 		player1Screen = true;
 		
@@ -142,7 +142,7 @@ public class Settings
 						player1Screen = false;
 					
 					// MUST HOLD MOUSE DOWN WHILE CHOOSING NEW KEY!!
-					for (int i = 0; i < 9; i++)
+					for (int i = 0; i < StateManager.NUM_KEYS; i++)
 					{
 						if (player1UI.isButtonClicked("" + i))
 						{
@@ -158,7 +158,7 @@ public class Settings
 						player1Screen = true;
 					
 					// MUST HOLD MOUSE DOWN WHILE CHOOSING NEW KEY!!
-					for (int i = 0; i < 9; i++)
+					for (int i = 0; i < StateManager.NUM_KEYS; i++)
 					{
 						if (player2UI.isButtonClicked("" + i))
 						{
