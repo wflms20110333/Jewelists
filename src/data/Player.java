@@ -88,7 +88,7 @@ public class Player
 	
 	private Color color;
 	
-	private Texture projectileTexture;
+	private String projectileColor;
 	
 	private float timeUntilAttack;
 	
@@ -102,12 +102,12 @@ public class Player
 	 * @param keys the keyboard commands of the player
 	 * @param texture the texture of the sprite of the player
 	 */
-	public Player(Game game, TileGrid grid, int[] keys, Texture texture, Color color, Texture projectileTexture)
+	public Player(Game game, TileGrid grid, int[] keys, Texture texture, Color color, String projectileColor)
 	{
 		this.game = game;
 		this.grid = grid;
 		this.color = color;
-		this.projectileTexture = projectileTexture;
+		this.projectileColor = projectileColor;
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
 		Tile tile = grid.randEmptyTile();
@@ -312,10 +312,10 @@ public class Player
 				);
 				char direction = getSprite().getFacingDirection();
 				if (statusActive(Status.DMG_BOOST))
-					getGame().addProjectile(new Projectile(quickLoad("projectile_blue_" + direction), 
+					getGame().addProjectile(new Projectile(quickLoad("projectile_" + projectileColor + "_" + direction), 
 							nextTile, grid, this, direction, Status.DMG_BOOST.getMultiplier()));
 				else
-					getGame().addProjectile(new Projectile(quickLoad("projectile_blue_" + direction), 
+					getGame().addProjectile(new Projectile(quickLoad("projectile_" + projectileColor + "_" + direction), 
 							nextTile, grid, this, direction));
 				break;
 			}

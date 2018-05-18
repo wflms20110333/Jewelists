@@ -86,8 +86,8 @@ public class Game
 		monsterSpawner = new MonsterSpawner(10, grid, quickLoad("monster"), 100);
 		
 		players = new Player[] {
-			new Player(this, grid, keys[0], quickLoad("emoji"), Color.red),
-			new Player(this, grid, keys[1], quickLoad("emoji2"), Color.blue)
+			new Player(this, grid, keys[0], quickLoad("emoji"), Color.red, "red"),
+			new Player(this, grid, keys[1], quickLoad("emoji2"), Color.blue, "blue")
 		};
 		
 		ui = new UI();
