@@ -13,8 +13,14 @@ import helpers.Artist;
 /**
  * Represents clickable buttons for the user interface.
  * 
+<<<<<<< HEAD
  * @author Elizabeth Zou
  * @author An Nguyen
+=======
+ * @author Elizabeth Zou, An Nguyen
+ * Dependencies: lwjgl (to obtain mouse input)
+ * 				slick(to manage textures and colors)
+>>>>>>> 051edf505379cc5107512c73591359f0375cdab2
  */
 public class Button extends UIItem
 {

@@ -11,6 +11,7 @@ import data.Settings;
  * The StateManager class manages the state of the game blah blah
  * 
  * @author Elizabeth Zou
+ * Dependencies: lwjgl (to manage keyboard inputs)
  */
 public class StateManager
 {
@@ -143,6 +144,28 @@ public class StateManager
 	public static int getKey(int playerNumber, int index)
 	{
 		return keys[playerNumber][index];
+	}
+	
+	/**
+	 * @return the game that the state manager stores
+	 */
+	public static Game getGame() {
+		return game;
+	}
+	
+	/**
+	 * Set the game the state manager will run
+	 * @param game the new game
+	 */
+	public static void setGame(Game game) {
+		StateManager.game = game;
+	}
+	
+	/**
+	 * @return the keys used for each player
+	 */
+	public static int[][] getKeys() {
+		return keys;
 	}
 	
 	/**

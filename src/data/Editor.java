@@ -15,6 +15,7 @@ import static helpers.StateManager.*;
  * 
  * @author Elizabeth Zou
  * @author Collin McMahon
+ * Dependencies: lwjgl(to manage keyboard inputs)
  */
 public class Editor
 {
@@ -130,7 +131,7 @@ public class Editor
 		{
 			if (menuUI.isButtonClicked("Play"))
 			{
-				game = new Game(grid, keys);
+				setGame(new Game(grid, getKeys()));
 				setState(GameState.GAME);
 			}
 		}

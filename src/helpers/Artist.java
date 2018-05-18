@@ -24,9 +24,11 @@ import org.newdawn.slick.TrueTypeFont;
 /**
  * The Artist class is a helper class that assists with the game's graphics.
  * 
- * @author Elizabeth Zou
+ * @author Elizabeth Zou, An Nguyen
+ * Dependencies: lwjgl (used to call opengl methods for drawing 2D graphics and textures)
+ * 				slick (used to manage textures, fonts, and color)
+ * 
  */
-
 public class Artist
 {
 	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

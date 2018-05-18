@@ -18,6 +18,8 @@ import helpers.StateManager.GameState;
  * The Settings class controls the setting of keyboard commands in the game.
  * 
  * @author Elizabeth Zou
+ * Dependencies: slick(to manage textures)
+ * 				lwjgl(to manage mouse and keyboard inputs)
  */
 public class Settings
 {

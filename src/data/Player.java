@@ -14,6 +14,8 @@ import helpers.Clock;
  * 
  * @author Elizabeth Zou
  * @author An Nguyen
+ * Dependencies: slick(to manage textures and color)
+ * 				lwjgl(to manage keyboard input)
  */
 public class Player
 {

@@ -11,6 +11,7 @@ import helpers.Clock;
  * players are unable to move for a period of time.
  * 
  * @author Elizabeth Zou
+ * Dependencies: slick(to manage textures)
  */
 public class Trap extends Entity
 {

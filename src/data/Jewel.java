@@ -7,6 +7,7 @@ import org.newdawn.slick.opengl.Texture;
  * currency of the game.
  * 
  * @author Elizabeth Zou
+ * Dependencies: slick(to manage textures)
  */
 public class Jewel extends Entity
 {

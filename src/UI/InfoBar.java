@@ -14,6 +14,7 @@ import data.TileGrid;
  * Display information about the user, including health, deadtimer, ability, and jewel count.
  * 
  * @author An Nguyen
+ * Dependencies: slick(to manage textures and colors)
  */
 public class InfoBar extends UIItem
 {

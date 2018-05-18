@@ -13,6 +13,7 @@ import org.newdawn.slick.opengl.Texture;
  * Represents the alert box that appears after a game
  * 
  * @author Elizabeth Zou
+ * Dependencies: slick (for managing textures on the alert box)
  */
 public class AlertBox
 {

@@ -10,6 +10,7 @@ import org.newdawn.slick.opengl.Texture;
  * Parent object of all user-interface textures displayed on screen
  * 
  * @author An Nguyen
+ * Dependencies: slick (to manage different textures)
  */
 public class UIItem
 {

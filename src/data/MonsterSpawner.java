@@ -7,6 +7,7 @@ import org.newdawn.slick.opengl.Texture;
  * 
  * @author Elizabeth Zou
  * @author Collin McMahon
+ * Dependencies: slick(to manage textures)
  */
 public class MonsterSpawner extends Spawner
 {

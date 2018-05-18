@@ -19,6 +19,7 @@ import helpers.StateManager;
  * 
  * @author Elizabeth Zou
  * @author An Nguyen
+ * Dependencies: slick(to manage colors)
  */
 public class Game
 {
@@ -196,7 +197,7 @@ public class Game
 	public void end()
 	{
 		StateManager.setState(StateManager.GameState.MAINMENU);
-		StateManager.game = null;
+		StateManager.setGame(null);
 	}
 	
 	/**

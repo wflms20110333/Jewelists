@@ -5,9 +5,11 @@ import org.newdawn.slick.opengl.Texture;
 import static helpers.Artist.*;
 
 /**
+ * Represents tiles on the grid
  * The Tile class represents tiles that form individual cells in the grid.
  * 
  * @author Elizabeth Zou
+ * Dependencies: slick(to manage textures)
  */
 public class Tile
 {

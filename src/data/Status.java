@@ -4,6 +4,7 @@ package data;
  * The Status enum represents different status effects.
  * 
  * @author An Nguyen
+ * Dependencies: slick(to manage textures)
  * @author Collin McMahon
  */
 public enum Status
