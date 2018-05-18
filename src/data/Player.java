@@ -245,7 +245,7 @@ public class Player
 			// priority - attack, movement, setting walls, setting traps
 			if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
 				attack();
-			else for (int i = 0; i < updates.length; i++)
+			for (int i = 0; i < updates.length; i++)
 				if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
 					sprite.updatePath(updates[i]);
 		}
@@ -294,7 +294,6 @@ public class Player
 	{
 		if (timeUntilAttack > 0)
 			return;
-		getSprite().cancelMovement();
 		for (int i = 0; i < TileGrid.order.length; i++) {
 			if (getSprite().getFacingDirection() == TileGrid.order[i]) {
 				Tile currentTile = getSprite().getCurrentTile();

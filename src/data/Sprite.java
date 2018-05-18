@@ -136,16 +136,6 @@ public class Sprite extends Entity
 		}
 	}
 	
-	public void cancelMovement()
-	{
-		if (nextTile == null)
-			return;
-		getGrid().toggleOccupied(nextTile, null);
-		setX(getCurrentTile().getX());
-		setY(getCurrentTile().getY());
-		nextTile = null;
-	}
-	
 	/**
 	 * Blinks the sprite to the given tile.
 	 * 
