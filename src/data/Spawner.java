@@ -7,8 +7,6 @@ import static helpers.Clock.*;
  * The Spawner class is an abstract class that spawns specified entities after
  * a set time interval at random locations.
  * 
- * subclasses: MonsterSpawner, JewelSpawner
- * 
  * @author Elizabeth Zou
  */
 public abstract class Spawner

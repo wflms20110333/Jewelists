@@ -7,12 +7,23 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 /**
- * The Sprite class blah blah
+ * The Sprite class represents the sprites of the players.
  * 
  * @author Elizabeth Zou
+ * @author Collin McMahon
  */
 public class Sprite extends Entity
 {
+	/**
+	 * Constants to place the bar that displays the direction the Sprite is facing.
+	 */
+	private static final Color BAR_COLOR = new Color(0.8f, 0.8f, 0.8f, 0.8f);
+	private static final char[] DIRS = {'U', 'L', 'D', 'R'};
+	private static final int[] BAR_DX = {4, 0, 4, TileGrid.SIZE - 4};
+	private static final int[] BAR_DY = {0, 4, TileGrid.SIZE - 4, 4};
+	private static final int[] BAR_WIDTH = {24, 4, 24, 4};
+	private static final int[] BAR_HEIGHT = {4, 24, 4, 24};
+	
 	/**
 	 * The default speed of a Sprite.
 	 */
@@ -38,13 +49,9 @@ public class Sprite extends Entity
 	 */
 	private Tile nextTile;
 	
-	private static final Color BAR_COLOR = new Color(0.8f, 0.8f, 0.8f, 0.8f);
-	private static final char[] DIRS = {'U', 'L', 'D', 'R'};
-	private static final int[] BAR_DX = {4, 0, 4, TileGrid.SIZE - 4};
-	private static final int[] BAR_DY = {0, 4, TileGrid.SIZE - 4, 4};
-	private static final int[] BAR_WIDTH = {24, 4, 24, 4};
-	private static final int[] BAR_HEIGHT = {4, 24, 4, 24};
-	
+	/**
+	 * Whether the Sprite is currently visible.
+	 */
 	private boolean visible; 
 	
 	/**
@@ -67,6 +74,7 @@ public class Sprite extends Entity
 	 * @param startTile the starting tile of the sprite
 	 * @param grid the grid in which the sprite exists
 	 * @param speed the speed of the sprite
+	 * @param player the player that the sprite belongs to
 	 */
 	public Sprite(Texture texture, Tile startTile, TileGrid grid, float speed, Player player)
 	{
@@ -80,7 +88,10 @@ public class Sprite extends Entity
 	
 	/**
 	 * Updates the status of the sprite. A sprite stops after moving into a
-	 * cell.
+	 * cell. If the sprite is in the game's center area, the score of the
+	 * sprite's player is increased. The sprite collects any jewels in the
+	 * cells it currently occupies and potentially adjacent cells if the
+	 * sprite's player has a magnet ability activated.
 	 */
 	@Override
 	public void update()
@@ -146,11 +157,19 @@ public class Sprite extends Entity
 			draw();
 	}
 	
-	public void toggleVisibility() {
+	/**
+	 * Toggles the visibility of the sprite.
+	 */
+	public void toggleVisibility()
+	{
 		this.visible = !visible;
 	}
 	
-	public void kill() {
+	/**
+	 * Kills the sprite.
+	 */
+	public void kill()
+	{
 		getGrid().setOccupied(getCurrentTile(), null);
 		if (nextTile != null)
 			getGrid().setOccupied(nextTile, null);
@@ -256,21 +275,39 @@ public class Sprite extends Entity
 		return player;
 	}
 	
+	/**
+	 * Returns whether the sprite is currently on the center area of the game.
+	 * 
+	 * @return whether the sprite is currently on the center area of the game
+	 */
 	public boolean onCenterArea()
 	{
 		return getCurrentTile().getType() == TileType.Dirt;
 	}
 	
+	/**
+	 * Returns the tile the sprite is currently moving into.
+	 * 
+	 * @return the tile the sprite is currently moving into
+	 */
 	public Tile getNextTile()
 	{
 		return nextTile;
 	}
 	
+	/**
+	 * Sets the tile the sprite is currently moving into.
+	 * @param tile the new tile the sprite is moving into
+	 */
 	public void setNextTile(Tile tile)
 	{
 		nextTile = tile;
 	}
 	
+	/**
+	 * Draws the sprite, along with a bar that displays the direction the
+	 * sprite is facing.
+	 */
 	@Override
 	public void draw()
 	{

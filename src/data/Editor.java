@@ -14,6 +14,7 @@ import static helpers.StateManager.*;
  * The Editor class allows users to customize the map layout of their games.
  * 
  * @author Elizabeth Zou
+ * @author Collin McMahon
  */
 public class Editor
 {
