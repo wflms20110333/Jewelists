@@ -17,7 +17,7 @@ public class Monster extends Entity
 	
 	private static final float DEFAULT_HEALTH = 10;
 	private static final int MONSTER_ATTACK_RANGE = 1;
-	private static final int MONSTER_ATTACK_DURATION = 10;
+	private static final int MONSTER_ATTACK_DURATION = 3;
 	
 	/**
 	 * The speed of the Monster.
