@@ -12,6 +12,7 @@ import org.pushingpixels.substance.internal.animation.StateTransitionTracker.Sta
 import UI.InfoBar;
 import UI.Scoreboard;
 import UI.UI;
+import helpers.Clock;
 import helpers.StateManager;
 
 /**
@@ -37,6 +38,7 @@ public class Game
 	public static final int SCOREBOARD_HEIGHT = TileGrid.SIZE * SCOREBOARD_HEIGHT_TILES;
 	
 	public static final int GAME_LENGTH = 300;
+	public static final int MONSTER_SPEED = 170;
 	
 	/**
 	 * The tile grid that represents the Game.
@@ -86,7 +88,7 @@ public class Game
 	public Game(TileGrid tg, int[][] keys)
 	{
 		grid = tg;
-		monsterSpawner = new MonsterSpawner(10, grid, quickLoad("monster"), 100);
+		monsterSpawner = new MonsterSpawner(10, grid, quickLoad("monster"), MONSTER_SPEED);
 		
 		players = new Player[] {
 			new Player(this, grid, keys[0], quickLoad("emoji"), Color.red, "red"),
@@ -120,8 +122,17 @@ public class Game
 		grid.draw();
 		monsterSpawner.update();
 		jewelSpawner.update();
+		
+		int numOnCenter = 0;
 		for (Player player : players)
+			if (player.getSprite().onCenterArea())
+				numOnCenter++;
+		
+		for (Player player : players) {
+			if (numOnCenter == 1 && player.getSprite().onCenterArea())
+				player.addScore(Clock.getSeconds());
 			player.update();
+		}
 		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
 			Projectile projectile = iterator.next();
 			if (projectile.getRemoved())

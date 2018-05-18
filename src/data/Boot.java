@@ -27,6 +27,7 @@ public class Boot
 		while (!Display.isCloseRequested())
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
+			Keyboard.enableRepeatEvents(true);
 			Clock.update();
 			StateManager.update();
 

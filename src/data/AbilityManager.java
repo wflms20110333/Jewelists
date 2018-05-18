@@ -224,8 +224,8 @@ public class AbilityManager
 		DMG_BOOST("ability_dmg_boost", true),
 		MAGNET("ability_magnet", true, 3),
 		// activated instantly
-		BLINK("ability_blink", 3),
-		HEAL("ability_heal", 2),
+		BLINK("ability_blink", 4),
+		HEAL("ability_heal", 5),
 		SLOW("ability_slow", true, 3);
 		
 		private static final Ability[] abilities = values();
