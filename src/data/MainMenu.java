@@ -63,7 +63,7 @@ public class MainMenu
 	 */
 	public MainMenu()
 	{
-		background = quickLoad("white");
+		background = quickLoad("background");
 		title = quickLoad("title");
 		menuUI = new UI();
 		menuUI.addButton("Play", "button_play", WIDTH / 2 - BUTTON_HALF_WIDTH, (int) (HEIGHT * SCALE_PLAY));
