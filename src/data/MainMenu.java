@@ -33,11 +33,6 @@ public class MainMenu
 	private static final float SCALE_QUIT = 0.8f;
 	
 	/**
-	 * The wait time before button clicking is allowed.
-	 */
-	private static final int COUNT_LIMIT = 10;
-	
-	/**
 	 * The background of the MainMenu.
 	 */
 	private Texture background;
@@ -80,7 +75,7 @@ public class MainMenu
 		drawQuadTex(background, 0, 0, WIDTH, HEIGHT);
 		drawQuadTex(title, WIDTH / 2 - title.getImageWidth() / 2, (int) (HEIGHT * SCALE_TITLE), title.getImageWidth(), title.getImageHeight());
 		menuUI.draw();
-		if (count < COUNT_LIMIT)
+		if (count < StateManager.COUNT_LIMIT)
 			count++;
 		else
 			updateButtons();

@@ -40,6 +40,8 @@ public class Artist
 	public static final Color DEFAULT_COLOR = Color.black;
 	public static final Color MASTER_COLOR = Color.white;
 	
+	public static final int FONT_SIZE = 40;
+	
 	private static TrueTypeFont font;
 	
 	/**
@@ -68,7 +70,7 @@ public class Artist
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		// load font
-		setFont("font_orange_juice", 40);
+		setFont("font_orange_juice", FONT_SIZE);
 	}
 	
 	public static TrueTypeFont getFont() {

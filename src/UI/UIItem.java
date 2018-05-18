@@ -8,7 +8,6 @@ import org.newdawn.slick.opengl.Texture;
 
 public class UIItem
 {
-
 	private Texture texture;
 	private Rectangle rect;
 
