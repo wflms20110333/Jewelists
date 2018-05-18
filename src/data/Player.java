@@ -102,8 +102,6 @@ public class Player
 	
 	private boolean dead;
 	
-	private boolean[] keyActive;
-	
 	private float bullets;
 	
 	/**
@@ -120,7 +118,6 @@ public class Player
 		this.grid = grid;
 		this.color = color;
 		this.keys = new int[keys.length];
-		this.keyActive = new boolean[keys.length];
 		for (int i = 0; i < this.keys.length; i++)
 			this.keys[i] = keys[i];
 		this.projectileColor = projectileColor;
@@ -259,7 +256,6 @@ public class Player
 		}
 		if (!dead && health <= 0)
 		{
-			Arrays.fill(keyActive, false);
 			dead = true;
 			sprite.kill();
 			sprite.toggleVisibility();
@@ -272,28 +268,23 @@ public class Player
 		
 		Keyboard.next();
 		
-		for (int i = 0; i < keys.length && !dead; i++)
-			if (Keyboard.getEventKey() == keys[i])
-				keyActive[i] = Keyboard.getEventKeyState();
-		
 		if (!statusActive(Status.STUN) && !dead) {
 			char[] updates = new char[] {'U', 'L', 'D', 'R'};
-			
-			if (keyActive[4])
+			if (sprite.onCenterArea())
+				score += Clock.getSeconds();
+			// priority - attack, movement, setting walls, setting traps
+			if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
 				attack();
 			for (int i = 0; i < updates.length; i++)
-				if (keyActive[i]) {
+				if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
 					sprite.updatePath(updates[i]);
-					break;
-				}
-			
-			if (keyActive[5])
+			if (Keyboard.isKeyDown(keys[5]) && Keyboard.getEventKeyState())
 			{
 				Tile tile = sprite.getCurrentTile();
 				if (tile.getType() == TileType.Cave && spendJewels(WALL_COST))
 					grid.setTile(tile, TileType.Wall1);
 			}
-			if (keyActive[6])
+			if (Keyboard.isKeyDown(keys[6]) && Keyboard.getEventKeyState())
 			{
 				// trap
 				Tile tile = sprite.getCurrentTile();
@@ -304,7 +295,7 @@ public class Player
 					game.addTrap(trap);
 				}
 			}
-			if (keyActive[7])
+			if (Keyboard.isKeyDown(keys[7]) && Keyboard.getEventKeyState())
 				abilityManager.activate();
 		}
 		
