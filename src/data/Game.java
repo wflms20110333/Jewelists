@@ -121,7 +121,6 @@ public class Game
 		jewelSpawner.update();
 		for (Player player : players)
 			player.update();
-		
 		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
 			Projectile projectile = iterator.next();
 			if (projectile.getRemoved())
