@@ -87,7 +87,7 @@ public class Game
 		
 		players = new Player[] {
 			new Player(this, grid, keys[0], quickLoad("emoji"), Color.red),
-			new Player(this, grid, keys[1], quickLoad("emoji2"), Color.green)
+			new Player(this, grid, keys[1], quickLoad("emoji2"), Color.blue)
 		};
 		
 		ui = new UI();
