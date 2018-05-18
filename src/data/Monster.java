@@ -39,6 +39,11 @@ public class Monster extends Entity
 	private ArrayList<String> permutations;
 	
 	/**
+	 * The status manager that manages the statuses of effects.
+	 */
+	private StatusManager statuses;
+	
+	/**
 	 * Constructs a Monster.
 	 * 
 	 * @param texture the texture of the monster
@@ -155,6 +160,28 @@ public class Monster extends Entity
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Adds a status effect.
+	 * 
+	 * @param effect the given effect
+	 * @param seconds the duration of the effect
+	 */
+	public void addStatus(Status effect, long seconds)
+	{
+		statuses.addStatus(effect, seconds);
+	}
+	
+	/**
+	 * Returns whether a given effect is active.
+	 * 
+	 * @param effect the given effect
+	 * @return whether the given effect is active
+	 */
+	public boolean statusActive(Status effect)
+	{
+		return statuses.statusActive(effect);
 	}
 	
 	/**
