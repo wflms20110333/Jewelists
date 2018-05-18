@@ -2,10 +2,7 @@ package data;
 
 import static helpers.Artist.drawQuadTex;
 
-import java.awt.Rectangle;
-
 import org.newdawn.slick.opengl.Texture;
-import org.w3c.dom.css.Rect;
 
 /**
  * The Entity class represents an entity in the game that players can interact
