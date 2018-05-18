@@ -209,8 +209,16 @@ public class Monster extends Entity
 		this.health += heal;
 		if (health > maxHealth)
 			health = maxHealth;
-		if (health < 0)
-			health = 0;
+		if (health < 0) 
+			kill();
+	}
+	
+	public void kill() {
+		getGrid().setOccupied(getCurrentTile(), null);
+		if (nextTile != null)
+			getGrid().setOccupied(nextTile, null);
+		nextTile = null;
+		remove();
 	}
 	
  	public float getMaxHealth()
