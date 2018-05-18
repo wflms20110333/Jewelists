@@ -124,7 +124,7 @@ public class Game
 		
 		for (Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
 			Projectile projectile = iterator.next();
-			if (projectile.outOfBounds())
+			if (projectile.getRemoved())
 				iterator.remove();
 			else
 				projectile.update();
