@@ -18,8 +18,14 @@ public enum TileType
 	 */
 	Wall1("wall"),
 	
+	/**
+	 * Slightly damaged walls
+	 */
 	Wall2("wall"),
 	
+	/**
+	 * About to break walls
+	 */
 	Wall3("wall"),
 	
 	/**

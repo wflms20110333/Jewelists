@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 /**
  * The StateManager class manages effects for players.
  * 
- * @author ysfn5
+ * @author An Nguyen
  */
 public class StatusManager
 {
