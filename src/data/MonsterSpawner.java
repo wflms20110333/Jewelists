@@ -6,6 +6,7 @@ import org.newdawn.slick.opengl.Texture;
  * The MonsterSpawner class spawns monsters into the game.
  * 
  * @author Elizabeth Zou
+ * @author Collin McMahon
  */
 public class MonsterSpawner extends Spawner
 {
