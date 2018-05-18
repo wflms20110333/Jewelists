@@ -22,6 +22,15 @@ import helpers.StateManager.GameState;
 public class Settings
 {
 	/**
+	 * Constants used to place the key command setup buttons.
+	 */
+	private static final int L = WIDTH / 4;
+	private static final int R = WIDTH * 3 / 4;
+	private static final int H = (int) (HEIGHT * 0.5);
+	private static final int[] X = {L, L - 100, L, L + 100, R - 250, R - 150, R - 50, R + 50};
+	private static final int[] Y = {H - 100, H, H, H, H, H, H, H};
+	
+	/**
 	 * The background of the Settings.
 	 */
 	private Texture background;
@@ -64,12 +73,6 @@ public class Settings
 	 * set to settings.
 	 */
 	private int count = 0;
-	
-	private static final int L = WIDTH / 4;
-	private static final int R = WIDTH * 3 / 4;
-	private static final int H = (int) (HEIGHT * 0.5);
-	private static final int[] X = {L, L - 100, L, L + 100, R - 250, R - 150, R - 50, R + 50};
-	private static final int[] Y = {H - 100, H, H, H, H, H, H, H};
 	
 	/**
 	 * Constructs a Settings.
@@ -182,6 +185,12 @@ public class Settings
 		count = 0;
 	}
 	
+	/**
+	 * Returns a string representation of a given key.
+	 * 
+	 * @param key the given key.
+	 * @return a string representation of the given key
+	 */
 	public String getKeyText(int key)
 	{
 		switch (key)
