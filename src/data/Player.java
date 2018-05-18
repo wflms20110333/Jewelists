@@ -32,7 +32,7 @@ public class Player
 	 */
 	private static final int TRAP_COST = 4;
 	
-	private static final float COOLDOWN_PER_ATTACK = .5f;
+	private static final float COOLDOWN_PER_ATTACK = .4f;
 	
 	/**
 	 * The game that the Player interacts with.
@@ -305,7 +305,7 @@ public class Player
 				);
 				char direction = getSprite().getFacingDirection();
 				getGame().addProjectile(new Projectile(quickLoad("projectile_blue_" + direction), 
-						nextTile, grid, direction));
+						nextTile, grid, this, direction));
 				break;
 			}
 		}

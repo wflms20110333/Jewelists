@@ -13,21 +13,23 @@ public class Projectile extends Entity {
 	public static final float speed = 400;
 	public static final float BASE_DMG = 3;
 	
+	
 	Tile nextTile;
 	int direction;
 	float multiplier; // damage multiplier
 	boolean removed;
+	Player owner;
 	
 	
-	public Projectile(Texture texture, Tile startTile, TileGrid grid) {
-		this(texture, startTile, grid, 'U');
+	public Projectile(Texture texture, Tile startTile, TileGrid grid, Player owner) {
+		this(texture, startTile, grid, owner, 'U');
 	}
 	
-	public Projectile(Texture texture, Tile startTile, TileGrid grid, char direction) {
-		this(texture, startTile, grid, direction, 1);
+	public Projectile(Texture texture, Tile startTile, TileGrid grid, Player owner, char direction) {
+		this(texture, startTile, grid, owner, direction, 1);
 	}
 	
-	public Projectile(Texture texture, Tile startTile, TileGrid grid, char direction, float multiplier) {
+	public Projectile(Texture texture, Tile startTile, TileGrid grid, Player owner, char direction, float multiplier) {
 		super(texture, startTile, grid);
 		this.direction = 0;
 		for (int k = 0; k < TileGrid.order.length; k++) {
@@ -35,6 +37,7 @@ public class Projectile extends Entity {
 				this.direction = k;
 		}
 		this.multiplier = multiplier;
+		this.owner = owner;
 	}
 	
 	public boolean outOfBounds() {
@@ -55,8 +58,10 @@ public class Projectile extends Entity {
 			Entity moving = getGrid().getMovingEntity(getCurrentTile());
 			if (moving != null && moving instanceof Sprite) {
 				Player player = ((Sprite) moving).getPlayer();
-				player.heal(-BASE_DMG * multiplier);
-				remove();
+				if (player != owner) {
+					player.heal(-BASE_DMG * multiplier);
+					remove();
+				}
 			}
 		}
 		
@@ -64,8 +69,10 @@ public class Projectile extends Entity {
 			Entity moving = getGrid().getMovingEntity(nextTile);
 			if (moving != null && moving instanceof Sprite) {
 				Player player = ((Sprite) moving).getPlayer();
-				player.heal(-BASE_DMG * multiplier);
-				remove();
+				if (player != owner) {
+					player.heal(-BASE_DMG * multiplier);
+					remove();
+				}
 			}
 		}
 		
