@@ -156,8 +156,8 @@ public class AbilityManager
 		public static final long BUFF_DURATION = 10;
 		public static final long BUFF_COOLDOWN = 10;
 		
-		private final long duration;
-		private final long cooldown;
+		private final float duration;
+		private final float cooldown;
 		private final int value;
 		private final String name;
 		
@@ -190,12 +190,12 @@ public class AbilityManager
 			this.texture = Artist.quickLoad(name);
 		}
 		
-		public long getDuration()
+		public float getDuration()
 		{
 			return duration;
 		}
 		
-		public long getCooldown()
+		public float getCooldown()
 		{
 			return cooldown;
 		}
