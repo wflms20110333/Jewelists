@@ -7,7 +7,8 @@ import org.newdawn.slick.opengl.Texture;
 import helpers.Clock;
 
 /**
- * Represents a trap that players can step on
+ * The Trap class represents traps that players can build and step on. Trapped
+ * players are unable to move for a period of time.
  * 
  * @author Elizabeth Zou
  */

@@ -3,7 +3,8 @@ package data;
 /**
  * The Status enum represents different status effects.
  * 
- * @author ysfn6
+ * @author An Nguyen
+ * @author Collin McMahon
  */
 public enum Status
 {

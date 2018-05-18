@@ -5,7 +5,7 @@ import org.newdawn.slick.opengl.Texture;
 import static helpers.Artist.*;
 
 /**
- * The Tile class blah blah
+ * The Tile class represents tiles that form individual cells in the grid.
  * 
  * @author Elizabeth Zou
  */
