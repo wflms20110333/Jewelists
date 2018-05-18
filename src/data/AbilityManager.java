@@ -214,45 +214,78 @@ public class AbilityManager
 		return true;
 	}
 	
+	/**
+	 * Abilities that players can use
+	 * 
+	 * @author An Nguyen
+	 */
 	public static enum Ability
 	{
-		// buff
+		// buffs
 		SPEED("ability_speed", true),
 		DMG_BOOST("ability_dmg_boost", true),
 		MAGNET("ability_magnet", true, 3),
-		// activated instantly
+		
+		// instantly activate
 		BLINK("ability_blink", 4),
 		HEAL("ability_heal", 5),
 		SLOW("ability_slow", true, 3);
 		
+		/**
+		 * Stores a list of all abilities
+		 */
 		private static final Ability[] abilities = values();
 		
-		public static final long BUFF_DURATION = 10;
+		/**
+		 * Standard Duration of a Buff
+		 */
+		public static final long BUFF_DURATION = 5;
 		public static final long BUFF_COOLDOWN = 10;
+		
 		
 		private final float duration;
 		private final float cooldown;
-		private final int value;
+		private final float value;
 		private final String name;
-		
 		private final Texture texture;
 		
+		/**
+		 * Create a new ability
+		 * @param name the ability's name
+		 */
 		private Ability(String name)
 		{
 			this(name, false);
 		}
 		
+		/**
+		 * Create a new ability
+		 * @param name the ability's name
+		 * @param buff whether or not it is a buff
+		 */
 		private Ability(String name, boolean buff)
 		{
 			this(name, buff, -1);
 		}
 		
-		private Ability(String name, int value)
+		/**
+		 * Create a new ability
+		 * @param name the name of the ability
+		 * @param value the value used for calculations
+		 */
+		private Ability(String name, float value)
 		{
 			this(name, false, value);
 		}
 		
-		private Ability(String name, boolean buff, int value)
+		/**
+		 * Create a new ability
+		 * 
+		 * @param name the name of the ability
+		 * @param buff whether or not the ability is a buff
+		 * @param value the value used for calculations
+		 */
+		private Ability(String name, boolean buff, float value)
 		{
 			if (buff)
 				this.duration = BUFF_DURATION;
@@ -264,31 +297,49 @@ public class AbilityManager
 			this.texture = quickLoad(name);
 		}
 		
+		/**
+		 * @return the duration of the buff
+		 */
 		public float getDuration()
 		{
 			return duration;
 		}
 		
+		/**
+		 * @return the cooldown of the buff
+		 */
 		public float getCooldown()
 		{
 			return cooldown;
 		}
 		
-		public long getValue()
+		/**
+		 * @return the modifier value of the buff
+		 */
+		public float getValue()
 		{
 			return value;
 		}
 		
+		/**
+		 * @return the texture associated with the buff
+		 */
 		public Texture getTexture()
 		{
 			return texture;
 		}
 		
+		/**
+		 * @return a random buff
+		 */
 		public static Ability random()
 		{
 			return abilities[(int) (Math.random() * abilities.length)];
 		}
 		
+		/**
+		 * @return a string representation of the buff
+		 */
 		@Override
 		public String toString()
 		{
