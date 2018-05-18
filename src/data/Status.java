@@ -32,7 +32,7 @@ public enum Status
 	 */
 	DMG_BOOST(2f),
 	
-	POISON(.3f);
+	POISON(.7f);
 	
 	/**
 	 * A multiplier used for many status effects. For example, it would be a
