@@ -72,11 +72,13 @@ public class Clock
 		paused = !paused;
 	}
 	
-	public static float getSeconds() {
+	public static float getSeconds()
+	{
 		return (float) (getMiliseconds() / 1000.0);
 	}
 	
-	public static float getMiliseconds() {
+	public static float getMiliseconds()
+	{
 		return (float) (multiplier * (thisFrame - lastFrame));
 	}
 }
