@@ -2,16 +2,10 @@ package data;
 
 import static helpers.Clock.*;
 
-import org.newdawn.slick.opengl.Texture;
-
-import helpers.Artist;
-
 /**
  * The Ability Manager class manages the abilities a player can possess or use.
  * 
- * @author Elizabeth Zou
  * @author An Nguyen
- * @author Colling McMahon
  */
 public class AbilityManager
 {
@@ -142,7 +136,7 @@ public class AbilityManager
 	}
 	
 	/**
-	 * Gives the player the ability to collect jewels in adjacent cells.
+	 * Gives the player the ability to collect the jewels in adjacent cells.
 	 * 
 	 * @return true
 	 */

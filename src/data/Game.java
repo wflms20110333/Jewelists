@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.newdawn.slick.Color;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker.StateContributionInfo;
 
 import UI.InfoBar;
 import UI.Scoreboard;

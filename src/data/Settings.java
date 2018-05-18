@@ -224,7 +224,7 @@ public class Settings
 		case Keyboard.KEY_Z: return "Z";
 		case Keyboard.KEY_TAB: return "Tab";
 		case Keyboard.KEY_CAPITAL: return "Caps";
-		case Keyboard.KEY_LSHIFT: return "L-S";
+		case Keyboard.KEY_LSHIFT: return "L Sh";
 		case Keyboard.KEY_EQUALS: return "=";
 		case Keyboard.KEY_LBRACKET: return "[";
 		case Keyboard.KEY_RBRACKET: return "]";
@@ -234,11 +234,11 @@ public class Settings
 		case Keyboard.KEY_COMMA: return ",";
 		case Keyboard.KEY_PERIOD: return ".";
 		case Keyboard.KEY_SLASH: return "/";
-		case Keyboard.KEY_RSHIFT: return "R-S";
-		case Keyboard.KEY_UP: return "U-A";
-		case Keyboard.KEY_LEFT: return "L-A";
-		case Keyboard.KEY_DOWN: return "D-A";
-		case Keyboard.KEY_RIGHT: return "R-A";
+		case Keyboard.KEY_RSHIFT: return "R Sh";
+		case Keyboard.KEY_UP: return "U Ar";
+		case Keyboard.KEY_LEFT: return "L Ar";
+		case Keyboard.KEY_DOWN: return "D Ar";
+		case Keyboard.KEY_RIGHT: return "R Ar";
 		}
 		return "N/A";
 	}
