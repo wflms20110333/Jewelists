@@ -140,7 +140,7 @@ public class Sprite extends Entity
 	{
 		if (nextTile == null)
 			return;
-		getGrid().toggleOccupied(nextTile, player);
+		getGrid().toggleOccupied(nextTile, null);
 		setX(getCurrentTile().getX());
 		setY(getCurrentTile().getY());
 		nextTile = null;

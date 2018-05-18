@@ -228,16 +228,17 @@ public class Player
 		
 		char[] updates = new char[] {'U', 'L', 'D', 'R'};
 		
-		if (!statusActive(Status.STUN))
-			for (int i = 0; i < updates.length; i++)
+		if (!statusActive(Status.STUN)) {
+			// priority - attack, movement, setting walls, setting traps
+			if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
+				attack();
+			else for (int i = 0; i < updates.length; i++)
 				if (Keyboard.isKeyDown(keys[i]) && Keyboard.getEventKeyState())
 					sprite.updatePath(updates[i]);
+		}
 		
 		// shift
-		if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
-		{
-			attack();
-		}
+		
 		if (Keyboard.isKeyDown(keys[5]) && Keyboard.getEventKeyState())
 		{
 			Tile tile = sprite.getCurrentTile();
@@ -287,8 +288,9 @@ public class Player
 						currentTile.getIndY() + TileGrid.changeY[i], 
 					0, 0, TileType.Cave
 				);
-				getGame().addProjectile(new Projectile(quickLoad("dagger"), nextTile, grid, 
-						getSprite().getFacingDirection()));
+				char direction = getSprite().getFacingDirection();
+				getGame().addProjectile(new Projectile(quickLoad("projectile_blue_" + direction), 
+						nextTile, grid, direction));
 				break;
 			}
 		}
