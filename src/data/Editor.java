@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 
 import UI.UI;
 import UI.UIItem;
+import UI.UIString;
 import helpers.StateManager;
 
 import static helpers.Artist.*;
@@ -25,6 +26,14 @@ public class Editor
 	private static final int ALERT_BOX_HEIGHT = 400;
 	private static final int ALERT_BOX_X = WIDTH / 2 - ALERT_BOX_WIDTH / 2;
 	private static final int ALERT_BOX_Y = HEIGHT / 2 - ALERT_BOX_HEIGHT / 2;
+	private static final int ALERT_BOX_TEXT_PADDING = 30;
+	private static final int ALERT_BOX_TEXT_BETWEEN_PADDING = 10;
+	private static final int ALERT_BOX_TEXT_TAB_PADDING = 20;
+	
+	private static final int ALERT_BOX_PADDING = 100;
+	private static final int ALERT_BOX_IMAGE_PADDING = ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING + 
+			ALERT_BOX_TEXT_TAB_PADDING * 2 + FONT_SIZE * 4 + ALERT_BOX_TEXT_BETWEEN_PADDING * 2;
+	private static final int ALERT_BOX_IMAGE_SIZE = 100;
 	
 	
 	/**
@@ -67,6 +76,20 @@ public class Editor
 		
 		alertBox = new UI();
 		alertBox.addItem(new UIItem(quickLoad("white"), new Rectangle(ALERT_BOX_X, ALERT_BOX_Y, ALERT_BOX_WIDTH, ALERT_BOX_HEIGHT)));
+		alertBox.addItem(new UIString("Click on cells to set them.", ALERT_BOX_X + ALERT_BOX_TEXT_PADDING,
+				ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING));
+		alertBox.addItem(new UIString("Press the right arrow key to", ALERT_BOX_X + ALERT_BOX_TEXT_PADDING,
+				ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING + ALERT_BOX_TEXT_TAB_PADDING + FONT_SIZE));
+		alertBox.addItem(new UIString("switch between drawing", ALERT_BOX_X + ALERT_BOX_TEXT_PADDING + 
+				ALERT_BOX_TEXT_TAB_PADDING, ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING + ALERT_BOX_TEXT_TAB_PADDING + 
+				FONT_SIZE * 2 + ALERT_BOX_TEXT_BETWEEN_PADDING));
+		alertBox.addItem(new UIString("water tiles and cave tiles.", ALERT_BOX_X + ALERT_BOX_TEXT_PADDING + 
+				ALERT_BOX_TEXT_TAB_PADDING, ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING + ALERT_BOX_TEXT_TAB_PADDING + 
+				FONT_SIZE * 3 + ALERT_BOX_TEXT_BETWEEN_PADDING * 2));
+		alertBox.addItem(new UIItem(quickLoad(TileType.Water.textureName), new Rectangle(ALERT_BOX_X + 
+				ALERT_BOX_PADDING, ALERT_BOX_IMAGE_PADDING, ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_SIZE)));
+		alertBox.addItem(new UIItem(quickLoad(TileType.Cave.textureName), new Rectangle(ALERT_BOX_X + ALERT_BOX_PADDING * 2 + 
+				ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_PADDING, ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_SIZE)));
 		
 		this.grid = new TileGrid();
 		this.types = new TileType[2];
@@ -85,7 +108,6 @@ public class Editor
 		grid.draw();
 		menuUI.draw();
 		alertBox.draw();
-		drawString(ALERT_BOX_X, ALERT_BOX_Y, "hello", Color.blue);
 		
 		if (count < StateManager.COUNT_LIMIT)
 			count++;
