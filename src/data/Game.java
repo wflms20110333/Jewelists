@@ -197,7 +197,7 @@ public class Game
 	public void end()
 	{
 		StateManager.setState(StateManager.GameState.MAINMENU);
-		StateManager.game = null;
+		StateManager.setGame(null);
 	}
 	
 	/**

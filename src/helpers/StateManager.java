@@ -147,6 +147,28 @@ public class StateManager
 	}
 	
 	/**
+	 * @return the game that the state manager stores
+	 */
+	public static Game getGame() {
+		return game;
+	}
+	
+	/**
+	 * Set the game the state manager will run
+	 * @param game the new game
+	 */
+	public static void setGame(Game game) {
+		StateManager.game = game;
+	}
+	
+	/**
+	 * @return the keys used for each player
+	 */
+	public static int[][] getKeys() {
+		return keys;
+	}
+	
+	/**
 	 * Sets a new keyboard command.
 	 * 
 	 * @param playerNumber the number of the player to set the new command

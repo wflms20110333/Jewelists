@@ -131,7 +131,7 @@ public class Editor
 		{
 			if (menuUI.isButtonClicked("Play"))
 			{
-				game = new Game(grid, keys);
+				setGame(new Game(grid, getKeys()));
 				setState(GameState.GAME);
 			}
 		}
