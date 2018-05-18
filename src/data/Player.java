@@ -315,8 +315,6 @@ public class Player
 		
 		if (!statusActive(Status.STUN) && !dead) {
 			char[] updates = new char[] {'U', 'L', 'D', 'R'};
-			if (sprite.onCenterArea())
-				score += Clock.getSeconds();
 			// priority - attack, movement, setting walls, setting traps
 			if (Keyboard.isKeyDown(keys[4]) && Keyboard.getEventKeyState())
 				attack();

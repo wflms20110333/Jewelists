@@ -41,7 +41,7 @@ public class Game
 	 * The duration of the game.
 	 */
 	public static final int GAME_LENGTH = 300;
-	public static final int MONSTER_SPEED = 500;
+	public static final int MONSTER_SPEED = 220;
 	
 	/**
 	 * The tile grid that represents the Game.
@@ -133,7 +133,7 @@ public class Game
 		for (Player player : players)
 			if (player.getSprite().onCenterArea())
 				numOnCenter++;
-		
+		System.out.println(numOnCenter);
 		for (Player player : players) {
 			if (numOnCenter < 2 && player.getSprite().onCenterArea())
 				player.addScore(Clock.getSeconds());

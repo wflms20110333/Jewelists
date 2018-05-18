@@ -27,7 +27,7 @@ public class Sprite extends Entity
 	/**
 	 * The default speed of a Sprite.
 	 */
-	public static final int DEFAULT_SPEED = 150;
+	public static final int DEFAULT_SPEED = 200;
 	
 	/**
 	 * The player that the Sprite belongs to.

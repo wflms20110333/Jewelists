@@ -7,7 +7,7 @@ import org.newdawn.slick.opengl.Texture;
 import helpers.Clock;
 
 /**
- * The Trap class blah blah
+ * Represents a trap that players can step on
  * 
  * @author Elizabeth Zou
  */

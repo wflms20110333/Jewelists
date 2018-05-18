@@ -6,7 +6,7 @@ import org.lwjgl.Sys;
  * The Clock class is a helper class that assists with tracking the changes in
  * time during the game.
  * 
- * @author Elizabeth Zou
+ * @author Elizabeth Zou, An Nguyen
  */
 
 public class Clock
@@ -67,16 +67,25 @@ public class Clock
 			multiplier += change;
 	}
 	
+	/**
+	 * Toggle whether or not the clock is paused
+	 */
 	public static void togglePause()
 	{
 		paused = !paused;
 	}
 	
+	/**
+	 * @return the number of seconds since last frame
+	 */
 	public static float getSeconds()
 	{
 		return (float) (getMiliseconds() / 1000.0);
 	}
 	
+	/**
+	 * @return the number of miliseconds since last frame
+	 */
 	public static float getMiliseconds()
 	{
 		return (float) (multiplier * (thisFrame - lastFrame));

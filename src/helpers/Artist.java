@@ -38,10 +38,13 @@ public class Artist
 	public static final int HEIGHT = (int) (screenSize.getHeight() / TileGrid.SIZE - 2) * TileGrid.SIZE;
 	
 	/**
-	 * 
+	 * The default color used when none is specified
 	 */
 	public static final Color DEFAULT_COLOR = Color.black;
 	
+	/**
+	 * The font size for drawing text
+	 */
 	public static final int FONT_SIZE = 40;
 	
 	private static TrueTypeFont font;
@@ -75,10 +78,18 @@ public class Artist
 		setFont("font_Chapter_76", FONT_SIZE);
 	}
 	
+	/**
+	 * @return the font used to draw text
+	 */
 	public static TrueTypeFont getFont() {
 		return font;
 	}
 	
+	/**
+	 * Set the font used in drawing text
+	 * @param name the filename of the font
+	 * @param sz the size of the font
+	 */
 	public static void setFont(String name, int sz) {
 		try
 		{
@@ -179,6 +190,14 @@ public class Artist
 		return tex;
 	}
 	
+	/**
+	 * Draw a string onto the screen
+	 * 
+	 * @param x the x coordinate of the screen
+	 * @param y the y coordinate of the screen
+	 * @param s the string to be drawn
+	 * @param color the color of the string
+	 */
 	public static void drawString(int x, int y, String s, Color color) {
 		font.drawString(x, y, s, color);
 		glColor4f(255,255,255,255);
