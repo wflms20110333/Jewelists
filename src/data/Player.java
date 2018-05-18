@@ -245,7 +245,6 @@ public class Player
 			dead = true;
 			sprite.kill();
 			sprite.toggleVisibility();
-			return;
 		}
 		
 		Keyboard.next();
