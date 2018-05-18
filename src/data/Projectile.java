@@ -9,6 +9,8 @@ public class Projectile extends Entity {
 	public static final float speed = 400;
 	public static final float BASE_DMG = 3;
 	
+	public static final float STUN_DURATION = 2;
+	
 	Tile nextTile;
 	int direction;
 	float multiplier; // damage multiplier
@@ -71,6 +73,8 @@ public class Projectile extends Entity {
 			if (moving != null && moving instanceof Monster) {
 				Monster monster = (Monster) moving;
 				monster.heal(-BASE_DMG * multiplier);
+				if (multiplier > 1)
+					monster.addStatus(Status.STUN, STUN_DURATION);
 				remove();
 			}
 		}
@@ -90,6 +94,8 @@ public class Projectile extends Entity {
 			if (moving != null && moving instanceof Monster) {
 				Monster monster = (Monster) moving;
 				monster.heal(-BASE_DMG * multiplier);
+				if (multiplier > 1)
+					monster.addStatus(Status.STUN, STUN_DURATION);
 				remove();
 			}
 		}

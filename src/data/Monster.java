@@ -183,7 +183,7 @@ public class Monster extends Entity
 	 * @param effect the given effect
 	 * @param seconds the duration of the effect
 	 */
-	public void addStatus(Status effect, long seconds)
+	public void addStatus(Status effect, float seconds)
 	{
 		statuses.addStatus(effect, seconds);
 	}
