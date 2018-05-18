@@ -42,9 +42,6 @@ public class Monster extends Entity
 	 */
 	private ArrayList<String> permutations;
 	
-	/**
-	 * The status manager that manages the statuses of effects.
-	 */
 	private StatusManager statuses;
 	
 	private float health;
@@ -62,13 +59,14 @@ public class Monster extends Entity
 	{
 		super(texture, startTile, grid);
 		getGrid().setOccupied(startTile, this);
+		this.statuses = new StatusManager();
+		health = maxHealth = DEFAULT_HEALTH;
 		this.speed = speed;
 		permutations = new ArrayList<>();
 		genPerms("", "ULDR");
 		randSetNextTile();
-		health = maxHealth = DEFAULT_HEALTH;
-		statuses = new StatusManager();
 	}
+		
 	
 	/**
 	 * Private helper method that generates all the possible permutations of
@@ -162,6 +160,8 @@ public class Monster extends Entity
 	 */
 	private void setNextTile(String order)
 	{
+		if (statusActive(Status.STUN))
+			return;
 		for (char c : order.toCharArray())
 		{
 			int i = (int) (getX() / TileGrid.SIZE);
@@ -199,6 +199,25 @@ public class Monster extends Entity
 		return statuses.statusActive(effect);
 	}
 	
+	public float getHealth()
+	{
+		return health;
+	}
+	
+	public void heal(float heal)
+	{
+		this.health += heal;
+		if (health > maxHealth)
+			health = maxHealth;
+		if (health < 0)
+			health = 0;
+	}
+	
+ 	public float getMaxHealth()
+	{
+		return maxHealth;
+	}
+	
 	/**
 	 * Private helper method that sets the tile that the monster will move into
 	 * given a preferred direction. If movement in this direction is allowed,
@@ -209,6 +228,8 @@ public class Monster extends Entity
 	 */
 	private void setNextTile(char dir)
 	{
+		if (statusActive(Status.STUN))
+			return;
 		if (nextTile != null)
 			return;
 		int i = getCurrentTile().getIndX();

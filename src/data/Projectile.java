@@ -68,6 +68,11 @@ public class Projectile extends Entity {
 					remove();
 				}
 			}
+			if (moving != null && moving instanceof Monster) {
+				Monster monster = (Monster) moving;
+				monster.heal(-BASE_DMG * multiplier);
+				remove();
+			}
 		}
 		
 		if (getGrid().validIndex(nextTile.getIndX(), nextTile.getIndY()))
@@ -81,6 +86,11 @@ public class Projectile extends Entity {
 					player.heal(-BASE_DMG * multiplier);
 					remove();
 				}
+			}
+			if (moving != null && moving instanceof Monster) {
+				Monster monster = (Monster) moving;
+				monster.heal(-BASE_DMG * multiplier);
+				remove();
 			}
 		}
 		
