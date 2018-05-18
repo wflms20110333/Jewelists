@@ -127,7 +127,7 @@ public class Sprite extends Entity
 				
 				if (x == nextX && y == nextY)
 				{
-					getGrid().toggleOccupied(getCurrentTile(), this);
+					getGrid().toggleOccupied(getCurrentTile(), null);
 					setCurrentTile(nextTile);
 					nextTile = null;
 					checkTrap();
