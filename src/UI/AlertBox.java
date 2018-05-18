@@ -7,10 +7,12 @@ import static helpers.Artist.quickLoad;
 
 import java.awt.Rectangle;
 
+import org.newdawn.slick.opengl.Texture;
+
 public class AlertBox
 {
-	private static final int ALERT_BOX_WIDTH = 600;
-	private static final int ALERT_BOX_HEIGHT = 400;
+	public static final int ALERT_BOX_WIDTH = 600;
+	public static final int ALERT_BOX_HEIGHT = 400;
 	private static final int ALERT_BOX_X = WIDTH / 2 - ALERT_BOX_WIDTH / 2;
 	private static final int ALERT_BOX_Y = HEIGHT / 2 - ALERT_BOX_HEIGHT / 2;
 	private static final int ALERT_BOX_TEXT_PADDING = 30;
@@ -49,6 +51,11 @@ public class AlertBox
 	{
 		alertBox.addItem(new UIItem(quickLoad(textureName), new Rectangle(ALERT_BOX_X + x, y,
 				ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_SIZE)));
+	}
+	
+	public void addImage(Texture texture, int x, int width, int height)
+	{
+		alertBox.addItem(new UIItem(texture, new Rectangle(ALERT_BOX_X + x, y, width, height)));
 	}
 	
 	public void addButton(String name, String textureName)
