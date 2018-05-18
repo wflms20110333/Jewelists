@@ -2,7 +2,6 @@ package data;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 
 import UI.UI;
 import UI.UIItem;
@@ -21,28 +20,34 @@ import java.awt.Rectangle;
  */
 public class Editor
 {
-	
-	private static final int ALERT_BOX_WIDTH = 600;
+	/**
+	 * Class constants for creating the alert box.
+	 */
+	private static final int ALERT_BOX_WIDTH = 550;
 	private static final int ALERT_BOX_HEIGHT = 400;
 	private static final int ALERT_BOX_X = WIDTH / 2 - ALERT_BOX_WIDTH / 2;
 	private static final int ALERT_BOX_Y = HEIGHT / 2 - ALERT_BOX_HEIGHT / 2;
 	private static final int ALERT_BOX_TEXT_PADDING = 30;
 	private static final int ALERT_BOX_TEXT_BETWEEN_PADDING = 10;
 	private static final int ALERT_BOX_TEXT_TAB_PADDING = 20;
-	
-	private static final int ALERT_BOX_PADDING = 100;
+	private static final int ALERT_BOX_PADDING = 50;
 	private static final int ALERT_BOX_IMAGE_PADDING = ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING + 
 			ALERT_BOX_TEXT_TAB_PADDING * 2 + FONT_SIZE * 4 + ALERT_BOX_TEXT_BETWEEN_PADDING * 2;
 	private static final int ALERT_BOX_IMAGE_SIZE = 100;
-	
 	
 	/**
 	 * The user interface of the Editor.
 	 */
 	private UI menuUI;
 	
+	/**
+	 * The user interface of the Editor's alert box.
+	 */
 	private UI alertBox;
 	
+	/**
+	 * Whether or not the alert box is displayed.
+	 */
 	private boolean alert;
 	
 	/**
@@ -88,9 +93,14 @@ public class Editor
 				FONT_SIZE * 3 + ALERT_BOX_TEXT_BETWEEN_PADDING * 2));
 		alertBox.addItem(new UIItem(quickLoad(TileType.Water.textureName), new Rectangle(ALERT_BOX_X + 
 				ALERT_BOX_PADDING, ALERT_BOX_IMAGE_PADDING, ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_SIZE)));
-		alertBox.addItem(new UIItem(quickLoad(TileType.Cave.textureName), new Rectangle(ALERT_BOX_X + ALERT_BOX_PADDING * 2 + 
+		alertBox.addItem(new UIItem(quickLoad("change_tiles"), new Rectangle(ALERT_BOX_X + ALERT_BOX_PADDING + 
 				ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_PADDING, ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_SIZE)));
+		alertBox.addItem(new UIItem(quickLoad(TileType.Cave.textureName), new Rectangle(ALERT_BOX_X + ALERT_BOX_PADDING + 
+				ALERT_BOX_IMAGE_SIZE * 2, ALERT_BOX_IMAGE_PADDING, ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_SIZE)));
+		alertBox.addButton("Okay", "button_okay", ALERT_BOX_X + ALERT_BOX_PADDING + ALERT_BOX_TEXT_TAB_PADDING + 
+				ALERT_BOX_IMAGE_SIZE * 3, ALERT_BOX_IMAGE_PADDING + ALERT_BOX_TEXT_PADDING);
 		
+		this.alert = true;
 		this.grid = new TileGrid();
 		this.types = new TileType[2];
 		this.types[0] = TileType.Water;
@@ -106,19 +116,25 @@ public class Editor
 	public void update()
 	{
 		grid.draw();
-		menuUI.draw();
-		alertBox.draw();
+		if (alert)
+			alertBox.draw();
+		else
+			menuUI.draw();
 		
 		if (count < StateManager.COUNT_LIMIT)
 			count++;
 		else
+		{
 			updateButtons();
-		
-		if (Mouse.isButtonDown(0))
-			setTile();
-		while (Keyboard.next())
-			if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState())
-				moveIndex();
+			if (!alert)
+			{ 
+				if (Mouse.isButtonDown(0))
+					setTile();
+				while (Keyboard.next())
+					if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState())
+						moveIndex();
+			}
+		}
 	}
 	
 	/**
@@ -126,10 +142,21 @@ public class Editor
 	 */
 	public void updateButtons()
 	{
-		if (menuUI.isButtonClicked("Play"))
+		if (alert)
 		{
-			game = new Game(grid, keys);
-			setState(GameState.GAME);
+			if (alertBox.isButtonClicked("Okay"))
+			{
+				alert = false;
+				count = 0;
+			}
+		}
+		else
+		{
+			if (menuUI.isButtonClicked("Play"))
+			{
+				game = new Game(grid, keys);
+				setState(GameState.GAME);
+			}
 		}
 	}
 	
