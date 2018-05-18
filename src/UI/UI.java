@@ -25,6 +25,11 @@ public class UI
 	{
 		uiList.add(new Button(name, quickLoad(textureName), x, y));
 	}
+	
+	public void addButton(String name, String textureName, int x, int y, int width, int height)
+	{
+		uiList.add(new Button(name, quickLoad(textureName), x, y, width, height));
+	}
 
 	public void addItem(UIItem item)
 	{

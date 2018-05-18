@@ -7,6 +7,7 @@ import static helpers.Artist.quickLoad;
 
 import org.newdawn.slick.opengl.Texture;
 
+import UI.AlertBox;
 import UI.UI;
 import helpers.StateManager;
 import helpers.StateManager.GameState;
@@ -23,6 +24,8 @@ public class MainMenu
 	 */
 	private static final int SETTINGS_PADDING = 50;
 	private static final int BUTTON_HALF_WIDTH = 106;
+	private static final int BUTTON_WIDTH = 212;
+	private static final int BUTTON_HEIGHT = 90;
 	
 	/**
 	 * Constants for scaling the location of items.
@@ -47,6 +50,10 @@ public class MainMenu
 	 */
 	private UI menuUI;
 	
+	private AlertBox alertBox;
+	
+	private boolean alert;
+	
 	/**
 	 * The number of times {@link #update} is called after the game state is
 	 * set to main menu.
@@ -61,10 +68,19 @@ public class MainMenu
 		background = quickLoad("background");
 		title = quickLoad("title");
 		menuUI = new UI();
-		menuUI.addButton("Play", "button_play", WIDTH / 2 - BUTTON_HALF_WIDTH, (int) (HEIGHT * SCALE_PLAY));
-		menuUI.addButton("Edit", "button_edit", WIDTH / 2 - BUTTON_HALF_WIDTH, (int) (HEIGHT * SCALE_EDIT));
-		menuUI.addButton("Quit", "button_quit", WIDTH / 2 - BUTTON_HALF_WIDTH, (int) (HEIGHT * SCALE_QUIT));
+		menuUI.addButton("Play", "button_play", WIDTH / 2 - BUTTON_HALF_WIDTH,
+				(int) (HEIGHT * SCALE_PLAY), BUTTON_WIDTH, BUTTON_HEIGHT);
+		menuUI.addButton("Edit", "button_edit", WIDTH / 2 - BUTTON_HALF_WIDTH,
+				(int) (HEIGHT * SCALE_EDIT), BUTTON_WIDTH, BUTTON_HEIGHT);
+		menuUI.addButton("Quit", "button_quit", WIDTH / 2 - BUTTON_HALF_WIDTH,
+				(int) (HEIGHT * SCALE_QUIT), BUTTON_WIDTH, BUTTON_HEIGHT);
 		menuUI.addButton("Settings", "button_settings", SETTINGS_PADDING, SETTINGS_PADDING);
+		
+		alertBox = new AlertBox();
+		alertBox.addString(new String[]{"Note: if you click a button,", "it will respond.", "Maybe just kinda slow."});
+		alertBox.addString(new String[]{"ENJOY!"});
+		alertBox.addButton("Okay", "button_okay");
+		alert = true;
 	}
 	
 	/**
@@ -74,7 +90,11 @@ public class MainMenu
 	{
 		drawQuadTex(background, 0, 0, WIDTH, HEIGHT);
 		drawQuadTex(title, WIDTH / 2 - title.getImageWidth() / 2, (int) (HEIGHT * SCALE_TITLE), title.getImageWidth(), title.getImageHeight());
-		menuUI.draw();
+		if (alert)
+			alertBox.draw();
+		else
+			menuUI.draw();
+		
 		if (count < StateManager.COUNT_LIMIT)
 			count++;
 		else
@@ -86,14 +106,25 @@ public class MainMenu
 	 */
 	private void updateButtons()
 	{
-		if (menuUI.isButtonClicked("Play"))
-			StateManager.setState(GameState.GAME);
-		else if (menuUI.isButtonClicked("Edit"))
-			StateManager.setState(GameState.EDITOR);
-		else if (menuUI.isButtonClicked("Quit"))
-			System.exit(0);
-		else if (menuUI.isButtonClicked("Settings"))
-			StateManager.setState(GameState.SETTINGS);
+		if (alert)
+		{
+			if (alertBox.isButtonClicked("Okay"))
+			{
+				alert = false;
+				count = 0;
+			}
+		}
+		else
+		{
+			if (menuUI.isButtonClicked("Play"))
+				StateManager.setState(GameState.GAME);
+			else if (menuUI.isButtonClicked("Edit"))
+				StateManager.setState(GameState.EDITOR);
+			else if (menuUI.isButtonClicked("Quit"))
+				System.exit(0);
+			else if (menuUI.isButtonClicked("Settings"))
+				StateManager.setState(GameState.SETTINGS);
+		}
 	}
 	
 	/**

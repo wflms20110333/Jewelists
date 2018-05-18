@@ -3,15 +3,12 @@ package data;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import UI.AlertBox;
 import UI.UI;
-import UI.UIItem;
-import UI.UIString;
 import helpers.StateManager;
 
 import static helpers.Artist.*;
 import static helpers.StateManager.*;
-
-import java.awt.Rectangle;
 
 /**
  * The Editor class allows users to customize the map layout of their games.
@@ -23,16 +20,7 @@ public class Editor
 	/**
 	 * Class constants for creating the alert box.
 	 */
-	private static final int ALERT_BOX_WIDTH = 550;
-	private static final int ALERT_BOX_HEIGHT = 400;
-	private static final int ALERT_BOX_X = WIDTH / 2 - ALERT_BOX_WIDTH / 2;
-	private static final int ALERT_BOX_Y = HEIGHT / 2 - ALERT_BOX_HEIGHT / 2;
-	private static final int ALERT_BOX_TEXT_PADDING = 30;
-	private static final int ALERT_BOX_TEXT_BETWEEN_PADDING = 10;
-	private static final int ALERT_BOX_TEXT_TAB_PADDING = 20;
 	private static final int ALERT_BOX_PADDING = 50;
-	private static final int ALERT_BOX_IMAGE_PADDING = ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING + 
-			ALERT_BOX_TEXT_TAB_PADDING * 2 + FONT_SIZE * 4 + ALERT_BOX_TEXT_BETWEEN_PADDING * 2;
 	private static final int ALERT_BOX_IMAGE_SIZE = 100;
 	
 	/**
@@ -43,7 +31,7 @@ public class Editor
 	/**
 	 * The user interface of the Editor's alert box.
 	 */
-	private UI alertBox;
+	private AlertBox alertBox;
 	
 	/**
 	 * Whether or not the alert box is displayed.
@@ -79,26 +67,13 @@ public class Editor
 		menuUI = new UI();
 		menuUI.addButton("Play", "button_play", 0, 0);
 		
-		alertBox = new UI();
-		alertBox.addItem(new UIItem(quickLoad("white"), new Rectangle(ALERT_BOX_X, ALERT_BOX_Y, ALERT_BOX_WIDTH, ALERT_BOX_HEIGHT)));
-		alertBox.addItem(new UIString("Click on cells to set them.", ALERT_BOX_X + ALERT_BOX_TEXT_PADDING,
-				ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING));
-		alertBox.addItem(new UIString("Press the right arrow key to", ALERT_BOX_X + ALERT_BOX_TEXT_PADDING,
-				ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING + ALERT_BOX_TEXT_TAB_PADDING + FONT_SIZE));
-		alertBox.addItem(new UIString("switch between drawing", ALERT_BOX_X + ALERT_BOX_TEXT_PADDING + 
-				ALERT_BOX_TEXT_TAB_PADDING, ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING + ALERT_BOX_TEXT_TAB_PADDING + 
-				FONT_SIZE * 2 + ALERT_BOX_TEXT_BETWEEN_PADDING));
-		alertBox.addItem(new UIString("water tiles and cave tiles.", ALERT_BOX_X + ALERT_BOX_TEXT_PADDING + 
-				ALERT_BOX_TEXT_TAB_PADDING, ALERT_BOX_Y + ALERT_BOX_TEXT_PADDING + ALERT_BOX_TEXT_TAB_PADDING + 
-				FONT_SIZE * 3 + ALERT_BOX_TEXT_BETWEEN_PADDING * 2));
-		alertBox.addItem(new UIItem(quickLoad(TileType.Water.textureName), new Rectangle(ALERT_BOX_X + 
-				ALERT_BOX_PADDING, ALERT_BOX_IMAGE_PADDING, ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_SIZE)));
-		alertBox.addItem(new UIItem(quickLoad("change_tiles"), new Rectangle(ALERT_BOX_X + ALERT_BOX_PADDING + 
-				ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_PADDING, ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_SIZE)));
-		alertBox.addItem(new UIItem(quickLoad(TileType.Cave.textureName), new Rectangle(ALERT_BOX_X + ALERT_BOX_PADDING + 
-				ALERT_BOX_IMAGE_SIZE * 2, ALERT_BOX_IMAGE_PADDING, ALERT_BOX_IMAGE_SIZE, ALERT_BOX_IMAGE_SIZE)));
-		alertBox.addButton("Okay", "button_okay", ALERT_BOX_X + ALERT_BOX_PADDING + ALERT_BOX_TEXT_TAB_PADDING + 
-				ALERT_BOX_IMAGE_SIZE * 3, ALERT_BOX_IMAGE_PADDING + ALERT_BOX_TEXT_PADDING);
+		alertBox = new AlertBox();
+		alertBox.addString(new String[]{"Click on cells to set them."});
+		alertBox.addString(new String[]{"Press the right arrow key to", "switch between drawing", "water tiles and cave tiles."});
+		alertBox.addImage(TileType.Water.textureName, ALERT_BOX_PADDING);
+		alertBox.addImage("change_tiles", ALERT_BOX_PADDING + ALERT_BOX_IMAGE_SIZE);
+		alertBox.addImage(TileType.Cave.textureName, ALERT_BOX_PADDING + ALERT_BOX_IMAGE_SIZE * 2);
+		alertBox.addButton("Okay", "button_okay");
 		
 		this.alert = true;
 		this.grid = new TileGrid();
@@ -165,8 +140,10 @@ public class Editor
 	 */
 	private void setTile()
 	{
-		grid.setTile((int) Math.floor(Mouse.getX() / TileGrid.SIZE), 
-				(int) Math.floor((HEIGHT - Mouse.getY() - 1) / TileGrid.SIZE), types[index]);
+		int x = (int) Math.floor(Mouse.getX() / TileGrid.SIZE);
+		int y = (int) Math.floor((HEIGHT - Mouse.getY() - 1) / TileGrid.SIZE);
+		if (grid.validIndex(x, y) && grid.getTile(x, y).getType() != TileType.Dirt)
+			grid.setTile(x, y, types[index]);
 	}
 	
 	/**
