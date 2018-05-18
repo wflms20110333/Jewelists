@@ -61,6 +61,8 @@ public class Game
 	 */
 	ArrayList<Trap> traps;
 	
+	ArrayList<Projectile> projectiles;
+	
 	/**
 	 * Constructs a Game.
 	 * 
@@ -103,6 +105,7 @@ public class Game
 		
 		jewelSpawner = new JewelSpawner(3, grid, jewelList);
 		traps = new ArrayList<>();
+		projectiles = new ArrayList<>();
 	}
 	
 	/**
@@ -115,6 +118,8 @@ public class Game
 		jewelSpawner.update();
 		for (Player player : players)
 			player.update();
+		for (Projectile projectile : projectiles)
+			projectile.update();
 		ui.update();
 		for (int i = traps.size() - 1; i >= 0; i--)
 		{

@@ -103,7 +103,7 @@ public class Player
 		sprite = new Sprite(texture, tile, grid, this);
 		jewels = 0;
 		statuses = new StatusManager();
-		abilityManager = new AbilityManager(this, Ability.MAGNET);
+		abilityManager = new AbilityManager(this);
 	}
 	
 	/**
@@ -141,13 +141,11 @@ public class Player
 	}
 	
 	/**
-	 * Sets the health of the player.
-	 * 
-	 * @param health the new health of the player
+	 * @param heal the amount to heal by
 	 */
-	public void setHealth(int health)
+	public void heal(int heal)
 	{
-		this.health = health;
+		this.health += heal;
 		if (health > maxHealth)
 			health = maxHealth;
 	}

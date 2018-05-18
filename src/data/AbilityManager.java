@@ -27,8 +27,10 @@ public class AbilityManager {
 	public void update() {
 		if (cooldownTick != -1)
 			cooldownTick += getSeconds();
-		if (cooldownTick >= ability.getCooldown())
+		if (cooldownTick >= ability.getCooldown()) {
 			cooldownTick = -1;
+			ability = Ability.random();
+		}
 	}
 	
 	public void activate() {
@@ -99,7 +101,7 @@ public class AbilityManager {
 	}
 	
 	private boolean heal() {
-		player.setHealth(player.getHealth() + (int) ability.getValue());
+		player.heal((int) ability.getValue());
 		return true;
 	}
 	

@@ -127,6 +127,10 @@ public class TileGrid
 	{
 		return map[xCoord][yCoord];
 	}
+	
+	public Entity getMovingEntity(Tile tile) {
+		return null;
+	}
 
 	/**
 	 * Places an entity into a given cell in the tile grid.
