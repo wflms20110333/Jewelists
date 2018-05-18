@@ -3,18 +3,14 @@ package data;
 import static helpers.Artist.*;
 import static helpers.Clock.getSeconds;
 
-import java.security.spec.ECPrivateKeySpec;
-import java.util.Arrays;
-
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import data.AbilityManager.Ability;
 import helpers.Clock;
 
 /**
- * The Player class blah blah
+ * The Player class manages the assets and properties of a player in the game.
  * 
  * @author Elizabeth Zou
  * @author An Nguyen
@@ -36,12 +32,24 @@ public class Player
 	 */
 	private static final int TRAP_COST = 4;
 	
+	/**
+	 * The cool down period (in seconds) between firing two projectiles.
+	 */
 	private static final float COOLDOWN_PER_ATTACK = .4f;
 	
+	/**
+	 * The time (in seconds) after which a dead sprite respawns.
+	 */
 	private static final int RESPAWN_TIME = 5;
 	
+	/**
+	 * The reload speed for being able to fire more projectiles.
+	 */
 	private static final float RELOAD_SPEED = .5f;
 	
+	/**
+	 * The maximum number of projectiles the Player can fire in a row.
+	 */
 	private static final int MAX_BULLET = 8;
 	
 	/**
@@ -94,14 +102,30 @@ public class Player
 	 */
 	private StatusManager statuses;
 	
+	/**
+	 * The Player's color, which is used to display information such as the
+	 * player's health and score.
+	 */
 	private Color color;
 	
+	/**
+	 * The color of the Player's projectiles.
+	 */
 	private String projectileColor;
 	
+	/**
+	 * The time (in seconds) before the Player can fire another projectile.
+	 */
 	private float timeUntilAttack;
 	
+	/**
+	 * Whether the Player has been killed.
+	 */
 	private boolean dead;
 	
+	/**
+	 * The remaining number of bullets the Player can fire.
+	 */
 	private float bullets;
 	
 	/**
@@ -111,6 +135,8 @@ public class Player
 	 * @param grid the grid of the game that the player interacts with
 	 * @param keys the keyboard commands of the player
 	 * @param texture the texture of the sprite of the player
+	 * @param color the player's color
+	 * @param projetileColor the color of the player's projectiles
 	 */
 	public Player(Game game, TileGrid grid, int[] keys, Texture texture, Color color, String projectileColor)
 	{
@@ -151,6 +177,11 @@ public class Player
 		return health / maxHealth;
 	}
 	
+	/**
+	 * Returns the player's color.
+	 * 
+	 * @return the player's color
+	 */
 	public Color getColor()
 	{
 		return color;
@@ -167,7 +198,9 @@ public class Player
 	}
 	
 	/**
-	 * @param heal the amount to heal by
+	 * Changes the player's health by a given value.
+	 * 
+	 * @param heal the given value
 	 */
 	public void heal(float heal)
 	{
@@ -230,11 +263,23 @@ public class Player
 		return score;
 	}
 	
-	public void addScore(float score) {
+	/**
+	 * Adds a given value to the player's score.
+	 * 
+	 * @param score the given value
+	 */
+	public void addScore(float score)
+	{
 		this.score += score;
 	}
 	
-	public void addJewel(int number) {
+	/**
+	 * Adds a given number of jewels to the number of jewels the player possesses
+	 * 
+	 * @param number the given number of jewels
+	 */
+	public void addJewel(int number)
+	{
 		this.jewels += number;
 	}
 	
@@ -305,11 +350,22 @@ public class Player
 		sprite.update();
 	}
 	
+	/**
+	 * Returns the time (in seconds) before the cool down of the player's
+	 * ability is complete.
+	 * 
+	 * @return the time (in seconds) before the cool down of the player's
+	 * 		   ability is complete.
+	 */
 	public float getCooldownLeft()
 	{
 		return abilityManager.getCooldownLeft();
 	}
 	
+	/**
+	 * Fires a projectile in the direction the sprite is currently facing, if
+	 * permitted.
+	 */
 	private void attack()
 	{
 		if (timeUntilAttack > 0 || bullets < 1)
@@ -339,7 +395,11 @@ public class Player
 		timeUntilAttack = COOLDOWN_PER_ATTACK;
 	}
 	
-	private void reload() {
+	/**
+	 * Reloads the remaining number of bullets the player can fire.
+	 */
+	private void reload()
+	{
 		bullets += RELOAD_SPEED * Clock.getSeconds();
 		if (bullets > MAX_BULLET)
 			bullets = MAX_BULLET;
@@ -356,9 +416,8 @@ public class Player
 	}
 	
 	/**
-	 * Expends a specified number of jewels from the player's deposits. If the
-	 * player does not possess enough jewels to cover the entire expenditure,
-	 * none will be expended.
+	 * Expends a specified number of jewels. If the player does not possess
+	 * enough jewels to cover the entire expenditure, none will be expended.
 	 * 
 	 * @param count the number of jewels to expend
 	 * @return whether or not the jewels have been successfully expended
@@ -403,16 +462,5 @@ public class Player
 			jewels += j.getValue();
 			j.remove();
 		}
-	}
-	
-	/**
-	 * Sets the grid of the game that the player interacts with.
-	 * 
-	 * @param tg the new grid
-	 */
-	public void setGrid(TileGrid tg)
-	{
-		grid = tg;
-		sprite.setGrid(tg);
 	}
 }
