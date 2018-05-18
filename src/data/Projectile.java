@@ -16,7 +16,7 @@ public class Projectile extends Entity
 	/**
 	 * Properties of Projectiles.
 	 */
-	public static final float SPEED = 400;
+	public static final float SPEED = 600;
 	public static final float BASE_DMG = 3;
 	public static final float STUN_DURATION = 2;
 	
