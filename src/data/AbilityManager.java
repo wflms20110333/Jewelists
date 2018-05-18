@@ -6,19 +6,47 @@ import org.newdawn.slick.opengl.Texture;
 
 import helpers.Artist;
 
-
+/**
+ * The Ability Manager class manages the abilities a player can possess or use.
+ * 
+ * @author Elizabeth Zou
+ * @author An Nguyen
+ * @author Colling McMahon
+ */
 public class AbilityManager
 {
+	/**
+	 * The player whose abilities are managed.
+	 */
 	Player player;
+	
+	/**
+	 * The player's current ability.
+	 */
 	Ability ability;
 	
+	/**
+	 * The number of seconds that the player has been cooling down (before
+	 * getting assigned a new random ability).
+	 */
 	float cooldownTick;
 	
+	/**
+	 * Construct an AbilityManager, starting with a random ability.
+	 * 
+	 * @param player the player whose abilities are managed
+	 */
 	public AbilityManager(Player player)
 	{
 		this(player, Ability.random());
 	}
 	
+	/**
+	 * Constructs an AbilityManager with a given starting ability.
+	 * 
+	 * @param player the player whose abilities are managed
+	 * @param ability the given starting ability
+	 */
 	public AbilityManager(Player player, Ability ability)
 	{
 		this.player = player;
@@ -26,6 +54,10 @@ public class AbilityManager
 		this.cooldownTick = -1;
 	}
 	
+	/**
+	 * Increments the cool down time if the player is currently cooling down,
+	 * and assigns the player a new random ability if cool down is complete.
+	 */
 	public void update()
 	{
 		if (cooldownTick != -1)
@@ -37,6 +69,9 @@ public class AbilityManager
 		}
 	}
 	
+	/**
+	 * Activates the player's current ability.
+	 */
 	public void activate()
 	{
 		if (cooldownTick == -1)
@@ -60,6 +95,11 @@ public class AbilityManager
 		}
 	}
 	
+	/**
+	 * Returns the time (in seconds) before cool down is complete.
+	 * 
+	 * @return the time (in seconds) before cool down is complete
+	 */
 	public float getCooldownLeft()
 	{
 		if (cooldownTick == -1)
@@ -67,30 +107,56 @@ public class AbilityManager
 		return ability.getCooldown() - cooldownTick;
 	}
 	
+	/**
+	 * Returns the player's current ability.
+	 * 
+	 * @return the player's current ability
+	 */
 	public Ability getAbility()
 	{
 		return ability;
 	}
 	
 	// MANAGES EACH ABILITY
+	
+	/**
+	 * Speeds up the player's movement.
+	 * 
+	 * @return true
+	 */
 	private boolean applySpeed()
 	{
 		player.addStatus(Status.SPEED, ability.getDuration());
 		return true;
 	}
 	
+	/**
+	 * Boosts the damages of the player's attacks.
+	 * 
+	 * @return true
+	 */
 	private boolean applyDmgBoost()
 	{
 		player.addStatus(Status.DMG_BOOST, ability.getDuration());
 		return true;
 	}
 	
+	/**
+	 * Gives the player the ability to collect jewels in adjacent cells.
+	 * 
+	 * @return true
+	 */
 	private boolean applyMagnet()
 	{
 		player.addStatus(Status.MAGNET, ability.getDuration());
 		return true;
 	}
 	
+	/**
+	 * Teleports the player's sprite in its current direction.
+	 * 
+	 * @return whether the teleportation was successful
+	 */
 	private boolean blink()
 	{
 		Sprite sprite = player.getSprite();
@@ -114,12 +180,23 @@ public class AbilityManager
 		return false;
 	}
 	
+	/**
+	 * Increases the player's health.
+	 * 
+	 * @return true
+	 */
 	private boolean heal()
 	{
 		player.heal((int) ability.getValue());
 		return true;
 	}
 	
+	/**
+	 * Slows down the opposing player, if they are within a certain distance
+	 * from the player.
+	 * 
+	 * @return true
+	 */
 	private boolean applySlow()
 	{
 		Sprite sprite = player.getSprite();
