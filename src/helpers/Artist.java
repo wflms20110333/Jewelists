@@ -176,8 +176,8 @@ public class Artist
 	}
 	
 	public static void drawString(int x, int y, String s, Color color) {
-		glEnable(GL_TEXTURE_2D);
 		font.drawString(x, y, s, color);
+		glColor4f(255,255,255,255);
 	}
 	
 	/**
