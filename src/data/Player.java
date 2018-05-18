@@ -160,6 +160,8 @@ public class Player
 		this.health += heal;
 		if (health > maxHealth)
 			health = maxHealth;
+		if (health < 0)
+			health = 0;
 	}
 	
 	/**
@@ -306,8 +308,12 @@ public class Player
 					0, 0, TileType.Cave
 				);
 				char direction = getSprite().getFacingDirection();
-				getGame().addProjectile(new Projectile(quickLoad("projectile_blue_" + direction), 
-						nextTile, grid, this, direction));
+				if (statusActive(Status.DMG_BOOST))
+					getGame().addProjectile(new Projectile(quickLoad("projectile_blue_" + direction), 
+							nextTile, grid, this, direction, Status.DMG_BOOST.getMultiplier()));
+				else
+					getGame().addProjectile(new Projectile(quickLoad("projectile_blue_" + direction), 
+							nextTile, grid, this, direction));
 				break;
 			}
 		}
