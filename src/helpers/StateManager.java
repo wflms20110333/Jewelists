@@ -84,8 +84,10 @@ public class StateManager
 	 * The key commands of the players.
 	 */
 	private static int[][] keys = {
-			{ Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, Keyboard.KEY_LSHIFT, Keyboard.KEY_E, Keyboard.KEY_R, Keyboard.KEY_T },
-			{ Keyboard.KEY_UP, Keyboard.KEY_LEFT, Keyboard.KEY_DOWN, Keyboard.KEY_RIGHT, Keyboard.KEY_RSHIFT, Keyboard.KEY_SEMICOLON, Keyboard.KEY_L, Keyboard.KEY_K }
+			{ Keyboard.KEY_W, Keyboard.KEY_A, Keyboard.KEY_S, Keyboard.KEY_D, 
+				Keyboard.KEY_LSHIFT, Keyboard.KEY_Q, Keyboard.KEY_E, Keyboard.KEY_SPACE },
+			{ Keyboard.KEY_O, Keyboard.KEY_K, Keyboard.KEY_L, Keyboard.KEY_SEMICOLON, 
+				Keyboard.KEY_RSHIFT, Keyboard.KEY_I, Keyboard.KEY_P, Keyboard.KEY_RETURN }
 	};
 	
 	/**
