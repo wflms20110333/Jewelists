@@ -4,7 +4,7 @@ Jewelists is a PC game in which two players aim to gain the most points from col
 
 ## Built With
 
-* [LWJGL](https://www.lwjgl.org/) - Java Game library
+* [LWJGL](https://www.lwjgl.org/) - Java game library
 
 ## Authors
 
