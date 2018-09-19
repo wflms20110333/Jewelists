@@ -1,14 +1,15 @@
 # Jewelists
 
-Jewelists is a 2-player PC game.
+Jewelists is a 2-player PC game, where the goal is to gain the most points by controlling the center of the game board the longest. Games last 5 minutes.
 
-## Instructions
+Watch out for monsters and projectiles! They deal damage, and when a player's 
+health bar reaches 0, they die and respawn after an increasing amount of time.
+Also, kill monsters and gain jewels to build traps and walls to protect yourself
+and the center ground!
 
-### Objective
+Enjoy the game and have fun playing!
 
-The goal of the game is to gain the most points by controlling the center of the game board the longest. Games last 5 minutes.
-
-### Controls
+## Controls
 
 * Movement: WASD for Player 1, arrow keys for Player 2
 * Build a wall: R for Player 1, ; for Player 2
@@ -27,13 +28,6 @@ The goal of the game is to gain the most points by controlling the center of the
 * Slow: Players in a 3 cell radius have their speed reduced by half for 10 seconds
 
 Controls can be changed from their default.
-
-Watch out for monsters and projectiles! They deal damage, and when a player's 
-health bar reaches 0, they die and respawn after an increasing amount of time.
-Also, kill monsters and gain jewels to build traps and walls to protect yourself
-and the center ground!
-
-Enjoy the game and have fun playing!
 
 ## Built With
 
