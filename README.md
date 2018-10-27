@@ -35,7 +35,7 @@ Controls can be changed from their default.
 
 ## Authors
 
-* [Collin McMahon](https://github.com/CloudyCieux)
-* [An Nguyen](https://github.com/Annguyencompsci)
-* [Sanjay Salem](https://github.com/sanjaysalem17) - *Artwork*
-* [Elizabeth Zou](https://github.com/wflms20110333)
+* [Collin McMahon](https://github.com/CloudyCieux) - *Front-End Development*
+* [An Nguyen](https://github.com/Annguyencompsci) - *Front-End Development*
+* [Sanjay Salem](https://github.com/sanjaysalem17) - *Graphics/UI*
+* [Elizabeth Zou](https://github.com/wflms20110333) - *Front-End Development*
